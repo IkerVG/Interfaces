@@ -21,7 +21,9 @@ public class Utilidades {
             /* Si el campo excede la longitud determinada, se ajusta a su longitud máxima
             y la tecla pulsada se ignora */
             evt.consume();
-            f2.grabFocus();//Al introducir el último carácter, salta al siguiente campo
+            if(f2!=null){
+             f2.grabFocus();//Al introducir el último carácter, salta al siguiente campo
+            }
             f.setText(f.getText().substring(0,num_max));
         }
     }
@@ -35,16 +37,23 @@ public class Utilidades {
             case "Nombre": if(!f.getText().replaceAll(" ", "").matches("[A-z]+")){error=true;}break;   
             case "Apellidos":if(!f.getText().replaceAll(" ","").matches("[A-z]+[-]?[A-z]+")){error=true;}break;
             case "Email":if(!f.getText().matches("[A-z_]+[@][A-z]+[.][A-z]+")){error=true;}break;
+            case "Codigo":if(!f.getText().matches("[0-9A-z]*")){error = true;}break;
         }
         return error;
     }
     
-String calculaLetra(int dni)
-    {
+    
+public String calculaLetra(int dni){
     String juegoCaracteres="TRWAGMYFPDXBNJZSQVHLCKE";
     int modulo= dni % 23;
     String letra = Character.toString(juegoCaracteres.charAt(modulo));
     return letra; 
-    } 
- 
+   } 
+ public void ceros(JTextField f, int n){
+     String ceros="";
+            for(int i=f.getText().length();i<n;i++){
+                ceros = ceros+"0";
+            }
+           f.setText(ceros+f.getText());
+ }
 }

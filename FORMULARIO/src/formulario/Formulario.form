@@ -29,37 +29,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jTextFieldApellidos" alignment="0" pref="405" max="32767" attributes="0"/>
+                      <Component id="jTextFieldApellidos" alignment="0" max="32767" attributes="0"/>
                       <Component id="jTextFieldDomicilio" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabelApellidos" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelDomicilio" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabelCP" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldCP" alignment="0" min="-2" pref="51" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabelLocalidad" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldLocalidad" min="-2" pref="247" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabelTelefono" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldTelefono" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabelMovil" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldMovil" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabelFax" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldFax" min="-2" pref="79" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabelCodigo" min="-2" max="-2" attributes="0"/>
@@ -72,15 +43,44 @@
                                   <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="jTextFieldNIF" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jTextFieldNIF_letra" min="-2" pref="19" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldNIF" min="-2" pref="103" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jTextFieldNIF_letra" min="-2" pref="23" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabelNombre" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextFieldNombre" min="-2" pref="171" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Component id="jLabelApellidos" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelDomicilio" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabelCP" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldCP" min="-2" pref="68" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabelLocalidad" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldLocalidad" min="-2" pref="247" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabelTelefono" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldTelefono" min="-2" pref="85" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabelMovil" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldMovil" min="-2" pref="85" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabelFax" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldFax" min="-2" pref="85" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -93,7 +93,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabelTotal" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="23" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jTextFieldTotal" max="32767" attributes="0"/>
                       </Group>

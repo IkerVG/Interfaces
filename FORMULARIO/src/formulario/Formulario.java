@@ -184,30 +184,8 @@ public class Formulario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextFieldApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                        .addComponent(jTextFieldApellidos)
                         .addComponent(jTextFieldDomicilio)
-                        .addComponent(jLabelApellidos)
-                        .addComponent(jLabelDomicilio)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelCP)
-                                .addComponent(jTextFieldCP, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelLocalidad)
-                                .addComponent(jTextFieldLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelTelefono)
-                                .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelMovil)
-                                .addComponent(jTextFieldMovil, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelFax)
-                                .addComponent(jTextFieldFax, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabelCodigo)
@@ -218,13 +196,35 @@ public class Formulario extends javax.swing.JFrame {
                                     .addComponent(jLabelNIF)
                                     .addGap(55, 55, 55))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jTextFieldNIF)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextFieldNIF_letra, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)))
+                                    .addComponent(jTextFieldNIF, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldNIF_letra, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(14, 14, 14)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabelNombre)
-                                .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabelApellidos)
+                        .addComponent(jLabelDomicilio)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelCP)
+                                .addComponent(jTextFieldCP, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelLocalidad)
+                                .addComponent(jTextFieldLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelTelefono)
+                                .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelMovil)
+                                .addComponent(jTextFieldMovil, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelFax)
+                                .addComponent(jTextFieldFax, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelEmail)
@@ -233,7 +233,7 @@ public class Formulario extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelTotal)
-                                .addGap(0, 23, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jTextFieldTotal)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -304,59 +304,100 @@ public class Formulario extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         String al = null;
-       
+        String error_campo = "";
+       if(!(jTextFieldCodigo.getText().equals("")||
+          jTextFieldNIF.getText().equals("")||
+          jTextFieldNombre.getText().equals("")||
+          jTextFieldApellidos.getText().equals("")||
+          jTextFieldDomicilio.getText().equals("")||
+          jTextFieldCP.getText().equals("")||
+          jTextFieldTelefono.getText().equals("")||
+          jTextFieldLocalidad.getText().equals("")||
+          jTextFieldMovil.getText().equals("")||
+          jTextFieldFax.getText().equals("")||
+          jTextFieldEmail.getText().equals(""))){
         if(ut.comprobar(jTextFieldCP,"Numero")){
             al = jLabelCP.getText();
             jTextFieldCP.grabFocus();
+            error_campo = "Este campo es exclusivamente numérico";
         }
    
         if(ut.comprobar(jTextFieldMovil,"Numero")){
              al = jLabelMovil.getText();
              jTextFieldMovil.grabFocus();
+             error_campo = "Este campo es exclusivamente numérico";
         }
         
         if(ut.comprobar(jTextFieldFax,"Numero")){
              al = jLabelFax.getText();
              jTextFieldFax.grabFocus();
+             error_campo = "Este campo es exclusivamente numérico";
         }
         if(ut.comprobar(jTextFieldTelefono,"Numero")){
              al = jLabelTelefono.getText();
              jTextFieldTelefono.grabFocus();
+             error_campo = "Este campo es exclusivamente numérico";
         }
         if(ut.comprobar(jTextFieldNIF, "Numero")){
             al = jLabelNIF.getText();
             jTextFieldNIF.grabFocus();
+            error_campo = "Este campo es exclusivamente numérico";
         }else{
+            ut.ceros(jTextFieldNIF, 8);
             jTextFieldNIF_letra.setText(ut.calculaLetra(Integer.parseInt(jTextFieldNIF.getText())));
         }
         if(ut.comprobar(jTextFieldNombre,"Nombre")){
             al = jLabelNombre.getText();
             jTextFieldNombre.grabFocus();
+            error_campo = "Este campo solo admite letras";
         }
        if(ut.comprobar(jTextFieldApellidos,"Apellidos")){
              al = jLabelApellidos.getText();
              jTextFieldApellidos.grabFocus();
+             error_campo = "Este campo solo admite letras y '-'";
        }
         if( ut.comprobar(jTextFieldEmail, "Email")){
             al = jLabelEmail.getText();
             jTextFieldEmail.grabFocus();
+             error_campo = "Este campo solo admite letras y '_'\n el formato debe ser xxxx@xxx.xx";
         }
         if(ut.comprobar(jTextFieldLocalidad,"Apellidos")){
             al = jLabelLocalidad.getText();
             jTextFieldLocalidad.grabFocus();
+             error_campo = "Este campo solo admite letras y '-'";
         }
-        if(jTextFieldDomicilio.getText().equals("")){
-            al = jLabelDomicilio.getText();
-            jTextFieldDomicilio.grabFocus();
+        if(ut.comprobar(jTextFieldCodigo, "Codigo")){
+            al = jLabelCodigo.getText();
+            jTextFieldCodigo.grabFocus();
+             error_campo = "Este campo solo admite letras y números";
+        }else{
+            ut.ceros(jTextFieldCodigo,6);
         }
         if(al!= null){
-            JOptionPane.showMessageDialog(null,"Error del campo "+al,"Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Error del campo "+al+"\n"+error_campo,"Error",JOptionPane.ERROR_MESSAGE);
         }
+       }else{
+           JOptionPane.showMessageDialog(null,"Todos los campos deben ser rellenados","Error",JOptionPane.ERROR_MESSAGE);
+       }
+        
         
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:
+        jTextFieldCodigo.setText("");
+        jTextFieldNIF.setText("");
+        jTextFieldNIF_letra.setText("");
+        jTextFieldNombre.setText("");
+        jTextFieldApellidos.setText("");
+        jTextFieldDomicilio.setText("");
+        jTextFieldCP.setText("");
+        jTextFieldLocalidad.setText("");
+        jTextFieldTelefono.setText("");
+        jTextFieldMovil.setText("");
+        jTextFieldFax.setText("");
+        jTextFieldEmail.setText("");
+        
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTextFieldCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodigoKeyTyped
@@ -442,10 +483,8 @@ public class Formulario extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Formulario().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Formulario().setVisible(true);
         });
     }
 

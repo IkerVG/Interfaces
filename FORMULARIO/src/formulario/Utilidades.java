@@ -48,12 +48,12 @@ public String calculaLetra(int dni){
     int modulo= dni % 23;
     String letra = Character.toString(juegoCaracteres.charAt(modulo));
     return letra; 
-   } 
+ } 
  public void ceros(JTextField f, int n){
      String ceros="";
             for(int i=f.getText().length();i<n;i++){
                 ceros = ceros+"0";
             }
            f.setText(ceros+f.getText());
- }
+    }
 }

@@ -5,6 +5,7 @@
  */
 package formulario;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -67,6 +68,9 @@ public class Formulario extends javax.swing.JFrame {
 
         jTextFieldCodigo.setToolTipText("");
         jTextFieldCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldCodigoKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldCodigoKeyTyped(evt);
             }
@@ -75,6 +79,9 @@ public class Formulario extends javax.swing.JFrame {
         jLabelNIF.setText("N.I.F.");
 
         jTextFieldNIF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldNIFKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldNIFKeyTyped(evt);
             }
@@ -86,6 +93,9 @@ public class Formulario extends javax.swing.JFrame {
         jLabelNombre.setText("Nombre");
 
         jTextFieldNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldNombreKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldNombreKeyTyped(evt);
             }
@@ -95,6 +105,9 @@ public class Formulario extends javax.swing.JFrame {
 
         jTextFieldApellidos.setToolTipText("");
         jTextFieldApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldApellidosKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldApellidosKeyTyped(evt);
             }
@@ -103,6 +116,9 @@ public class Formulario extends javax.swing.JFrame {
         jLabelDomicilio.setText("Domicilio");
 
         jTextFieldDomicilio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldDomicilioKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldDomicilioKeyTyped(evt);
             }
@@ -111,6 +127,9 @@ public class Formulario extends javax.swing.JFrame {
         jLabelCP.setText("C.P.");
 
         jTextFieldCP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldCPKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldCPKeyTyped(evt);
             }
@@ -119,6 +138,9 @@ public class Formulario extends javax.swing.JFrame {
         jLabelLocalidad.setText("Localidad");
 
         jTextFieldLocalidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldLocalidadKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldLocalidadKeyTyped(evt);
             }
@@ -127,6 +149,9 @@ public class Formulario extends javax.swing.JFrame {
         jLabelTelefono.setText("Teléfono");
 
         jTextFieldTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldTelefonoKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldTelefonoKeyTyped(evt);
             }
@@ -135,6 +160,9 @@ public class Formulario extends javax.swing.JFrame {
         jLabelMovil.setText("Móvil");
 
         jTextFieldMovil.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldMovilKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldMovilKeyTyped(evt);
             }
@@ -143,6 +171,9 @@ public class Formulario extends javax.swing.JFrame {
         jLabelFax.setText("Fax");
 
         jTextFieldFax.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldFaxKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldFaxKeyTyped(evt);
             }
@@ -316,66 +347,69 @@ public class Formulario extends javax.swing.JFrame {
           jTextFieldMovil.getText().equals("")||
           jTextFieldFax.getText().equals("")||
           jTextFieldEmail.getText().equals(""))){
-        if(ut.comprobar(jTextFieldCP,"Numero")){
-            al = jLabelCP.getText();
-            jTextFieldCP.grabFocus();
-            error_campo = "Este campo es exclusivamente numérico";
-        }
+           
+           String tlf = "Este campo es exclusivamente numérico y debe tener 9 cifras";
+           
+            if(ut.comprobar(jTextFieldCP,"Numero",5)){
+                 al = jLabelCP.getText();
+                jTextFieldCP.grabFocus();
+                error_campo = "Este campo es exclusivamente numérico y debe tener 5 cifras";
+            }
    
-        if(ut.comprobar(jTextFieldMovil,"Numero")){
-             al = jLabelMovil.getText();
-             jTextFieldMovil.grabFocus();
-             error_campo = "Este campo es exclusivamente numérico";
-        }
+            if(ut.comprobar(jTextFieldMovil,"Numero",9)){
+                al = jLabelMovil.getText();
+                jTextFieldMovil.grabFocus();
+                 error_campo = tlf;
+            }
         
-        if(ut.comprobar(jTextFieldFax,"Numero")){
-             al = jLabelFax.getText();
-             jTextFieldFax.grabFocus();
-             error_campo = "Este campo es exclusivamente numérico";
-        }
-        if(ut.comprobar(jTextFieldTelefono,"Numero")){
-             al = jLabelTelefono.getText();
-             jTextFieldTelefono.grabFocus();
-             error_campo = "Este campo es exclusivamente numérico";
-        }
-        if(ut.comprobar(jTextFieldNIF, "Numero")){
-            al = jLabelNIF.getText();
-            jTextFieldNIF.grabFocus();
-            error_campo = "Este campo es exclusivamente numérico";
-        }else{
-            ut.ceros(jTextFieldNIF, 8);
-            jTextFieldNIF_letra.setText(ut.calculaLetra(Integer.parseInt(jTextFieldNIF.getText())));
-        }
-        if(ut.comprobar(jTextFieldNombre,"Nombre")){
-            al = jLabelNombre.getText();
-            jTextFieldNombre.grabFocus();
-            error_campo = "Este campo solo admite letras";
-        }
-       if(ut.comprobar(jTextFieldApellidos,"Apellidos")){
-             al = jLabelApellidos.getText();
-             jTextFieldApellidos.grabFocus();
-             error_campo = "Este campo solo admite letras y '-'";
-       }
-        if( ut.comprobar(jTextFieldEmail, "Email")){
-            al = jLabelEmail.getText();
-            jTextFieldEmail.grabFocus();
-             error_campo = "Este campo solo admite letras y '_'\n el formato debe ser xxxx@xxx.xx";
-        }
-        if(ut.comprobar(jTextFieldLocalidad,"Apellidos")){
-            al = jLabelLocalidad.getText();
-            jTextFieldLocalidad.grabFocus();
-             error_campo = "Este campo solo admite letras y '-'";
-        }
-        if(ut.comprobar(jTextFieldCodigo, "Codigo")){
-            al = jLabelCodigo.getText();
-            jTextFieldCodigo.grabFocus();
-             error_campo = "Este campo solo admite letras y números";
-        }else{
-            ut.ceros(jTextFieldCodigo,6);
-        }
-        if(al!= null){
-            JOptionPane.showMessageDialog(null,"Error del campo "+al+"\n"+error_campo,"Error",JOptionPane.ERROR_MESSAGE);
-        }
+            if(ut.comprobar(jTextFieldFax,"Numero",9)){
+                al = jLabelFax.getText();
+                jTextFieldFax.grabFocus();
+                 error_campo = tlf;
+            }
+            if(ut.comprobar(jTextFieldTelefono,"Numero",9)){
+                al = jLabelTelefono.getText();
+                jTextFieldTelefono.grabFocus();
+                 error_campo = tlf;
+             }
+            if(ut.comprobar(jTextFieldNIF, "Numero",1)){
+                al = jLabelNIF.getText();
+                jTextFieldNIF.grabFocus();
+                error_campo = "Este campo es exclusivamente numérico";
+            }else{
+                ut.ceros(jTextFieldNIF, 8);
+                jTextFieldNIF_letra.setText(ut.calculaLetra(Integer.parseInt(jTextFieldNIF.getText())));
+            }
+            if(ut.comprobar(jTextFieldNombre,"Nombre",0)){
+             al = jLabelNombre.getText();
+                jTextFieldNombre.grabFocus();
+             error_campo = "Este campo solo admite letras";
+            }
+            if(ut.comprobar(jTextFieldApellidos,"Apellidos",0)){
+                 al = jLabelApellidos.getText();
+                 jTextFieldApellidos.grabFocus();
+                 error_campo = "Este campo solo admite letras y '-'";
+            }
+            if( ut.comprobar(jTextFieldEmail, "Email",0)){
+             al = jLabelEmail.getText();
+                jTextFieldEmail.grabFocus();
+                 error_campo = "Este campo solo admite letras y '_'\n el formato debe ser xxxx@xxx.xx";
+            }
+            if(ut.comprobar(jTextFieldLocalidad,"Apellidos",0)){
+              al = jLabelLocalidad.getText();
+              jTextFieldLocalidad.grabFocus();
+              error_campo = "Este campo solo admite letras y '-'";
+            }
+            if(ut.comprobar(jTextFieldCodigo, "Codigo", 1)){
+                al = jLabelCodigo.getText();
+                jTextFieldCodigo.grabFocus();
+                 error_campo = "Este campo solo admite letras y números";
+            }else{
+                ut.ceros(jTextFieldCodigo,6);
+            }
+            if(al!= null){
+                JOptionPane.showMessageDialog(null,"Error del campo "+al+"\n"+error_campo,"Error",JOptionPane.ERROR_MESSAGE);
+            }
        }else{
            JOptionPane.showMessageDialog(null,"Todos los campos deben ser rellenados","Error",JOptionPane.ERROR_MESSAGE);
        }
@@ -397,6 +431,7 @@ public class Formulario extends javax.swing.JFrame {
         jTextFieldMovil.setText("");
         jTextFieldFax.setText("");
         jTextFieldEmail.setText("");
+        jTextFieldCodigo.grabFocus();
         
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -454,6 +489,76 @@ public class Formulario extends javax.swing.JFrame {
         // TODO add your handling code here:
         ut.num_carac(jTextFieldEmail,null,20, evt);
     }//GEN-LAST:event_jTextFieldEmailKeyTyped
+
+    private void jTextFieldCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodigoKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            jTextFieldNIF.grabFocus();
+        }
+    }//GEN-LAST:event_jTextFieldCodigoKeyPressed
+
+    private void jTextFieldNIFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNIFKeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            jTextFieldNombre.grabFocus();
+        }
+    }//GEN-LAST:event_jTextFieldNIFKeyPressed
+
+    private void jTextFieldNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            jTextFieldApellidos.grabFocus();
+        }
+    }//GEN-LAST:event_jTextFieldNombreKeyPressed
+
+    private void jTextFieldApellidosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApellidosKeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            jTextFieldDomicilio.grabFocus();
+        }
+    }//GEN-LAST:event_jTextFieldApellidosKeyPressed
+
+    private void jTextFieldDomicilioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDomicilioKeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            jTextFieldCP.grabFocus();
+        }
+    }//GEN-LAST:event_jTextFieldDomicilioKeyPressed
+
+    private void jTextFieldCPKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCPKeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            jTextFieldLocalidad.grabFocus();
+        }
+    }//GEN-LAST:event_jTextFieldCPKeyPressed
+
+    private void jTextFieldLocalidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldLocalidadKeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            jTextFieldTelefono.grabFocus();
+        }
+    }//GEN-LAST:event_jTextFieldLocalidadKeyPressed
+
+    private void jTextFieldTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoKeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            jTextFieldMovil.grabFocus();
+        }
+    }//GEN-LAST:event_jTextFieldTelefonoKeyPressed
+
+    private void jTextFieldMovilKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMovilKeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            jTextFieldFax.grabFocus();
+        }
+    }//GEN-LAST:event_jTextFieldMovilKeyPressed
+
+    private void jTextFieldFaxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFaxKeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            jTextFieldEmail.grabFocus();
+        }
+    }//GEN-LAST:event_jTextFieldFaxKeyPressed
 
     /**
      * @param args the command line arguments

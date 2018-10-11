@@ -330,7 +330,22 @@ public class Formulario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public void borrar(){
+           // TODO add your handling code here:
+        jTextFieldCodigo.setText("");
+        jTextFieldNIF.setText("");
+        jTextFieldNIF_letra.setText("");
+        jTextFieldNombre.setText("");
+        jTextFieldApellidos.setText("");
+        jTextFieldDomicilio.setText("");
+        jTextFieldCP.setText("");
+        jTextFieldLocalidad.setText("");
+        jTextFieldTelefono.setText("");
+        jTextFieldMovil.setText("");
+        jTextFieldFax.setText("");
+        jTextFieldEmail.setText("");
+        jTextFieldCodigo.grabFocus();
+    }
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         // TODO add your handling code here:
         
@@ -350,21 +365,20 @@ public class Formulario extends javax.swing.JFrame {
            
            String tlf = "Este campo es exclusivamente numérico y debe tener 9 cifras";
            
-            if(ut.comprobar(jTextFieldCP,"Numero",5)){
-                 al = jLabelCP.getText();
-                jTextFieldCP.grabFocus();
-                error_campo = "Este campo es exclusivamente numérico y debe tener 5 cifras";
+            if( ut.comprobar(jTextFieldEmail, "Email",0)){
+             al = jLabelEmail.getText();
+                jTextFieldEmail.grabFocus();
+                 error_campo = "Este campo solo admite letras y '_'\n el formato debe ser xxxx@xxx.xx";
             }
-   
+             if(ut.comprobar(jTextFieldFax,"Numero",9)){
+                al = jLabelFax.getText();
+                jTextFieldFax.grabFocus();
+                 error_campo = tlf;
+            }
+            
             if(ut.comprobar(jTextFieldMovil,"Numero",9)){
                 al = jLabelMovil.getText();
                 jTextFieldMovil.grabFocus();
-                 error_campo = tlf;
-            }
-        
-            if(ut.comprobar(jTextFieldFax,"Numero",9)){
-                al = jLabelFax.getText();
-                jTextFieldFax.grabFocus();
                  error_campo = tlf;
             }
             if(ut.comprobar(jTextFieldTelefono,"Numero",9)){
@@ -372,33 +386,33 @@ public class Formulario extends javax.swing.JFrame {
                 jTextFieldTelefono.grabFocus();
                  error_campo = tlf;
              }
-            if(ut.comprobar(jTextFieldNIF, "Numero",1)){
-                al = jLabelNIF.getText();
-                jTextFieldNIF.grabFocus();
-                error_campo = "Este campo es exclusivamente numérico";
-            }else{
-                ut.ceros(jTextFieldNIF, 8);
-                jTextFieldNIF_letra.setText(ut.calculaLetra(Integer.parseInt(jTextFieldNIF.getText())));
+            if(ut.comprobar(jTextFieldLocalidad,"Apellidos",0)){
+              al = jLabelLocalidad.getText();
+              jTextFieldLocalidad.grabFocus();
+              error_campo = "Este campo solo admite letras y '-'";
+            }
+            if(ut.comprobar(jTextFieldCP,"Numero",5)){
+                 al = jLabelCP.getText();
+                jTextFieldCP.grabFocus();
+                error_campo = "Este campo es exclusivamente numérico y debe tener 5 cifras";
+            }
+             if(ut.comprobar(jTextFieldApellidos,"Apellidos",0)){
+                 al = jLabelApellidos.getText();
+                 jTextFieldApellidos.grabFocus();
+                 error_campo = "Este campo solo admite letras y '-'";
             }
             if(ut.comprobar(jTextFieldNombre,"Nombre",0)){
              al = jLabelNombre.getText();
                 jTextFieldNombre.grabFocus();
              error_campo = "Este campo solo admite letras";
             }
-            if(ut.comprobar(jTextFieldApellidos,"Apellidos",0)){
-                 al = jLabelApellidos.getText();
-                 jTextFieldApellidos.grabFocus();
-                 error_campo = "Este campo solo admite letras y '-'";
-            }
-            if( ut.comprobar(jTextFieldEmail, "Email",0)){
-             al = jLabelEmail.getText();
-                jTextFieldEmail.grabFocus();
-                 error_campo = "Este campo solo admite letras y '_'\n el formato debe ser xxxx@xxx.xx";
-            }
-            if(ut.comprobar(jTextFieldLocalidad,"Apellidos",0)){
-              al = jLabelLocalidad.getText();
-              jTextFieldLocalidad.grabFocus();
-              error_campo = "Este campo solo admite letras y '-'";
+             if(ut.comprobar(jTextFieldNIF, "Numero",1)){
+                al = jLabelNIF.getText();
+                jTextFieldNIF.grabFocus();
+                error_campo = "Este campo es exclusivamente numérico";
+            }else{
+                ut.ceros(jTextFieldNIF, 8);
+                jTextFieldNIF_letra.setText(ut.calculaLetra(Integer.parseInt(jTextFieldNIF.getText())));
             }
             if(ut.comprobar(jTextFieldCodigo, "Codigo", 1)){
                 al = jLabelCodigo.getText();
@@ -409,85 +423,75 @@ public class Formulario extends javax.swing.JFrame {
             }
             if(al!= null){
                 JOptionPane.showMessageDialog(null,"Error del campo "+al+"\n"+error_campo,"Error",JOptionPane.ERROR_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(this,"Formulario completado");
+                borrar();
             }
        }else{
            JOptionPane.showMessageDialog(null,"Todos los campos deben ser rellenados","Error",JOptionPane.ERROR_MESSAGE);
+           jTextFieldCodigo.grabFocus();
        }
         
         
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        // TODO add your handling code here:
-        jTextFieldCodigo.setText("");
-        jTextFieldNIF.setText("");
-        jTextFieldNIF_letra.setText("");
-        jTextFieldNombre.setText("");
-        jTextFieldApellidos.setText("");
-        jTextFieldDomicilio.setText("");
-        jTextFieldCP.setText("");
-        jTextFieldLocalidad.setText("");
-        jTextFieldTelefono.setText("");
-        jTextFieldMovil.setText("");
-        jTextFieldFax.setText("");
-        jTextFieldEmail.setText("");
-        jTextFieldCodigo.grabFocus();
-        
+        borrar();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTextFieldCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodigoKeyTyped
         // TODO add your handling code here:
-        ut.num_carac(jTextFieldCodigo, jTextFieldNIF, 6, evt);
+        ut.num_carac(jTextFieldCodigo,6, evt);
     }//GEN-LAST:event_jTextFieldCodigoKeyTyped
 
     private void jTextFieldNIFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNIFKeyTyped
         // TODO add your handling code here:
-        ut.num_carac(jTextFieldNIF, jTextFieldNombre, 8, evt);
+        ut.num_carac(jTextFieldNIF,8, evt);
     }//GEN-LAST:event_jTextFieldNIFKeyTyped
 
     private void jTextFieldNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyTyped
         // TODO add your handling code here:
-        ut.num_carac(jTextFieldNombre, jTextFieldApellidos, 15, evt);
+        ut.num_carac(jTextFieldNombre,15, evt);
     }//GEN-LAST:event_jTextFieldNombreKeyTyped
 
     private void jTextFieldApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApellidosKeyTyped
         // TODO add your handling code here:
-        ut.num_carac(jTextFieldApellidos,jTextFieldDomicilio, 35, evt);
+        ut.num_carac(jTextFieldApellidos, 35, evt);
     }//GEN-LAST:event_jTextFieldApellidosKeyTyped
 
     private void jTextFieldDomicilioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDomicilioKeyTyped
         // TODO add your handling code here:
-        ut.num_carac(jTextFieldDomicilio,jTextFieldCP, 40, evt);
+        ut.num_carac(jTextFieldDomicilio, 40, evt);
     }//GEN-LAST:event_jTextFieldDomicilioKeyTyped
 
     private void jTextFieldCPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCPKeyTyped
         // TODO add your handling code here:
-        ut.num_carac(jTextFieldCP,jTextFieldLocalidad, 5, evt);
+        ut.num_carac(jTextFieldCP,5, evt);
     }//GEN-LAST:event_jTextFieldCPKeyTyped
 
     private void jTextFieldLocalidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldLocalidadKeyTyped
         // TODO add your handling code here:
-         ut.num_carac(jTextFieldLocalidad,jTextFieldTelefono, 20, evt);
+         ut.num_carac(jTextFieldLocalidad,20, evt);
     }//GEN-LAST:event_jTextFieldLocalidadKeyTyped
 
     private void jTextFieldTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoKeyTyped
         // TODO add your handling code here:
-        ut.num_carac(jTextFieldTelefono,jTextFieldMovil, 9, evt);
+        ut.num_carac(jTextFieldTelefono, 9, evt);
     }//GEN-LAST:event_jTextFieldTelefonoKeyTyped
 
     private void jTextFieldMovilKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMovilKeyTyped
         // TODO add your handling code here:
-        ut.num_carac(jTextFieldMovil, jTextFieldFax,9, evt);
+        ut.num_carac(jTextFieldMovil,9, evt);
     }//GEN-LAST:event_jTextFieldMovilKeyTyped
 
     private void jTextFieldFaxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFaxKeyTyped
         // TODO add your handling code here:
-        ut.num_carac(jTextFieldFax,jTextFieldEmail,9, evt);
+        ut.num_carac(jTextFieldFax,9, evt);
     }//GEN-LAST:event_jTextFieldFaxKeyTyped
 
     private void jTextFieldEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldEmailKeyTyped
         // TODO add your handling code here:
-        ut.num_carac(jTextFieldEmail,null,20, evt);
+        ut.num_carac(jTextFieldEmail,20, evt);
     }//GEN-LAST:event_jTextFieldEmailKeyTyped
 
     private void jTextFieldCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodigoKeyPressed
@@ -499,7 +503,8 @@ public class Formulario extends javax.swing.JFrame {
 
     private void jTextFieldNIFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNIFKeyPressed
         // TODO add your handling code here:
-         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        int e = evt.getKeyCode();
+         if(e== KeyEvent.VK_ENTER){
             jTextFieldNombre.grabFocus();
         }
     }//GEN-LAST:event_jTextFieldNIFKeyPressed

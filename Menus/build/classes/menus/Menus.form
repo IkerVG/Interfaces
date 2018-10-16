@@ -26,6 +26,7 @@
                     <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                       <KeyStroke key="Ctrl+I"/>
                     </Property>
+                    <Property name="mnemonic" type="int" value="105"/>
                     <Property name="text" type="java.lang.String" value="Impresora"/>
                     <Property name="actionCommand" type="java.lang.String" value=""/>
                   </Properties>
@@ -38,6 +39,7 @@
                     <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                       <KeyStroke key="Ctrl+E"/>
                     </Property>
+                    <Property name="mnemonic" type="int" value="101"/>
                     <Property name="text" type="java.lang.String" value="Email"/>
                   </Properties>
                   <Events>
@@ -53,6 +55,7 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+S"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="115"/>
                 <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
               <Events>
@@ -72,6 +75,7 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+A"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="97"/>
                 <Property name="text" type="java.lang.String" value="Acerca de"/>
               </Properties>
               <Events>

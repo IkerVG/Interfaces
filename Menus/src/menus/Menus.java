@@ -95,6 +95,7 @@ public class Menus extends javax.swing.JFrame {
         jMenu3.setText("Enviar");
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem4.setMnemonic('i');
         jMenuItem4.setText("Impresora");
         jMenuItem4.setActionCommand("");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -105,6 +106,7 @@ public class Menus extends javax.swing.JFrame {
         jMenu3.add(jMenuItem4);
 
         jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem5.setMnemonic('e');
         jMenuItem5.setText("Email");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,6 +119,7 @@ public class Menus extends javax.swing.JFrame {
         jMenu1.add(jSeparator1);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setMnemonic('s');
         jMenuItem2.setText("Salir");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,6 +134,7 @@ public class Menus extends javax.swing.JFrame {
         jMenu2.setText("Acerca de");
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem3.setMnemonic('a');
         jMenuItem3.setText("Acerca de");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

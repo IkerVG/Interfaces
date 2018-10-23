@@ -5,7 +5,10 @@
  */
 package ventas.de.ordenadores;
 
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -39,8 +42,8 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         jComboBoxLoc = new javax.swing.JComboBox();
         jLabelListClient = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
-        jLabel2 = new javax.swing.JLabel();
+        jListListClient = new javax.swing.JList();
+        jLabelProc = new javax.swing.JLabel();
         jLabelMem = new javax.swing.JLabel();
         jLabelMon = new javax.swing.JLabel();
         jLabelDD = new javax.swing.JLabel();
@@ -50,7 +53,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         jRadioButtonProc3 = new javax.swing.JRadioButton();
         jRadioButtonProc4 = new javax.swing.JRadioButton();
         jRadioButtonMem1 = new javax.swing.JRadioButton();
-        jRadioButtonMem = new javax.swing.JRadioButton();
+        jRadioButtonMem2 = new javax.swing.JRadioButton();
         jRadioButtonMem3 = new javax.swing.JRadioButton();
         jRadioButtonMem4 = new javax.swing.JRadioButton();
         jRadioButtonMon1 = new javax.swing.JRadioButton();
@@ -77,21 +80,22 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
 
         jLabelNomClient.setText("Nombre de cliente");
 
+        jTextFieldNomClient.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldNomClientKeyPressed(evt);
+            }
+        });
+
         jLabelLoc.setText("Localidad");
 
-        jComboBoxLoc.setEditable(true);
         jComboBoxLoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Villalba", "Alpedrete", "Galapagar", "Moralzarzal" }));
+        jComboBoxLoc.setEnabled(false);
 
         jLabelListClient.setText("Lista de Clientes");
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        jListListClient.setEnabled(false);
 
-        jLabel2.setText("Procesador");
+        jLabelProc.setText("Procesador");
 
         jLabelMem.setText("Memoria");
 
@@ -103,68 +107,91 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
 
         buttonGroupProc.add(jRadioButtonProc1);
         jRadioButtonProc1.setText("1");
+        jRadioButtonProc1.setEnabled(false);
 
         buttonGroupProc.add(jRadioButtonProc2);
         jRadioButtonProc2.setText("2");
+        jRadioButtonProc2.setEnabled(false);
 
         buttonGroupProc.add(jRadioButtonProc3);
         jRadioButtonProc3.setText("3");
+        jRadioButtonProc3.setEnabled(false);
 
         buttonGroupProc.add(jRadioButtonProc4);
         jRadioButtonProc4.setText("4");
+        jRadioButtonProc4.setEnabled(false);
 
         buttonGroupMem.add(jRadioButtonMem1);
         jRadioButtonMem1.setText("1");
+        jRadioButtonMem1.setEnabled(false);
 
-        buttonGroupMem.add(jRadioButtonMem);
-        jRadioButtonMem.setText("2");
+        buttonGroupMem.add(jRadioButtonMem2);
+        jRadioButtonMem2.setText("2");
+        jRadioButtonMem2.setEnabled(false);
 
         buttonGroupMem.add(jRadioButtonMem3);
         jRadioButtonMem3.setText("3");
+        jRadioButtonMem3.setEnabled(false);
 
         buttonGroupMem.add(jRadioButtonMem4);
         jRadioButtonMem4.setText("4");
+        jRadioButtonMem4.setEnabled(false);
 
         buttonGroupMon.add(jRadioButtonMon1);
         jRadioButtonMon1.setText("1");
+        jRadioButtonMon1.setEnabled(false);
 
         buttonGroupMon.add(jRadioButtonMon2);
         jRadioButtonMon2.setText("2");
+        jRadioButtonMon2.setEnabled(false);
 
         buttonGroupMon.add(jRadioButtonMon3);
         jRadioButtonMon3.setText("3");
+        jRadioButtonMon3.setEnabled(false);
 
         buttonGroupMon.add(jRadioButtonMon4);
         jRadioButtonMon4.setText("4");
+        jRadioButtonMon4.setEnabled(false);
 
         buttonGroupDD.add(jRadioButtonDD1);
         jRadioButtonDD1.setText("1");
+        jRadioButtonDD1.setEnabled(false);
 
         buttonGroupDD.add(jRadioButtonDD2);
         jRadioButtonDD2.setText("2");
+        jRadioButtonDD2.setEnabled(false);
 
         buttonGroupDD.add(jRadioButtonDD3);
         jRadioButtonDD3.setText("3");
+        jRadioButtonDD3.setEnabled(false);
 
         buttonGroupDD.add(jRadioButtonDD4);
         jRadioButtonDD4.setText("4");
+        jRadioButtonDD4.setEnabled(false);
 
         jCheckBox1.setText("1");
+        jCheckBox1.setEnabled(false);
 
         jCheckBox2.setText("2");
+        jCheckBox2.setEnabled(false);
 
         jCheckBox3.setText("3");
+        jCheckBox3.setEnabled(false);
 
         jCheckBox4.setText("4");
+        jCheckBox4.setEnabled(false);
 
         jButtonAnyadir.setMnemonic('a');
         jButtonAnyadir.setText("Añadir");
+        jButtonAnyadir.setEnabled(false);
 
         jButtonBuscar.setMnemonic('b');
         jButtonBuscar.setText("Buscar");
+        jButtonBuscar.setEnabled(false);
 
         jButtonEliminar.setMnemonic('e');
         jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setEnabled(false);
 
         jButtonCancelar.setMnemonic('c');
         jButtonCancelar.setText("Cancelar");
@@ -206,7 +233,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(jLabelProc)
                             .addComponent(jRadioButtonProc3)
                             .addComponent(jRadioButtonProc2)
                             .addComponent(jRadioButtonProc1)
@@ -215,7 +242,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelMem)
                             .addComponent(jRadioButtonMem1)
-                            .addComponent(jRadioButtonMem)
+                            .addComponent(jRadioButtonMem2)
                             .addComponent(jRadioButtonMem3)
                             .addComponent(jRadioButtonMem4))
                         .addGap(48, 48, 48)
@@ -285,7 +312,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
+                            .addComponent(jLabelProc)
                             .addComponent(jLabelMem)
                             .addComponent(jLabelMon)
                             .addComponent(jLabelDD))
@@ -297,7 +324,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
                             .addComponent(jRadioButtonDD1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButtonMem)
+                            .addComponent(jRadioButtonMem2)
                             .addComponent(jRadioButtonProc2)
                             .addComponent(jRadioButtonMon2)
                             .addComponent(jRadioButtonDD2))
@@ -326,7 +353,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
                         .addComponent(jButtonCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonSalir)
-                        .addContainerGap(22, Short.MAX_VALUE))))
+                        .addContainerGap(30, Short.MAX_VALUE))))
         );
 
         pack();
@@ -337,6 +364,45 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
+    private void jTextFieldNomClientKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomClientKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            String texto = jTextFieldNomClient.getText();
+           if(texto.length()>0 && texto.matches("[A-z.]{3,}")){
+               activar(true);
+           }
+        }
+    }//GEN-LAST:event_jTextFieldNomClientKeyPressed
+    private ArrayList<Object> arrays(){
+       ArrayList<Object>lista = new ArrayList<>();
+       lista.add(jRadioButtonProc1);
+       lista.add(jRadioButtonProc2);
+       lista.add(jRadioButtonProc3);
+       lista.add(jRadioButtonProc4);
+       lista.add(jRadioButtonMem1);
+       lista.add(jRadioButtonMem2);
+       lista.add(jRadioButtonMem3);
+       lista.add(jRadioButtonMem4);
+       lista.add(jRadioButtonMon1);
+       lista.add(jRadioButtonMon2);
+       lista.add(jRadioButtonMon3);
+       lista.add(jRadioButtonMon4);
+       lista.add(jRadioButtonDD1);
+       lista.add(jRadioButtonDD2);
+       lista.add(jRadioButtonDD3);
+       lista.add(jRadioButtonDD4);
+       lista.add(jComboBoxLoc);
+       lista.add(jListListClient);
+       lista.add(jButtonAnyadir);
+       lista.add(jButtonBuscar);
+       lista.add(jButtonEliminar);
+        return lista;
+    }
+    private void activar(boolean b){
+        ArrayList<Object>lista=arrays();
+        for(int i=0;i<lista.size();i++){
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -387,7 +453,6 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JComboBox jComboBoxLoc;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelDD;
     private javax.swing.JLabel jLabelListClient;
     private javax.swing.JLabel jLabelLoc;
@@ -395,13 +460,14 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelMon;
     private javax.swing.JLabel jLabelNomClient;
     private javax.swing.JLabel jLabelOpt;
-    private javax.swing.JList jList1;
+    private javax.swing.JLabel jLabelProc;
+    private javax.swing.JList jListListClient;
     private javax.swing.JRadioButton jRadioButtonDD1;
     private javax.swing.JRadioButton jRadioButtonDD2;
     private javax.swing.JRadioButton jRadioButtonDD3;
     private javax.swing.JRadioButton jRadioButtonDD4;
-    private javax.swing.JRadioButton jRadioButtonMem;
     private javax.swing.JRadioButton jRadioButtonMem1;
+    private javax.swing.JRadioButton jRadioButtonMem2;
     private javax.swing.JRadioButton jRadioButtonMem3;
     private javax.swing.JRadioButton jRadioButtonMem4;
     private javax.swing.JRadioButton jRadioButtonMon1;

@@ -64,7 +64,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelProc" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButtonProc3" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButtonProc2" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButtonProc1" min="-2" max="-2" attributes="0"/>
@@ -74,7 +74,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabelMem" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButtonMem1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonMem" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonMem2" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButtonMem3" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButtonMem4" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -165,7 +165,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelProc" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelMem" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelMon" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelDD" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -179,7 +179,7 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jRadioButtonMem" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonMem2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButtonProc2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButtonMon2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButtonDD2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -215,7 +215,7 @@
                       <Component id="jButtonCancelar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonSalir" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="22" max="32767" attributes="0"/>
+                      <EmptySpace pref="30" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -229,6 +229,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldNomClient">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldNomClientKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelLoc">
       <Properties>
@@ -237,7 +240,6 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="jComboBoxLoc">
       <Properties>
-        <Property name="editable" type="boolean" value="true"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
             <StringItem index="0" value="Villalba"/>
@@ -247,6 +249,7 @@
           </StringArray>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelListClient">
@@ -261,22 +264,17 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="jList1">
+        <Component class="javax.swing.JList" name="jListListClient">
           <Properties>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-              <StringArray count="5">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-                <StringItem index="4" value="Item 5"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="jLabelProc">
       <Properties>
         <Property name="text" type="java.lang.String" value="Procesador"/>
       </Properties>
@@ -307,6 +305,7 @@
           <ComponentRef name="buttonGroupProc"/>
         </Property>
         <Property name="text" type="java.lang.String" value="1"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonProc2">
@@ -315,6 +314,7 @@
           <ComponentRef name="buttonGroupProc"/>
         </Property>
         <Property name="text" type="java.lang.String" value="2"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonProc3">
@@ -323,6 +323,7 @@
           <ComponentRef name="buttonGroupProc"/>
         </Property>
         <Property name="text" type="java.lang.String" value="3"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonProc4">
@@ -331,6 +332,7 @@
           <ComponentRef name="buttonGroupProc"/>
         </Property>
         <Property name="text" type="java.lang.String" value="4"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonMem1">
@@ -339,14 +341,16 @@
           <ComponentRef name="buttonGroupMem"/>
         </Property>
         <Property name="text" type="java.lang.String" value="1"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButtonMem">
+    <Component class="javax.swing.JRadioButton" name="jRadioButtonMem2">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroupMem"/>
         </Property>
         <Property name="text" type="java.lang.String" value="2"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonMem3">
@@ -355,6 +359,7 @@
           <ComponentRef name="buttonGroupMem"/>
         </Property>
         <Property name="text" type="java.lang.String" value="3"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonMem4">
@@ -363,6 +368,7 @@
           <ComponentRef name="buttonGroupMem"/>
         </Property>
         <Property name="text" type="java.lang.String" value="4"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonMon1">
@@ -371,6 +377,7 @@
           <ComponentRef name="buttonGroupMon"/>
         </Property>
         <Property name="text" type="java.lang.String" value="1"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonMon2">
@@ -379,6 +386,7 @@
           <ComponentRef name="buttonGroupMon"/>
         </Property>
         <Property name="text" type="java.lang.String" value="2"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonMon3">
@@ -387,6 +395,7 @@
           <ComponentRef name="buttonGroupMon"/>
         </Property>
         <Property name="text" type="java.lang.String" value="3"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonMon4">
@@ -395,6 +404,7 @@
           <ComponentRef name="buttonGroupMon"/>
         </Property>
         <Property name="text" type="java.lang.String" value="4"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonDD1">
@@ -403,6 +413,7 @@
           <ComponentRef name="buttonGroupDD"/>
         </Property>
         <Property name="text" type="java.lang.String" value="1"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonDD2">
@@ -411,6 +422,7 @@
           <ComponentRef name="buttonGroupDD"/>
         </Property>
         <Property name="text" type="java.lang.String" value="2"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonDD3">
@@ -419,6 +431,7 @@
           <ComponentRef name="buttonGroupDD"/>
         </Property>
         <Property name="text" type="java.lang.String" value="3"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonDD4">
@@ -427,44 +440,52 @@
           <ComponentRef name="buttonGroupDD"/>
         </Property>
         <Property name="text" type="java.lang.String" value="4"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBox1">
       <Properties>
         <Property name="text" type="java.lang.String" value="1"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBox2">
       <Properties>
         <Property name="text" type="java.lang.String" value="2"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBox3">
       <Properties>
         <Property name="text" type="java.lang.String" value="3"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBox4">
       <Properties>
         <Property name="text" type="java.lang.String" value="4"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonAnyadir">
       <Properties>
         <Property name="mnemonic" type="int" value="97"/>
         <Property name="text" type="java.lang.String" value="A&#xf1;adir"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonBuscar">
       <Properties>
         <Property name="mnemonic" type="int" value="98"/>
         <Property name="text" type="java.lang.String" value="Buscar"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonEliminar">
       <Properties>
         <Property name="mnemonic" type="int" value="101"/>
         <Property name="text" type="java.lang.String" value="Eliminar"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonCancelar">

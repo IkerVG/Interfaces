@@ -8,13 +8,18 @@
  * Created on 08-nov-2011, 9:33:10
  */
 package ventanas2;
+
+import javax.swing.JFrame;
+
 /**
  *
  * @author root
  */
 public class segundaVentana extends javax.swing.JDialog {
-    /** Creates new form segundaVentana */
-    public segundaVentana(java.awt.Frame parent, boolean modal) {
+    /** Creates new form segundaVentana
+     * @param parent
+     * @param modal */
+    public segundaVentana(javax.swing.JFrame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -52,6 +57,8 @@ public class segundaVentana extends javax.swing.JDialog {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
                     System.exit(0);
+                    Ventana1 w1 = new Ventana1();
+                    w1.setDefaultCloseOperation(EXIT_ON_CLOSE);
                 }
             });
             dialog.setVisible(true);

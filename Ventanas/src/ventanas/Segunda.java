@@ -66,6 +66,7 @@ public class Segunda extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        
          
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -87,6 +88,7 @@ public class Segunda extends javax.swing.JFrame {
         super.processWindowEvent(e);
         if (e.getID() == java.awt.event.WindowEvent.WINDOW_CLOSING) {
             padre.setEnabled(true);
+            padre.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         }
      }
 

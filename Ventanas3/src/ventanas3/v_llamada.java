@@ -6,6 +6,7 @@
 package ventanas3;
 
 import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,10 +23,11 @@ public class v_llamada extends javax.swing.JFrame {
        v_llamada.padre=padre;
         initComponents();
         this.i=i;
+         this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         
     }
 
-    private v_llamada() {
+    private v_llamada(JFrame padre) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -42,6 +44,7 @@ public class v_llamada extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
 
         jButton1.setText("info");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -88,7 +91,9 @@ public class v_llamada extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+       this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+       padre.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+         
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -97,18 +102,19 @@ public class v_llamada extends javax.swing.JFrame {
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+       java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new (padre).setVisible(true);
+                new v_llamada(padre).setVisible(true);
             }
         });
     }
       protected void processWindowEvent(java.awt.event.WindowEvent e) {
 
-        super.processWindowEvent(e);
+         super.processWindowEvent(e);
         if (e.getID() == java.awt.event.WindowEvent.WINDOW_CLOSING) {
             padre.setEnabled(true);
+            padre.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         }
      }
 

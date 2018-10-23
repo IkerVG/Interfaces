@@ -31,6 +31,7 @@ public class Ventana1 extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ventanas2/exit.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {

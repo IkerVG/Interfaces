@@ -7,8 +7,8 @@ package ventas.de.ordenadores;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
+import java.util.Vector;
+import javax.swing.*;
 
 /**
  *
@@ -22,6 +22,8 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
     public Ventas_de_ordenadores() {
         initComponents();
     }
+    DefaultListModel modelo = new DefaultListModel();
+    Contenedor_datos datos = new Contenedor_datos();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -89,11 +91,15 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         jLabelLoc.setText("Localidad");
 
         jComboBoxLoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Villalba", "Alpedrete", "Galapagar", "Moralzarzal" }));
+        jComboBoxLoc.setToolTipText("");
         jComboBoxLoc.setEnabled(false);
 
         jLabelListClient.setText("Lista de Clientes");
 
+        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         jListListClient.setEnabled(false);
+        jScrollPane1.setViewportView(jListListClient);
 
         jLabelProc.setText("Procesador");
 
@@ -106,6 +112,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         jLabelOpt.setText("Opciones");
 
         buttonGroupProc.add(jRadioButtonProc1);
+        jRadioButtonProc1.setSelected(true);
         jRadioButtonProc1.setText("1");
         jRadioButtonProc1.setEnabled(false);
 
@@ -126,6 +133,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         jRadioButtonMem1.setEnabled(false);
 
         buttonGroupMem.add(jRadioButtonMem2);
+        jRadioButtonMem2.setSelected(true);
         jRadioButtonMem2.setText("2");
         jRadioButtonMem2.setEnabled(false);
 
@@ -138,6 +146,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         jRadioButtonMem4.setEnabled(false);
 
         buttonGroupMon.add(jRadioButtonMon1);
+        jRadioButtonMon1.setSelected(true);
         jRadioButtonMon1.setText("1");
         jRadioButtonMon1.setEnabled(false);
 
@@ -166,6 +175,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         jRadioButtonDD3.setEnabled(false);
 
         buttonGroupDD.add(jRadioButtonDD4);
+        jRadioButtonDD4.setSelected(true);
         jRadioButtonDD4.setText("4");
         jRadioButtonDD4.setEnabled(false);
 
@@ -184,6 +194,11 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         jButtonAnyadir.setMnemonic('a');
         jButtonAnyadir.setText("Añadir");
         jButtonAnyadir.setEnabled(false);
+        jButtonAnyadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnyadirActionPerformed(evt);
+            }
+        });
 
         jButtonBuscar.setMnemonic('b');
         jButtonBuscar.setText("Buscar");
@@ -195,6 +210,11 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
 
         jButtonCancelar.setMnemonic('c');
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         jButtonSalir.setMnemonic('s');
         jButtonSalir.setText("Salir");
@@ -360,21 +380,38 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
-        // TODO add your handling code here:
+        //Salimos de la app
         System.exit(0);
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jTextFieldNomClientKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomClientKeyPressed
-        // TODO add your handling code here:
+        // Al pulsar enter comprueba el campo y activa botones en caso de match
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
             String texto = jTextFieldNomClient.getText();
-           if(texto.length()>0 && texto.matches("[A-z.]{3,}")){
+           if(texto.matches("[A-z.]{3,}")){
                activar(true);
            }
         }
     }//GEN-LAST:event_jTextFieldNomClientKeyPressed
-    private ArrayList<Object> arrays(){
-       ArrayList<Object>lista = new ArrayList<>();
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        //Desactivamos botones y pasamos el foco a "nombre de cliente" vaciando el campo
+        activar(false);
+        jTextFieldNomClient.setText("");
+        jTextFieldNomClient.grabFocus();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonAnyadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnyadirActionPerformed
+        // TODO add your handling code here:
+        modelo.addElement(jTextFieldNomClient.getText()+" "+jComboBoxLoc.getItemAt(jComboBoxLoc.getSelectedIndex()));
+        jListListClient.setModel(modelo);
+        datos.anyadir(buttonGroupProc.getSelection(),buttonGroupMem.getSelection(),buttonGroupMon.getSelection(),buttonGroupDD.getSelection());
+        
+    }//GEN-LAST:event_jButtonAnyadirActionPerformed
+  
+    //Devuelve un array de radio buttons, solo es llamada desde activar
+    private ArrayList<JRadioButton> arrays(){
+       ArrayList<JRadioButton>lista = new ArrayList<>();
        lista.add(jRadioButtonProc1);
        lista.add(jRadioButtonProc2);
        lista.add(jRadioButtonProc3);
@@ -391,17 +428,36 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
        lista.add(jRadioButtonDD2);
        lista.add(jRadioButtonDD3);
        lista.add(jRadioButtonDD4);
-       lista.add(jComboBoxLoc);
-       lista.add(jListListClient);
-       lista.add(jButtonAnyadir);
-       lista.add(jButtonBuscar);
-       lista.add(jButtonEliminar);
         return lista;
     }
+    //Esta clase devuelve un array de jcheckbox, solo es llamada desde activar
+    private ArrayList<JCheckBox> chk(){
+       ArrayList<JCheckBox>lista = new ArrayList<>();
+       lista.add(jCheckBox1);
+       lista.add(jCheckBox2);
+       lista.add(jCheckBox3);
+       lista.add(jCheckBox4);
+       return lista;
+    }
+    //Aquí activamos o desactivamos los elementos del formulario
     private void activar(boolean b){
-        ArrayList<Object>lista=arrays();
+        ArrayList<JRadioButton>lista=arrays();//Array para radiobuttons
+        ArrayList<JCheckBox>listachk=chk();//Array para checkbox
+        //Recorremos el array de radiobuttons activando/desactivando
         for(int i=0;i<lista.size();i++){
+            lista.get(i).setEnabled(b);
         }
+        //Lo mismo para checkbox
+        for(int i=0;i<listachk.size();i++){
+            listachk.get(i).setEnabled(b);
+        }
+        //Activamos/desactivamos el resto de elementos
+         jComboBoxLoc.setEnabled(b);
+         jListListClient.setEnabled(b);
+         jButtonAnyadir.setEnabled(b);
+         jButtonBuscar.setEnabled(b);
+         jButtonEliminar.setEnabled(b);
+
     }
     /**
      * @param args the command line arguments

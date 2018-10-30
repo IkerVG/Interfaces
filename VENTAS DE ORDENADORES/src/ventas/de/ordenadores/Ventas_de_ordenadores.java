@@ -24,6 +24,9 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
     }
     DefaultListModel modelo = new DefaultListModel();
     Contenedor_datos datos = new Contenedor_datos();
+    ArrayList <ButtonModel> lista = new ArrayList<>();
+    ArrayList <Boolean> listachk = new ArrayList<>();
+    ArrayList <JCheckBox> listachkbut = new ArrayList<>();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -203,6 +206,11 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         jButtonBuscar.setMnemonic('b');
         jButtonBuscar.setText("Buscar");
         jButtonBuscar.setEnabled(false);
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarActionPerformed(evt);
+            }
+        });
 
         jButtonEliminar.setMnemonic('e');
         jButtonEliminar.setText("Eliminar");
@@ -405,9 +413,27 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         // TODO add your handling code here:
         modelo.addElement(jTextFieldNomClient.getText()+" "+jComboBoxLoc.getItemAt(jComboBoxLoc.getSelectedIndex()));
         jListListClient.setModel(modelo);
-        datos.anyadir(buttonGroupProc.getSelection(),buttonGroupMem.getSelection(),buttonGroupMon.getSelection(),buttonGroupDD.getSelection());
+        datos.anyadir((String)jComboBoxLoc.getSelectedItem(),buttonGroupProc.getSelection(),buttonGroupMem.getSelection(),
+                buttonGroupMon.getSelection(),buttonGroupDD.getSelection(),jCheckBox1.isSelected(),
+                jCheckBox2.isSelected(),jCheckBox3.isSelected(),jCheckBox4.isSelected());
+        
         
     }//GEN-LAST:event_jButtonAnyadirActionPerformed
+
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        // TODO add your handling code here:
+        lista.addAll(datos.recuperar(jListListClient.getSelectedIndex()));
+        listachk.addAll(datos.recuperarchk(jListListClient.getSelectedIndex()));
+        listachkbut.addAll(chk());
+        jComboBoxLoc.setSelectedItem(datos.recuperarloc(jListListClient.getSelectedIndex()));
+        
+        for(int i=0;i<lista.size();i++){
+            lista.get(i).setSelected(true);
+            listachkbut.get(i).setSelected(listachk.get(i));
+            
+        }
+        
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
   
     //Devuelve un array de radio buttons, solo es llamada desde activar
     private ArrayList<JRadioButton> arrays(){

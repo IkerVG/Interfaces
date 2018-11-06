@@ -56,4 +56,14 @@ public class Contenedor_datos {
         String s = jbl.get(i);
         return s;
     }
+    public void eliminar (int i){
+        proc.remove(i);
+        mon.remove(i);
+        mem.remove(i);
+        dd.remove(i);
+        chk1.remove(i);
+        chk2.remove(i);
+        chk3.remove(i);
+        chk4.remove(i);
+    }
 }

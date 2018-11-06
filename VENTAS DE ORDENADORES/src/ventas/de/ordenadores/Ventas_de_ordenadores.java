@@ -27,6 +27,8 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
     ArrayList <ButtonModel> lista = new ArrayList<>();
     ArrayList <Boolean> listachk = new ArrayList<>();
     ArrayList <JCheckBox> listachkbut = new ArrayList<>();
+    int posicion = 0;
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -101,7 +103,16 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
 
         jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jListListClient.setEnabled(false);
+        jListListClient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListListClientMouseClicked(evt);
+            }
+        });
+        jListListClient.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jListListClientKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jListListClient);
 
         jLabelProc.setText("Procesador");
@@ -116,82 +127,82 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
 
         buttonGroupProc.add(jRadioButtonProc1);
         jRadioButtonProc1.setSelected(true);
-        jRadioButtonProc1.setText("1");
+        jRadioButtonProc1.setText("i3");
         jRadioButtonProc1.setEnabled(false);
 
         buttonGroupProc.add(jRadioButtonProc2);
-        jRadioButtonProc2.setText("2");
+        jRadioButtonProc2.setText("i5");
         jRadioButtonProc2.setEnabled(false);
 
         buttonGroupProc.add(jRadioButtonProc3);
-        jRadioButtonProc3.setText("3");
+        jRadioButtonProc3.setText("i7");
         jRadioButtonProc3.setEnabled(false);
 
         buttonGroupProc.add(jRadioButtonProc4);
-        jRadioButtonProc4.setText("4");
+        jRadioButtonProc4.setText("amd");
         jRadioButtonProc4.setEnabled(false);
 
         buttonGroupMem.add(jRadioButtonMem1);
-        jRadioButtonMem1.setText("1");
+        jRadioButtonMem1.setText("2GB");
         jRadioButtonMem1.setEnabled(false);
 
         buttonGroupMem.add(jRadioButtonMem2);
         jRadioButtonMem2.setSelected(true);
-        jRadioButtonMem2.setText("2");
+        jRadioButtonMem2.setText("4GB");
         jRadioButtonMem2.setEnabled(false);
 
         buttonGroupMem.add(jRadioButtonMem3);
-        jRadioButtonMem3.setText("3");
+        jRadioButtonMem3.setText("8GB");
         jRadioButtonMem3.setEnabled(false);
 
         buttonGroupMem.add(jRadioButtonMem4);
-        jRadioButtonMem4.setText("4");
+        jRadioButtonMem4.setText("16GB");
         jRadioButtonMem4.setEnabled(false);
 
         buttonGroupMon.add(jRadioButtonMon1);
         jRadioButtonMon1.setSelected(true);
-        jRadioButtonMon1.setText("1");
+        jRadioButtonMon1.setText("18\"");
         jRadioButtonMon1.setEnabled(false);
 
         buttonGroupMon.add(jRadioButtonMon2);
-        jRadioButtonMon2.setText("2");
+        jRadioButtonMon2.setText("24\"");
         jRadioButtonMon2.setEnabled(false);
 
         buttonGroupMon.add(jRadioButtonMon3);
-        jRadioButtonMon3.setText("3");
+        jRadioButtonMon3.setText("30\"");
         jRadioButtonMon3.setEnabled(false);
 
         buttonGroupMon.add(jRadioButtonMon4);
-        jRadioButtonMon4.setText("4");
+        jRadioButtonMon4.setText("2x24\"");
         jRadioButtonMon4.setEnabled(false);
 
         buttonGroupDD.add(jRadioButtonDD1);
-        jRadioButtonDD1.setText("1");
+        jRadioButtonDD1.setText("500GB");
         jRadioButtonDD1.setEnabled(false);
 
         buttonGroupDD.add(jRadioButtonDD2);
-        jRadioButtonDD2.setText("2");
+        jRadioButtonDD2.setText("1TB");
         jRadioButtonDD2.setEnabled(false);
 
         buttonGroupDD.add(jRadioButtonDD3);
-        jRadioButtonDD3.setText("3");
+        jRadioButtonDD3.setText("200GB SSD");
         jRadioButtonDD3.setEnabled(false);
 
         buttonGroupDD.add(jRadioButtonDD4);
         jRadioButtonDD4.setSelected(true);
-        jRadioButtonDD4.setText("4");
+        jRadioButtonDD4.setText("500GB SSD");
         jRadioButtonDD4.setEnabled(false);
 
-        jCheckBox1.setText("1");
+        jCheckBox1.setText("Teclado mecánico");
         jCheckBox1.setEnabled(false);
 
-        jCheckBox2.setText("2");
+        jCheckBox2.setText("Ratón gamer");
         jCheckBox2.setEnabled(false);
 
-        jCheckBox3.setText("3");
+        jCheckBox3.setText("Tarjeta WiFi");
         jCheckBox3.setEnabled(false);
 
-        jCheckBox4.setText("4");
+        jCheckBox4.setText("Arranque dual Windows");
         jCheckBox4.setEnabled(false);
 
         jButtonAnyadir.setMnemonic('a');
@@ -215,6 +226,11 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         jButtonEliminar.setMnemonic('e');
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.setEnabled(false);
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setMnemonic('c');
         jButtonCancelar.setText("Cancelar");
@@ -282,31 +298,27 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
                             .addComponent(jRadioButtonMon4))
                         .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelDD)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabelOpt)
-                                .addGap(61, 61, 61))
+                            .addComponent(jRadioButtonDD1)
+                            .addComponent(jRadioButtonDD2)
+                            .addComponent(jRadioButtonDD3)
+                            .addComponent(jRadioButtonDD4)
+                            .addComponent(jLabelDD))
+                        .addGap(191, 191, 191)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButtonDD1)
-                                    .addComponent(jRadioButtonDD2)
-                                    .addComponent(jRadioButtonDD3)
-                                    .addComponent(jRadioButtonDD4))
-                                .addGap(191, 191, 191)
+                                    .addComponent(jCheckBox4)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jButtonSalir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jCheckBox1)
-                                            .addComponent(jCheckBox2)
-                                            .addComponent(jCheckBox3))
-                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jCheckBox4)
-                                            .addComponent(jButtonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(0, 31, Short.MAX_VALUE))))))))
+                                    .addComponent(jLabelOpt)
+                                    .addComponent(jCheckBox1)
+                                    .addComponent(jCheckBox2)
+                                    .addComponent(jCheckBox3))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,6 +410,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
             String texto = jTextFieldNomClient.getText();
            if(texto.matches("[A-z.]{3,}")){
                activar(true);
+               jComboBoxLoc.grabFocus();
            }
         }
     }//GEN-LAST:event_jTextFieldNomClientKeyPressed
@@ -411,29 +424,104 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
 
     private void jButtonAnyadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnyadirActionPerformed
         // TODO add your handling code here:
-        modelo.addElement(jTextFieldNomClient.getText()+" "+jComboBoxLoc.getItemAt(jComboBoxLoc.getSelectedIndex()));
+        modelo.addElement(jTextFieldNomClient.getText());
         jListListClient.setModel(modelo);
         datos.anyadir((String)jComboBoxLoc.getSelectedItem(),buttonGroupProc.getSelection(),buttonGroupMem.getSelection(),
                 buttonGroupMon.getSelection(),buttonGroupDD.getSelection(),jCheckBox1.isSelected(),
                 jCheckBox2.isSelected(),jCheckBox3.isSelected(),jCheckBox4.isSelected());
-        
+        activar(false);
+        jListListClient.setEnabled(true);
+        jTextFieldNomClient.setText(null);
+        jTextFieldNomClient.grabFocus();
         
     }//GEN-LAST:event_jButtonAnyadirActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         // TODO add your handling code here:
-        lista.addAll(datos.recuperar(jListListClient.getSelectedIndex()));
-        listachk.addAll(datos.recuperarchk(jListListClient.getSelectedIndex()));
-        listachkbut.addAll(chk());
-        jComboBoxLoc.setSelectedItem(datos.recuperarloc(jListListClient.getSelectedIndex()));
+       String nombre = jTextFieldNomClient.getText();
+       int contador = 0;
+       for(int i=0;i<modelo.size();i++){
+         if(modelo.elementAt(i).equals(nombre)){  
+             if((contador>0&&JOptionPane.showConfirmDialog(this, "Este cliente tiene más de una compra, ¿Quieres ver la siguiente?","sdf",JOptionPane.YES_NO_OPTION)==0)||contador<1){
+               lista.addAll(datos.recuperar(i));
+               listachk.addAll(datos.recuperarchk(i));
+               listachkbut.addAll(chk());
+               jComboBoxLoc.setSelectedItem(datos.recuperarloc(i));
         
-        for(int i=0;i<lista.size();i++){
-            lista.get(i).setSelected(true);
-            listachkbut.get(i).setSelected(listachk.get(i));
+                for(int o=0;o<lista.size();o++){
+                    lista.get(o).setSelected(true);
+                    listachkbut.get(o).setSelected(listachk.get(o));
             
+                }
+                   lista.clear();
+                   listachk.clear();
+                   listachkbut.clear();
+             contador++;
+           }
+         }
         }
-        
+       if(contador==0){
+           JOptionPane.showMessageDialog(this,"Ninguna coincidencia");
+       }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        // TODO add your handling code here:
+       if(!modelo.isEmpty()){
+       modelo.removeElementAt(posicion);
+       jListListClient.setModel(modelo);
+       datos.eliminar(posicion);
+       }else{
+           JOptionPane.showMessageDialog(this, "La lista está vacía");
+       }
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void jListListClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListListClientMouseClicked
+        // TODO add your handling code here:
+       if(!modelo.isEmpty()){  
+            posicion = jListListClient.getSelectedIndex();
+            lista.addAll(datos.recuperar(posicion));
+            listachk.addAll(datos.recuperarchk(posicion));
+            listachkbut.addAll(chk());
+            jComboBoxLoc.setSelectedItem(datos.recuperarloc(posicion));
+
+            for(int i=0;i<lista.size();i++){
+                lista.get(i).setSelected(true);
+                listachkbut.get(i).setSelected(listachk.get(i));
+
+            }
+            activar(false);
+            jListListClient.setEnabled(true);
+            jButtonEliminar.setEnabled(true);
+            lista.clear();
+            listachk.clear();
+            listachkbut.clear();
+       }
+        
+    }//GEN-LAST:event_jListListClientMouseClicked
+
+    private void jListListClientKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jListListClientKeyReleased
+        if(!modelo.isEmpty()){  
+            posicion = jListListClient.getSelectedIndex();
+            lista.addAll(datos.recuperar(posicion));
+            listachk.addAll(datos.recuperarchk(posicion));
+            listachkbut.addAll(chk());
+            jComboBoxLoc.setSelectedItem(datos.recuperarloc(posicion));
+
+            for(int i=0;i<lista.size();i++){
+                lista.get(i).setSelected(true);
+                listachkbut.get(i).setSelected(listachk.get(i));
+
+            }
+            activar(false);
+            jListListClient.setEnabled(true);
+            jButtonEliminar.setEnabled(true);
+            lista.clear();
+            listachk.clear();
+            listachkbut.clear();
+       }
+        
+    }//GEN-LAST:event_jListListClientKeyReleased
   
     //Devuelve un array de radio buttons, solo es llamada desde activar
     private ArrayList<JRadioButton> arrays(){

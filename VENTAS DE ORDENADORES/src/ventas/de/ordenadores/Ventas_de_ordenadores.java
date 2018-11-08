@@ -21,6 +21,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
      */
     public Ventas_de_ordenadores() {
         initComponents();
+        jTextFieldNomClient.grabFocus();
     }
     DefaultListModel modelo = new DefaultListModel();
     Contenedor_datos datos = new Contenedor_datos();
@@ -126,11 +127,11 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         jLabelOpt.setText("Opciones");
 
         buttonGroupProc.add(jRadioButtonProc1);
-        jRadioButtonProc1.setSelected(true);
         jRadioButtonProc1.setText("i3");
         jRadioButtonProc1.setEnabled(false);
 
         buttonGroupProc.add(jRadioButtonProc2);
+        jRadioButtonProc2.setSelected(true);
         jRadioButtonProc2.setText("i5");
         jRadioButtonProc2.setEnabled(false);
 
@@ -160,11 +161,11 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         jRadioButtonMem4.setEnabled(false);
 
         buttonGroupMon.add(jRadioButtonMon1);
-        jRadioButtonMon1.setSelected(true);
         jRadioButtonMon1.setText("18\"");
         jRadioButtonMon1.setEnabled(false);
 
         buttonGroupMon.add(jRadioButtonMon2);
+        jRadioButtonMon2.setSelected(true);
         jRadioButtonMon2.setText("24\"");
         jRadioButtonMon2.setEnabled(false);
 
@@ -181,6 +182,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         jRadioButtonDD1.setEnabled(false);
 
         buttonGroupDD.add(jRadioButtonDD2);
+        jRadioButtonDD2.setSelected(true);
         jRadioButtonDD2.setText("1TB");
         jRadioButtonDD2.setEnabled(false);
 
@@ -189,7 +191,6 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         jRadioButtonDD3.setEnabled(false);
 
         buttonGroupDD.add(jRadioButtonDD4);
-        jRadioButtonDD4.setSelected(true);
         jRadioButtonDD4.setText("500GB SSD");
         jRadioButtonDD4.setEnabled(false);
 
@@ -410,7 +411,10 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
             String texto = jTextFieldNomClient.getText();
            if(texto.matches("[A-z.]{3,}")){
                activar(true);
+               reinicio();
                jComboBoxLoc.grabFocus();
+               jButtonEliminar.setEnabled(false);
+               
            }
         }
     }//GEN-LAST:event_jTextFieldNomClientKeyPressed
@@ -420,6 +424,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         activar(false);
         jTextFieldNomClient.setText("");
         jTextFieldNomClient.grabFocus();
+        jListListClient.setEnabled(true);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonAnyadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnyadirActionPerformed
@@ -463,6 +468,9 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
        if(contador==0){
            JOptionPane.showMessageDialog(this,"Ninguna coincidencia");
        }
+       jTextFieldNomClient.grabFocus();
+       activar(false);
+       jListListClient.setEnabled(true);
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -471,6 +479,8 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
        modelo.removeElementAt(posicion);
        jListListClient.setModel(modelo);
        datos.eliminar(posicion);
+       jTextFieldNomClient.grabFocus();
+       jButtonEliminar.setEnabled(false);
        }else{
            JOptionPane.showMessageDialog(this, "La lista está vacía");
        }
@@ -501,6 +511,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
     }//GEN-LAST:event_jListListClientMouseClicked
 
     private void jListListClientKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jListListClientKeyReleased
+       try{
         if(!modelo.isEmpty()){  
             posicion = jListListClient.getSelectedIndex();
             lista.addAll(datos.recuperar(posicion));
@@ -519,7 +530,9 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
             lista.clear();
             listachk.clear();
             listachkbut.clear();
+            jListListClient.grabFocus();
        }
+       }catch(Exception e){JOptionPane.showMessageDialog(this, "Selecciona un elemento de la lista");}
         
     }//GEN-LAST:event_jListListClientKeyReleased
   
@@ -572,6 +585,17 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
          jButtonBuscar.setEnabled(b);
          jButtonEliminar.setEnabled(b);
 
+    }
+    private void reinicio(){
+          jRadioButtonDD2.setSelected(true);
+          jRadioButtonProc2.setSelected(true);
+          jRadioButtonMon2.setSelected(true);
+          jRadioButtonMem2.setSelected(true);
+          jCheckBox1.setSelected(false);
+          jCheckBox2.setSelected(false);
+          jCheckBox3.setSelected(false);
+          jCheckBox4.setSelected(false);
+          jComboBoxLoc.setSelectedIndex(0);
     }
     /**
      * @param args the command line arguments

@@ -6,8 +6,10 @@
 package ventas.de.ordenadores;
 
 import java.awt.event.KeyEvent;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -81,6 +83,8 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         jButtonEliminar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jButtonSalir = new javax.swing.JButton();
+        jButtonMostrar = new javax.swing.JButton();
+        jButtonGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ventas de ordenadores");
@@ -249,6 +253,20 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
             }
         });
 
+        jButtonMostrar.setText("Mostrar");
+        jButtonMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMostrarActionPerformed(evt);
+            }
+        });
+
+        jButtonGuardar.setText("Guardar");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -262,6 +280,10 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
                         .addComponent(jButtonBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonEliminar)
+                        .addGap(63, 63, 63)
+                        .addComponent(jButtonMostrar)
+                        .addGap(62, 62, 62)
+                        .addComponent(jButtonGuardar)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,13 +409,16 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonAnyadir)
                             .addComponent(jButtonBuscar)
-                            .addComponent(jButtonEliminar))
+                            .addComponent(jButtonEliminar)
+                            .addComponent(jButtonMostrar))
                         .addGap(33, 33, 33))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jButtonCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonSalir)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonSalir)
+                            .addComponent(jButtonGuardar))
                         .addContainerGap(30, Short.MAX_VALUE))))
         );
 
@@ -536,6 +561,71 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
        }
         
     }//GEN-LAST:event_jListListClientKeyReleased
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        try {
+            // TODO add your handling code here:
+            FileOutputStream fos = new FileOutputStream("datos.svc",false);
+            DataOutputStream dos = new DataOutputStream(fos);
+            listachkbut.addAll(chk()); 
+            for(int i = 0; i<modelo.size();i++){
+                dos.writeUTF(modelo.get(i).toString());
+                dos.writeUTF(datos.recuperarloc(i));
+                lista.addAll(datos.recuperar(i));
+                listachk.addAll(datos.recuperarchk(i));  
+                for(int o = 0; o<lista.size();o++){
+                    dos.writeInt(lista.get(i).hashCode());
+                }
+                lista.clear();
+                for(int z = 0;z<listachkbut.size();z++){
+                       dos.writeBoolean(listachk.get(z));
+                }
+                listachk.clear();
+            }
+            dos.close();
+            fos.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jButtonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMostrarActionPerformed
+         FileInputStream fis = null;
+         DataInputStream dis = null;
+        try {
+            // TODO add your handling code here:
+            fis = new FileInputStream("datos.cvs");
+            dis = new DataInputStream(fis);
+            while(true){
+                System.out.println(dis.readUTF());
+                System.out.println(dis.readUTF());
+                System.out.println(dis.readInt());
+                System.out.println(dis.readInt());
+                System.out.println(dis.readInt());
+                System.out.println(dis.readInt());
+                System.out.println(dis.readBoolean());
+                System.out.println(dis.readBoolean());
+                System.out.println(dis.readBoolean());
+                System.out.println(dis.readBoolean());
+            }
+        }catch (EOFException e){
+            System.out.print("se acabó");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+             try {
+                 dis.close();
+                 fis.close();
+             } catch (IOException ex) {
+                 Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
+             }
+        }
+    }//GEN-LAST:event_jButtonMostrarActionPerformed
   
     //Devuelve un array de radio buttons, solo es llamada desde activar
     private ArrayList<JRadioButton> arrays(){
@@ -643,6 +733,8 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEliminar;
+    private javax.swing.JButton jButtonGuardar;
+    private javax.swing.JButton jButtonMostrar;
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;

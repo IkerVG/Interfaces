@@ -593,12 +593,9 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMostrarActionPerformed
-         FileInputStream fis = null;
-         DataInputStream dis = null;
         try {
             // TODO add your handling code here:
-            fis = new FileInputStream("datos.cvs");
-            dis = new DataInputStream(fis);
+            DataInputStream dis = new DataInputStream(new FileInputStream("datos.svc"));
             while(true){
                 System.out.println(dis.readUTF());
                 System.out.println(dis.readUTF());
@@ -617,13 +614,6 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
             Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-             try {
-                 dis.close();
-                 fis.close();
-             } catch (IOException ex) {
-                 Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
-             }
         }
     }//GEN-LAST:event_jButtonMostrarActionPerformed
   

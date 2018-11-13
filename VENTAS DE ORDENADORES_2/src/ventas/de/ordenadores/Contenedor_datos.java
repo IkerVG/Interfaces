@@ -70,4 +70,15 @@ public class Contenedor_datos {
         chk3.remove(i);
         chk4.remove(i);
     }
+    public void limpiar(){
+        proc.clear();
+        mem.clear(); 
+        mon.clear();
+        dd.clear();
+        chk1.clear();
+        chk2.clear();
+        chk3.clear();
+        chk4.clear();
+        jbl.clear();
+    }
 }

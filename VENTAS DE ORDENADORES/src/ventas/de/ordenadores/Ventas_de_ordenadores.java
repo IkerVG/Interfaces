@@ -409,7 +409,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         // Al pulsar enter comprueba el campo y activa botones en caso de match
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
             String texto = jTextFieldNomClient.getText();
-           if(texto.matches("[A-z.]{3,}")){
+           if(texto.matches("[A-z.]+")){
                activar(true);
                reinicio();
                jComboBoxLoc.grabFocus();
@@ -447,7 +447,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
        int contador = 0;
        for(int i=0;i<modelo.size();i++){
          if(modelo.elementAt(i).equals(nombre)){  
-             if((contador>0&&JOptionPane.showConfirmDialog(this, "Este cliente tiene más de una compra, ¿Quieres ver la siguiente?","sdf",JOptionPane.YES_NO_OPTION)==0)||contador<1){
+             if((contador>0&&JOptionPane.showConfirmDialog(this, "Este cliente tiene más de una compra, ¿Quieres ver la siguiente?","Busqueda",JOptionPane.YES_NO_OPTION)==0)||contador<1){
                lista.addAll(datos.recuperar(i));
                listachk.addAll(datos.recuperarchk(i));
                listachkbut.addAll(chk());
@@ -475,14 +475,13 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         // TODO add your handling code here:
-       if(!modelo.isEmpty()){
+       if(!modelo.isEmpty()&&JOptionPane.showConfirmDialog(this, "¿Quieres eliminar este elemento?","Eliminar",JOptionPane.YES_NO_OPTION)==0){
        modelo.removeElementAt(posicion);
        jListListClient.setModel(modelo);
        datos.eliminar(posicion);
        jTextFieldNomClient.grabFocus();
        jButtonEliminar.setEnabled(false);
-       }else{
-           JOptionPane.showMessageDialog(this, "La lista está vacía");
+       JOptionPane.showMessageDialog(this,"El elemento se ha eliminado correctamente");
        }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 

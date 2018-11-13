@@ -500,14 +500,13 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         // TODO add your handling code here:
-       if(!modelo.isEmpty()){
+      if(!modelo.isEmpty()&&JOptionPane.showConfirmDialog(this, "¿Quieres eliminar este elemento?","Eliminar",JOptionPane.YES_NO_OPTION)==0){
        modelo.removeElementAt(posicion);
        jListListClient.setModel(modelo);
        datos.eliminar(posicion);
        jTextFieldNomClient.grabFocus();
        jButtonEliminar.setEnabled(false);
-       }else{
-           JOptionPane.showMessageDialog(this, "La lista está vacía");
+       JOptionPane.showMessageDialog(this,"El elemento se ha eliminado correctamente");
        }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
@@ -563,31 +562,58 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
     }//GEN-LAST:event_jListListClientKeyReleased
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        try {
-            // TODO add your handling code here:
-            FileOutputStream fos = new FileOutputStream("datos.svc",false);
-            DataOutputStream dos = new DataOutputStream(fos);
-            listachkbut.addAll(chk()); 
-            for(int i = 0; i<modelo.size();i++){
-                dos.writeUTF(modelo.get(i).toString());
-                dos.writeUTF(datos.recuperarloc(i));
-                lista.addAll(datos.recuperar(i));
-                listachk.addAll(datos.recuperarchk(i));  
-                for(int o = 0; o<lista.size();o++){
-                    dos.writeInt(lista.get(i).hashCode());
+        if(!modelo.isEmpty()){
+            try {
+                // TODO add your handling code here:
+                FileOutputStream fos = new FileOutputStream("datos",true);
+                DataOutputStream dos = new DataOutputStream(fos);
+                listachkbut.addAll(chk()); 
+                for(int i = 0; i<modelo.size();i++){
+                    dos.writeUTF(modelo.get(i).toString());
+                    dos.writeUTF(datos.recuperarloc(i));
+                    lista.addAll(datos.recuperar(i));
+                    listachk.addAll(datos.recuperarchk(i));  
+                    for(int o = 0; o<lista.size();o++){
+                        if(lista.get(i)==jRadioButtonProc1.getModel()||
+                                lista.get(i)==jRadioButtonMon1.getModel()||
+                                lista.get(i)==jRadioButtonMem1.getModel()||
+                                lista.get(i)==jRadioButtonDD1.getModel()){
+                            dos.writeInt(1);
+                        }else if(lista.get(i)==jRadioButtonProc2.getModel()||
+                                lista.get(i)==jRadioButtonMon2.getModel()||
+                                lista.get(i)==jRadioButtonMem2.getModel()||
+                                lista.get(i)==jRadioButtonDD2.getModel()){
+                            dos.writeInt(2);
+                        }else if(lista.get(i)==jRadioButtonProc3.getModel()||
+                                lista.get(i)==jRadioButtonMon3.getModel()||
+                                lista.get(i)==jRadioButtonMem3.getModel()||
+                                lista.get(i)==jRadioButtonDD3.getModel()){
+                            dos.writeInt(3);
+                        }else if(lista.get(i)==jRadioButtonProc4.getModel()||
+                                lista.get(i)==jRadioButtonMon4.getModel()||
+                                lista.get(i)==jRadioButtonMem4.getModel()||
+                                lista.get(i)==jRadioButtonDD4.getModel()){
+                            dos.writeInt(4);
+                        }
+
+                    }
+                    lista.clear();
+                    for(int z = 0;z<listachk.size();z++){
+                           dos.writeBoolean(listachk.get(z));
+                    }
+                    listachk.clear();
                 }
-                lista.clear();
-                for(int z = 0;z<listachkbut.size();z++){
-                       dos.writeBoolean(listachk.get(z));
-                }
-                listachk.clear();
+                dos.close();
+                fos.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
             }
-            dos.close();
-            fos.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
+            modelo.clear();
+            datos.limpiar();
+        }else{
+            JOptionPane.showMessageDialog(this, "No hay nada que guardar, está vacío");
         }
         
     }//GEN-LAST:event_jButtonGuardarActionPerformed
@@ -595,23 +621,61 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
     private void jButtonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMostrarActionPerformed
         try {
             // TODO add your handling code here:
-            DataInputStream dis = new DataInputStream(new FileInputStream("datos.svc"));
-            while(true){
-                System.out.println(dis.readUTF());
-                System.out.println(dis.readUTF());
-                System.out.println(dis.readInt());
-                System.out.println(dis.readInt());
-                System.out.println(dis.readInt());
-                System.out.println(dis.readInt());
-                System.out.println(dis.readBoolean());
-                System.out.println(dis.readBoolean());
-                System.out.println(dis.readBoolean());
-                System.out.println(dis.readBoolean());
-            }
+            DataInputStream dis = new DataInputStream(new FileInputStream("datos"));
+            ArrayList<JRadioButton>rblistproc = new ArrayList<>();
+            rblistproc.add( jRadioButtonProc1);
+            rblistproc.add( jRadioButtonProc2);
+            rblistproc.add( jRadioButtonProc3);
+            rblistproc.add( jRadioButtonProc4);
+            ArrayList<JRadioButton>rblistmem = new ArrayList<>();
+            rblistmem.add( jRadioButtonMem1);
+            rblistmem.add( jRadioButtonMem2);
+            rblistmem.add( jRadioButtonMem3);
+            rblistmem.add( jRadioButtonMem4);
+            ArrayList<JRadioButton>rblistmon = new ArrayList<>();
+            rblistmon.add( jRadioButtonMon1);
+            rblistmon.add( jRadioButtonMon2);
+            rblistmon.add( jRadioButtonMon3);
+            rblistmon.add( jRadioButtonMon4);
+            ArrayList<JRadioButton>rblistDD = new ArrayList<>();
+            rblistDD.add(jRadioButtonDD1);
+            rblistDD.add(jRadioButtonDD2);
+            rblistDD.add(jRadioButtonDD3);
+            rblistDD.add(jRadioButtonDD4);
+            
+            int z;
+           do{
+//               System.out.println(dis.readUTF());
+//               System.out.println(dis.readUTF());
+//               System.out.println(dis.readInt());
+//               System.out.println(dis.readInt());
+//               System.out.println(dis.readInt());
+//               System.out.println(dis.readInt());
+//               System.out.println(dis.readBoolean());
+//               System.out.println(dis.readBoolean());
+//               System.out.println(dis.readBoolean());
+//               System.out.println(dis.readBoolean());
+                jTextFieldNomClient.setText(dis.readUTF());
+                jComboBoxLoc.setSelectedItem(dis.readUTF());
+                
+                for(int i=0;i<4;i++){
+                    z = dis.readInt();
+                            switch (i){
+                                case 0: rblistproc.get(z-1).setSelected(true);break;
+                                case 1: rblistmem.get(z-1).setSelected(true);break;
+                                case 2: rblistmon.get(z-1).setSelected(true);break;
+                                case 3: rblistDD.get(z-1).setSelected(true);break;
+                            }             
+                }
+                
+                for(int i= 0;i<listachkbut.size();i++){
+                   listachkbut.get(i).setSelected(dis.readBoolean());
+               }
+            } while(JOptionPane.showConfirmDialog(this, "¿Quieres ver el siguiente?","Datos guardados",JOptionPane.YES_NO_OPTION)==0);
         }catch (EOFException e){
-            System.out.print("se acabó");
+           JOptionPane.showMessageDialog(this, "OUPS, no hay más datos");
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "El fichero no existe");
         } catch (IOException ex) {
             Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
         }

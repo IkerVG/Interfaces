@@ -253,6 +253,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
             }
         });
 
+        jButtonMostrar.setMnemonic('m');
         jButtonMostrar.setText("Mostrar");
         jButtonMostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,6 +261,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
             }
         });
 
+        jButtonGuardar.setMnemonic('g');
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -427,7 +429,20 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         //Salimos de la app
-        System.exit(0);
+        if(!modelo.isEmpty()){
+           int i = JOptionPane.showConfirmDialog(this,"Hay datos sin guardar, ¿Quiere guardar antes de salir?","Salir",JOptionPane.YES_NO_CANCEL_OPTION);
+           if(i == JOptionPane.YES_OPTION){
+               guardar();
+               System.exit(0);
+           }else if(i == JOptionPane.NO_OPTION){
+               System.exit(0);
+           }else if(i == JOptionPane.CANCEL_OPTION){
+               
+           }
+        }else{
+            System.exit(0);
+        }
+        
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jTextFieldNomClientKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomClientKeyPressed
@@ -439,7 +454,6 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
                reinicio();
                jComboBoxLoc.grabFocus();
                jButtonEliminar.setEnabled(false);
-               
            }
         }
     }//GEN-LAST:event_jTextFieldNomClientKeyPressed
@@ -563,7 +577,17 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if(!modelo.isEmpty()){
-            try {
+            guardar();
+            modelo.clear();
+            datos.limpiar();
+        }else{
+            JOptionPane.showMessageDialog(this, "No hay nada que guardar, está vacío");
+        }
+        jTextFieldNomClient.grabFocus();
+        
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+    private void guardar(){
+         try {
                 // TODO add your handling code here:
                 FileOutputStream fos = new FileOutputStream("datos",true);
                 DataOutputStream dos = new DataOutputStream(fos);
@@ -610,18 +634,12 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
             }
-            modelo.clear();
-            datos.limpiar();
-        }else{
-            JOptionPane.showMessageDialog(this, "No hay nada que guardar, está vacío");
-        }
-        
-    }//GEN-LAST:event_jButtonGuardarActionPerformed
-
+    }
     private void jButtonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMostrarActionPerformed
         try {
             // TODO add your handling code here:
             DataInputStream dis = new DataInputStream(new FileInputStream("datos"));
+            listachkbut.addAll(chk());
             ArrayList<JRadioButton>rblistproc = new ArrayList<>();
             rblistproc.add( jRadioButtonProc1);
             rblistproc.add( jRadioButtonProc2);
@@ -668,7 +686,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
                             }             
                 }
                 
-                for(int i= 0;i<listachkbut.size();i++){
+                for(int i= 0;i<4;i++){
                    listachkbut.get(i).setSelected(dis.readBoolean());
                }
             } while(JOptionPane.showConfirmDialog(this, "¿Quieres ver el siguiente?","Datos guardados",JOptionPane.YES_NO_OPTION)==0);
@@ -679,6 +697,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
         }
+        jTextFieldNomClient.grabFocus();
     }//GEN-LAST:event_jButtonMostrarActionPerformed
   
     //Devuelve un array de radio buttons, solo es llamada desde activar

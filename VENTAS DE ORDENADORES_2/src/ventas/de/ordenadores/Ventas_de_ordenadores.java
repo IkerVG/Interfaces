@@ -634,6 +634,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
             }
+         listachkbut.clear();
     }
     private void jButtonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMostrarActionPerformed
         try {
@@ -698,6 +699,7 @@ public class Ventas_de_ordenadores extends javax.swing.JFrame {
             Logger.getLogger(Ventas_de_ordenadores.class.getName()).log(Level.SEVERE, null, ex);
         }
         jTextFieldNomClient.grabFocus();
+        listachkbut.clear();
     }//GEN-LAST:event_jButtonMostrarActionPerformed
   
     //Devuelve un array de radio buttons, solo es llamada desde activar

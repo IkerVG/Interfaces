@@ -6,7 +6,10 @@
 package formulario_con_bd;
 
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +27,7 @@ public class Formulario extends javax.swing.JFrame {
         initComponents();
     }
     Utilidades ut = new Utilidades();
+    Conexion cox = new Conexion();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -272,7 +276,7 @@ public class Formulario extends javax.swing.JFrame {
         jMenu1.add(jSeparator1);
 
         Volver.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
-        Volver.setMnemonic('o');
+        Volver.setMnemonic('r');
         Volver.setText("Volver");
         Volver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -533,6 +537,21 @@ public class Formulario extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null,"Error del campo "+al+"\n"+error_campo,"Error",JOptionPane.ERROR_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(this,"Formulario completado");
+                   try {
+                       cox.Alta(jTextFieldCodigo.getText(),
+                               jTextFieldNIF.getText()+jTextFieldNIF_letra.getText(),
+                               jTextFieldNombre.getText(),
+                               jTextFieldApellidos.getText(),
+                               jTextFieldDomicilio.getText(),
+                               jTextFieldCP.getText(),
+                               jTextFieldLocalidad.getText(),
+                               jTextFieldTelefono.getText(),
+                               jTextFieldMovil.getText(),
+                               jTextFieldFax.getText(),
+                               jTextFieldEmail.getText());
+                   } catch (SQLException ex) {
+                       Logger.getLogger(Formulario.class.getName()).log(Level.SEVERE, null, ex);
+                   }
                     borrar();
                     habilitar(false,1);
                 }
@@ -540,9 +559,21 @@ public class Formulario extends javax.swing.JFrame {
                JOptionPane.showMessageDialog(null,"Todos los campos deben ser rellenados","Error",JOptionPane.ERROR_MESSAGE);
                jTextFieldCodigo.grabFocus();
            }
-        }
-        
-        
+        }else if(this.getTitle().equals("Gestión de almacén Clientes bajas")){
+            if(jTextFieldCodigo.getText()!=null){
+                JOptionPane.showMessageDialog(this, "El campo codigo no puede estar vacio");
+            }else{
+                if(ut.comprobar(jTextFieldCodigo, "Codigo", 1)){
+                    
+                }else{
+                    JOptionPane.showMessageDialog(this,"El campo código solo admite letras y números");
+                    if(cox.Baja(jTextFieldCodigo.getText())){
+                        
+                    }
+                }
+                
+            }
+        }    
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed

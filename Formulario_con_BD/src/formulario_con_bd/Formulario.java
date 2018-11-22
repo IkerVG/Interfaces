@@ -460,7 +460,7 @@ public class Formulario extends javax.swing.JFrame {
     }
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         // TODO add your handling code here:
-        if(this.getTitle().equals("Gestión de almacén Clientes altas")){
+        if(this.getTitle().equals("Gestión de almacén Clientes altas")||this.getTitle().equals("Gestión de almacén Clientes modificaciones")){
             String al = null;
             String error_campo = "";
            if(!(jTextFieldCodigo.getText().equals("")||
@@ -536,22 +536,36 @@ public class Formulario extends javax.swing.JFrame {
                 if(al!= null){
                     JOptionPane.showMessageDialog(null,"Error del campo "+al+"\n"+error_campo,"Error",JOptionPane.ERROR_MESSAGE);
                 }else{
+                    try {
+                         if(this.getTitle().equals("Gestión de almacén Clientes altas")){
+                        cox.Alta(jTextFieldCodigo.getText(),
+                                jTextFieldNIF.getText()+jTextFieldNIF_letra.getText(),
+                                jTextFieldNombre.getText(),
+                                jTextFieldApellidos.getText(),
+                                jTextFieldDomicilio.getText(),
+                                jTextFieldCP.getText(),
+                                jTextFieldLocalidad.getText(),
+                                jTextFieldTelefono.getText(),
+                                jTextFieldMovil.getText(),
+                                jTextFieldFax.getText(),
+                                jTextFieldEmail.getText());
+                         }else if(this.getTitle().equals("Gestión de almacén Clientes modificaciones")){
+                             cox.Modificar(jTextFieldCodigo.getText(),
+                                jTextFieldNIF.getText()+jTextFieldNIF_letra.getText(),
+                                jTextFieldNombre.getText(),
+                                jTextFieldApellidos.getText(),
+                                jTextFieldDomicilio.getText(),
+                                jTextFieldCP.getText(),
+                                jTextFieldLocalidad.getText(),
+                                jTextFieldTelefono.getText(),
+                                jTextFieldMovil.getText(),
+                                jTextFieldFax.getText(),
+                                jTextFieldEmail.getText());
+                         }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Formulario.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     JOptionPane.showMessageDialog(this,"Formulario completado");
-                   try {
-                       cox.Alta(jTextFieldCodigo.getText(),
-                               jTextFieldNIF.getText()+jTextFieldNIF_letra.getText(),
-                               jTextFieldNombre.getText(),
-                               jTextFieldApellidos.getText(),
-                               jTextFieldDomicilio.getText(),
-                               jTextFieldCP.getText(),
-                               jTextFieldLocalidad.getText(),
-                               jTextFieldTelefono.getText(),
-                               jTextFieldMovil.getText(),
-                               jTextFieldFax.getText(),
-                               jTextFieldEmail.getText());
-                   } catch (SQLException ex) {
-                       Logger.getLogger(Formulario.class.getName()).log(Level.SEVERE, null, ex);
-                   }
                     borrar();
                     habilitar(false,1);
                 }
@@ -559,25 +573,19 @@ public class Formulario extends javax.swing.JFrame {
                JOptionPane.showMessageDialog(null,"Todos los campos deben ser rellenados","Error",JOptionPane.ERROR_MESSAGE);
                jTextFieldCodigo.grabFocus();
            }
+        //AHORA HACEMOS LAS BAJAS    
         }else if(this.getTitle().equals("Gestión de almacén Clientes bajas")){
-            if(jTextFieldCodigo.getText()!=null){
-                JOptionPane.showMessageDialog(this, "El campo codigo no puede estar vacio");
-            }else{
-                if(ut.comprobar(jTextFieldCodigo, "Codigo", 1)){
-                    
-                }else{
-                    JOptionPane.showMessageDialog(this,"El campo código solo admite letras y números");
-                    if(cox.Baja(jTextFieldCodigo.getText())){
-                        
-                    }
-                }
-                
+            try { 
+                cox.Baja(jTextFieldCodigo.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(Formulario.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }    
+        }   
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         borrar();
+        habilitar(false,1);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTextFieldCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodigoKeyTyped
@@ -638,7 +646,45 @@ public class Formulario extends javax.swing.JFrame {
     private void jTextFieldCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodigoKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            jTextFieldNIF.grabFocus();
+            if(this.getTitle().equals("Gestión de almacén Clientes altas")){
+                try {
+                    if(!cox.Consultar(jTextFieldCodigo.getText())){
+                        habilitar(true,1);
+                        jTextFieldCodigo.setEnabled(false);
+                        jTextFieldNIF.grabFocus();
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Este usuario ya existe");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Formulario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }else if(this.getTitle().equals("Gestión de almacén Clientes bajas")){
+                  try {
+                    if(cox.Consultar(jTextFieldCodigo.getText())){
+                        habilitar(true,2);
+                        jTextFieldCodigo.setEnabled(false);
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Este usuario no existe");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Formulario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else if(this.getTitle().equals("Gestión de almacén Clientes modificaciones")){
+                try {
+                    if(cox.Consultar(jTextFieldCodigo.getText())){
+                        habilitar(true,1);
+                        jTextFieldCodigo.setEnabled(false);
+                        jTextFieldNIF.grabFocus();
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Este usuario no existe");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Formulario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+               
+            
         }
     }//GEN-LAST:event_jTextFieldCodigoKeyPressed
 
@@ -716,8 +762,9 @@ public class Formulario extends javax.swing.JFrame {
     private void AltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AltasActionPerformed
         // TODO add your handling code here:
         this.setTitle("Gestión de almacén Clientes altas");
-        habilitar(true,1);
+        habilitar(true,0);
         jTextFieldCodigo.grabFocus();
+        
     }//GEN-LAST:event_AltasActionPerformed
 
     private void BajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BajasActionPerformed
@@ -760,6 +807,8 @@ public class Formulario extends javax.swing.JFrame {
             jTextFieldMovil.setEnabled(!b);
             jTextFieldFax.setEnabled(!b);
             jTextFieldEmail.setEnabled(!b);
+           
+        }else if(i == 2){
             jButtonAceptar.setEnabled(b);
             jButtonCancelar.setEnabled(b);
         }

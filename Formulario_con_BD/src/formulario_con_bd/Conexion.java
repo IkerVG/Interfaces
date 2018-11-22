@@ -37,36 +37,41 @@ public class Conexion {
     }
     public boolean Consultar (String codigo) throws SQLException{
         ResultSet rs = null;
-        String sql = "SELECT * FROM CLIENTES WHERE Codigo = '"+codigo+"'";
+        String sql = "SELECT * FROM Clientes WHERE CodigoCli = '"+codigo+"'";
         rs = stmt.executeQuery(sql);
-        if(rs!=null){
+        boolean b = rs.next();
+        if(b== true){
            return  true;
         }else{
             return false;
         }
     }
-    public boolean Alta(String codigo,String nif,String nombre,String apellidos,String domicilio, String CP, String localidad, String tel, String mov, String fax, String email) throws SQLException{
-        int rs;
-        boolean res = false;
-        if(!Consultar(codigo)){
-            String sql = "INSER INTO Clientes (CodigoCli,NIF,Nombre,Apellidos,Domicilio,CP,Localidad,Telefono,Movil,Fax,Email) "
+    public void Alta(String codigo,String nif,String nombre,String apellidos,String domicilio, String CP, String localidad, String tel, String mov, String fax, String email) throws SQLException{
+            String sql = "INSERT INTO Clientes (CodigoCli,NIF,Nombre,Apellidos,Domicilio,CP,Localidad,Telefono,Movil,Fax,Email) "
                     + "VALUES ('"+codigo+"','"+nif+"','"+nombre+"','"+apellidos+"','"+domicilio+"',"
                     + "'"+CP+"','"+localidad+"','"+tel+"','"+mov+"','"+fax+"','"+email+"')";
-            rs = stmt.executeUpdate(sql);
-            con.commit();
-            res = true;
-        }
-        return res;
+           stmt.executeUpdate(sql);
+           con.commit();
     }
-    public boolean Baja(String codigo) throws SQLException{
-        if(Consultar(codigo)){
-            return true;
-        }else{
-            return false;
-        }
-        
+    public void Baja(String codigo) throws SQLException{
+       String sql = "DELETE FROM Clientes WHERE CodigoCli = '"+codigo+"'";
+       stmt.executeUpdate(sql);
+       con.commit();
     }
-    public void Modificar(){
-        
+    public void Modificar(String codigo,String nif,String nombre,String apellidos,String domicilio, String CP, String localidad, String tel, String mov, String fax, String email) throws SQLException{
+        String sql = "UPDATE Clientes SET "
+                + "NIF = '"+nif+"'"
+                + ", Nombre = '"+nombre+"'"
+                + ", Apellidos = '"+apellidos+"'"
+                + ", Domicilio = '"+domicilio+"'"
+                + ", CP = '"+CP+"'"
+                + ", Localidad = '"+localidad+"'"
+                + ", Telefono = '"+tel+"'"
+                + ", Movil = '"+mov+"'"
+                + ", Fax = '"+fax+"'"
+                + ", Email = '"+email+"' "
+                + "WHERE CodigoCli = '"+codigo+"'";
+        stmt.executeUpdate(sql);
+        con.commit();
     }
 }

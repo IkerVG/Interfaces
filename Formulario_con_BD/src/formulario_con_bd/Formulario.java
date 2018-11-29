@@ -6,6 +6,7 @@
 package formulario_con_bd;
 
 import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -568,6 +569,8 @@ public class Formulario extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this,"Formulario completado");
                     borrar();
                     habilitar(false,1);
+                    jTextFieldCodigo.setEnabled(true);
+                    jTextFieldCodigo.grabFocus();
                 }
            }else{
                JOptionPane.showMessageDialog(null,"Todos los campos deben ser rellenados","Error",JOptionPane.ERROR_MESSAGE);
@@ -576,7 +579,15 @@ public class Formulario extends javax.swing.JFrame {
         //AHORA HACEMOS LAS BAJAS    
         }else if(this.getTitle().equals("Gestión de almacén Clientes bajas")){
             try { 
-                cox.Baja(jTextFieldCodigo.getText());
+                if(JOptionPane.showConfirmDialog(this, "¿Está seguro de que quiere eliminar este registro?","Modificar registro",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
+                    cox.Baja(jTextFieldCodigo.getText());
+                    JOptionPane.showMessageDialog(this, "El registro ha sido eliminado");
+                    borrar();
+                    habilitar(false,1);
+                    jTextFieldCodigo.setEnabled(true);
+                    jTextFieldCodigo.grabFocus();
+                }
+                
             } catch (SQLException ex) {
                 Logger.getLogger(Formulario.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -586,6 +597,8 @@ public class Formulario extends javax.swing.JFrame {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         borrar();
         habilitar(false,1);
+        jTextFieldCodigo.setEnabled(true);
+        jTextFieldCodigo.grabFocus();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTextFieldCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodigoKeyTyped
@@ -646,9 +659,11 @@ public class Formulario extends javax.swing.JFrame {
     private void jTextFieldCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodigoKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            ut.ceros(jTextFieldCodigo, 6);
+            String code = jTextFieldCodigo.getText();
             if(this.getTitle().equals("Gestión de almacén Clientes altas")){
                 try {
-                    if(!cox.Consultar(jTextFieldCodigo.getText())){
+                    if(!cox.Consultar(code)){
                         habilitar(true,1);
                         jTextFieldCodigo.setEnabled(false);
                         jTextFieldNIF.grabFocus();
@@ -661,8 +676,9 @@ public class Formulario extends javax.swing.JFrame {
                 
             }else if(this.getTitle().equals("Gestión de almacén Clientes bajas")){
                   try {
-                    if(cox.Consultar(jTextFieldCodigo.getText())){
+                    if(cox.Consultar(code)){
                         habilitar(true,2);
+                        consultar(code);
                         jTextFieldCodigo.setEnabled(false);
                     }else{
                         JOptionPane.showMessageDialog(this, "Este usuario no existe");
@@ -672,10 +688,12 @@ public class Formulario extends javax.swing.JFrame {
                 }
             }else if(this.getTitle().equals("Gestión de almacén Clientes modificaciones")){
                 try {
-                    if(cox.Consultar(jTextFieldCodigo.getText())){
+                    if(cox.Consultar(code)){
                         habilitar(true,1);
                         jTextFieldCodigo.setEnabled(false);
                         jTextFieldNIF.grabFocus();
+                        consultar(code);
+                        
                     }else{
                         JOptionPane.showMessageDialog(this, "Este usuario no existe");
                     }
@@ -687,7 +705,21 @@ public class Formulario extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_jTextFieldCodigoKeyPressed
-
+    private void consultar(String code) throws SQLException{
+        ResultSet rs= cox.obtener(code);
+                        rs.next();
+                        jTextFieldNIF.setText(rs.getString("NIF").substring(0,8));
+                        jTextFieldNIF_letra.setText(rs.getString("NIF").substring(8));
+                        jTextFieldNombre.setText(rs.getString("Nombre"));
+                        jTextFieldApellidos.setText(rs.getString("Apellidos"));
+                        jTextFieldDomicilio.setText(rs.getString("Domicilio"));
+                        jTextFieldCP.setText(rs.getString("CP"));
+                        jTextFieldLocalidad.setText(rs.getString("Localidad"));
+                        jTextFieldTelefono.setText(rs.getString("Telefono"));
+                        jTextFieldFax.setText(rs.getString("Fax"));
+                        jTextFieldMovil.setText(rs.getString("Movil"));
+                        jTextFieldEmail.setText(rs.getString("Email"));
+    }
     private void jTextFieldNIFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNIFKeyPressed
         // TODO add your handling code here:
         int e = evt.getKeyCode();

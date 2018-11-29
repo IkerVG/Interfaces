@@ -74,4 +74,8 @@ public class Conexion {
         stmt.executeUpdate(sql);
         con.commit();
     }
+    public ResultSet obtener (String codigo) throws SQLException{
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Clientes WHERE CodigoCli = '"+codigo+"'");
+        return rs;
+    }
 }

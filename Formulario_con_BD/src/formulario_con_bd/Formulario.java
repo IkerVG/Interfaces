@@ -708,6 +708,7 @@ public class Formulario extends javax.swing.JFrame {
     private void consultar(String code) throws SQLException{
         ResultSet rs= cox.obtener(code);
                         rs.next();
+             
                         jTextFieldNIF.setText(rs.getString("NIF").substring(0,8));
                         jTextFieldNIF_letra.setText(rs.getString("NIF").substring(8));
                         jTextFieldNombre.setText(rs.getString("Nombre"));

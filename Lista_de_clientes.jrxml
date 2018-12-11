@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Lista_de_clientes" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="54c128e9-c149-4001-99a0-c04f2137582d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM Clientes]]>
+	</queryString>
+	<field name="CodigoCli" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Apellidos" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="CodigoCli">
+		<groupExpression><![CDATA[$F{CodigoCli}]]></groupExpression>
+	</group>
+	<group name="Apellidos">
+		<groupExpression><![CDATA[$F{Apellidos}]]></groupExpression>
+	</group>
+	<group name="Nombre">
+		<groupExpression><![CDATA[$F{Nombre}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="107" y="25" width="358" height="54" uuid="17e527c0-7e0a-4daf-b603-b8878a3b2341"/>
+				<textElement>
+					<font size="36" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Clientes]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="43" y="0" width="109" height="20" uuid="3b251ea3-2a00-40c5-a98c-10f204c9104b"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="43" height="20" uuid="17dd6fac-d945-41a2-bd66-3baa2643c021"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="391" y="0" width="164" height="20" uuid="e9f0af75-10b4-48cd-8701-540cc117e4b5"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de "+$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="22" y="25" width="67" height="20" uuid="de432f3e-af53-4688-86d6-f85e38e5c786"/>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="139" y="25" width="100" height="20" uuid="50079595-30ef-42af-a5d2-6b0ecad43306"/>
+				<text><![CDATA[Apellidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="303" y="25" width="100" height="20" uuid="d7cba889-d51a-48d4-b171-0a7792bf7fc7"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="445" y="25" width="90" height="20" uuid="2763d508-17f8-4351-92d2-2e4f37808218"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="22" y="10" width="67" height="20" uuid="54622670-6efe-4f74-b310-3461a0b25d78"/>
+				<textFieldExpression><![CDATA[$F{CodigoCli}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="10" width="100" height="20" uuid="6567d30f-2926-4ae9-9a49-2299acce2c2d"/>
+				<textFieldExpression><![CDATA[$F{Apellidos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="303" y="10" width="100" height="20" uuid="df9d870c-6839-4d80-bd7b-b540502dd009"/>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="445" y="10" width="90" height="20" uuid="604a69f8-2093-461e-abff-3fbb21934ede"/>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

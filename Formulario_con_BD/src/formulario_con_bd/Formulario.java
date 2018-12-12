@@ -66,6 +66,7 @@ public class Formulario extends javax.swing.JFrame {
         jTextFieldTotal = new javax.swing.JTextField();
         jButtonAceptar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
+        jButtonSalir = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         Altas = new javax.swing.JMenuItem();
@@ -73,8 +74,8 @@ public class Formulario extends javax.swing.JFrame {
         Modificaciones = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         Volver = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuConsulta = new javax.swing.JMenu();
+        jMenuItemConsultaPorCodigo = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -242,6 +243,14 @@ public class Formulario extends javax.swing.JFrame {
             }
         });
 
+        jButtonSalir.setText("Salir");
+        jButtonSalir.setEnabled(false);
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
+
         jMenu1.setMnemonic('m');
         jMenu1.setText("Mantenimiento");
 
@@ -288,13 +297,18 @@ public class Formulario extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setMnemonic('o');
-        jMenu2.setText("Consulta");
+        jMenuConsulta.setMnemonic('o');
+        jMenuConsulta.setText("Consulta");
 
-        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem5.setMnemonic('p');
-        jMenuItem5.setText("Por código");
-        jMenu2.add(jMenuItem5);
+        jMenuItemConsultaPorCodigo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemConsultaPorCodigo.setMnemonic('p');
+        jMenuItemConsultaPorCodigo.setText("Por código");
+        jMenuItemConsultaPorCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemConsultaPorCodigoActionPerformed(evt);
+            }
+        });
+        jMenuConsulta.add(jMenuItemConsultaPorCodigo);
 
         jMenu3.setMnemonic('l');
         jMenu3.setText("Listado");
@@ -314,9 +328,9 @@ public class Formulario extends javax.swing.JFrame {
         jMenuItem8.setText("Gráficos");
         jMenu3.add(jMenuItem8);
 
-        jMenu2.add(jMenu3);
+        jMenuConsulta.add(jMenu3);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenuConsulta);
 
         setJMenuBar(jMenuBar1);
 
@@ -327,48 +341,50 @@ public class Formulario extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextFieldApellidos)
-                        .addComponent(jTextFieldDomicilio)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelCodigo)
-                                .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabelNIF)
-                                    .addGap(55, 55, 55))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jTextFieldNIF, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldNIF_letra, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(14, 14, 14)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelNombre)
-                                .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jLabelApellidos)
-                        .addComponent(jLabelDomicilio)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelCP)
-                                .addComponent(jTextFieldCP, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelLocalidad)
-                                .addComponent(jTextFieldLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelTelefono)
-                                .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelMovil)
-                                .addComponent(jTextFieldMovil, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelFax)
-                                .addComponent(jTextFieldFax, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldApellidos)
+                            .addComponent(jTextFieldDomicilio)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelCodigo)
+                                    .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabelNIF)
+                                        .addGap(55, 55, 55))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jTextFieldNIF, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldNIF_letra, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(14, 14, 14)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelNombre)
+                                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabelApellidos)
+                            .addComponent(jLabelDomicilio)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelCP)
+                                    .addComponent(jTextFieldCP, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelLocalidad)
+                                    .addComponent(jTextFieldLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelTelefono)
+                                    .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelMovil)
+                                    .addComponent(jTextFieldMovil, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelFax)
+                                    .addComponent(jTextFieldFax, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelEmail)
@@ -382,8 +398,11 @@ public class Formulario extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonAceptar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancelar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonCancelar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonSalir)
+                        .addGap(12, 12, 12)))
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
@@ -437,7 +456,8 @@ public class Formulario extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAceptar)
-                    .addComponent(jButtonCancelar))
+                    .addComponent(jButtonCancelar)
+                    .addComponent(jButtonSalir))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -470,10 +490,7 @@ public class Formulario extends javax.swing.JFrame {
               jTextFieldApellidos.getText().equals("")||
               jTextFieldDomicilio.getText().equals("")||
               jTextFieldCP.getText().equals("")||
-              jTextFieldTelefono.getText().equals("")||
               jTextFieldLocalidad.getText().equals("")||
-              jTextFieldMovil.getText().equals("")||
-              jTextFieldFax.getText().equals("")||
               jTextFieldEmail.getText().equals(""))){
 
                String tlf = "Este campo es exclusivamente numérico y debe tener 9 cifras";
@@ -686,7 +703,8 @@ public class Formulario extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(Formulario.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }else if(this.getTitle().equals("Gestión de almacén Clientes modificaciones")){
+            }else if(this.getTitle().equals("Gestión de almacén Clientes modificaciones")||
+                    this.getTitle().equals("Gestión de almacén Clientes consultas")){
                 try {
                     if(cox.Consultar(code)){
                         habilitar(true,1);
@@ -797,6 +815,7 @@ public class Formulario extends javax.swing.JFrame {
         this.setTitle("Gestión de almacén Clientes altas");
         habilitar(true,0);
         jTextFieldCodigo.grabFocus();
+        hab_menu(false);
         
     }//GEN-LAST:event_AltasActionPerformed
 
@@ -804,15 +823,32 @@ public class Formulario extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setTitle("Gestión de almacén Clientes bajas");
         habilitar(true,0);
+        hab_menu(false);
         jTextFieldCodigo.grabFocus();
     }//GEN-LAST:event_BajasActionPerformed
 
     private void ModificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificacionesActionPerformed
         // TODO add your handling code here:
         this.setTitle("Gestión de almacén Clientes modificaciones");
+         hab_menu(false);
         habilitar(true,0);
         jTextFieldCodigo.grabFocus();
     }//GEN-LAST:event_ModificacionesActionPerformed
+
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        // TODO add your handling code here:
+        habilitar(false,1);
+        jButtonSalir.setEnabled(false);
+        this.setTitle("Gestión de almacén Clientes");
+        hab_menu(true);
+    }//GEN-LAST:event_jButtonSalirActionPerformed
+
+    private void jMenuItemConsultaPorCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConsultaPorCodigoActionPerformed
+        // TODO add your handling code here:
+        jTextFieldCodigo.setEnabled(true);
+        this.setTitle("Gestión de almacén Clientes consultas");
+        hab_menu(false);
+    }//GEN-LAST:event_jMenuItemConsultaPorCodigoActionPerformed
     private void habilitar(boolean b, int i){
         if(i == 1){
             jTextFieldCodigo.setEnabled(b);
@@ -845,6 +881,13 @@ public class Formulario extends javax.swing.JFrame {
             jButtonAceptar.setEnabled(b);
             jButtonCancelar.setEnabled(b);
         }
+    }
+    public void hab_menu(boolean b){
+        Altas.setEnabled(b);
+        Bajas.setEnabled(b);
+        Modificaciones.setEnabled(b);
+        jButtonSalir.setEnabled(!b);
+        jMenuConsulta.setEnabled(b);
     }
     /**
      * @param args the command line arguments
@@ -895,6 +938,7 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JMenuItem Volver;
     private javax.swing.JButton jButtonAceptar;
     private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonSalir;
     private javax.swing.JLabel jLabelApellidos;
     private javax.swing.JLabel jLabelCP;
     private javax.swing.JLabel jLabelCodigo;
@@ -908,13 +952,13 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTelefono;
     private javax.swing.JLabel jLabelTotal;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenu jMenuConsulta;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItemConsultaPorCodigo;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTextField jTextFieldApellidos;
     private javax.swing.JTextField jTextFieldCP;

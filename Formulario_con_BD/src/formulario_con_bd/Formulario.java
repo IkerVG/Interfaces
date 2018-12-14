@@ -316,6 +316,11 @@ public class Formulario extends javax.swing.JFrame {
         jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem6.setMnemonic('p');
         jMenuItem6.setText("Por código");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem6);
 
         jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -326,6 +331,11 @@ public class Formulario extends javax.swing.JFrame {
         jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem8.setMnemonic('g');
         jMenuItem8.setText("Gráficos");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem8);
 
         jMenuConsulta.add(jMenu3);
@@ -596,13 +606,16 @@ public class Formulario extends javax.swing.JFrame {
         //AHORA HACEMOS LAS BAJAS    
         }else if(this.getTitle().equals("Gestión de almacén Clientes bajas")){
             try { 
-                if(JOptionPane.showConfirmDialog(this, "¿Está seguro de que quiere eliminar este registro?","Modificar registro",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
-                    cox.Baja(jTextFieldCodigo.getText());
-                    JOptionPane.showMessageDialog(this, "El registro ha sido eliminado");
+               int res = JOptionPane.showConfirmDialog(this, "¿Está seguro de que quiere eliminar este registro?","Modificar registro",JOptionPane.YES_NO_OPTION);
+                if(res == JOptionPane.YES_OPTION||res==JOptionPane.NO_OPTION){
                     borrar();
                     habilitar(false,1);
                     jTextFieldCodigo.setEnabled(true);
                     jTextFieldCodigo.grabFocus();
+                    if(res == JOptionPane.YES_OPTION){
+                        cox.Baja(jTextFieldCodigo.getText());
+                        JOptionPane.showMessageDialog(this, "El registro ha sido eliminado");
+                    } 
                 }
                 
             } catch (SQLException ex) {
@@ -703,13 +716,23 @@ public class Formulario extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(Formulario.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }else if(this.getTitle().equals("Gestión de almacén Clientes modificaciones")||
-                    this.getTitle().equals("Gestión de almacén Clientes consultas")){
+            }else if(this.getTitle().equals("Gestión de almacén Clientes modificaciones")){
                 try {
                     if(cox.Consultar(code)){
                         habilitar(true,1);
                         jTextFieldCodigo.setEnabled(false);
                         jTextFieldNIF.grabFocus();
+                        consultar(code);
+                        
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Este usuario no existe");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Formulario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else if(this.getTitle().equals("Gestión de almacén Clientes consultas")){
+                try {
+                    if(cox.Consultar(code)){
                         consultar(code);
                         
                     }else{
@@ -849,6 +872,16 @@ public class Formulario extends javax.swing.JFrame {
         this.setTitle("Gestión de almacén Clientes consultas");
         hab_menu(false);
     }//GEN-LAST:event_jMenuItemConsultaPorCodigoActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+
+        Conexion.ejecutarInforme().setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+
+        Conexion.ejecutarInformeGrafico().setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
     private void habilitar(boolean b, int i){
         if(i == 1){
             jTextFieldCodigo.setEnabled(b);

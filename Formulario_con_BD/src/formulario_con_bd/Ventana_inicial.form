@@ -60,8 +60,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
-            <Property name="mnemonic" type="int" value="99"/>
-            <Property name="text" type="java.lang.String" value="Consulta"/>
+            <Property name="mnemonic" type="int" value="97"/>
+            <Property name="text" type="java.lang.String" value="Almac&#xe9;n"/>
+            <Property name="actionCommand" type="java.lang.String" value="Almacen"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">

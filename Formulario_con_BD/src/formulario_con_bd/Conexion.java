@@ -138,15 +138,38 @@ public class Conexion {
             }
             JasperReport informeCargado = null;
             try {
-                System.out.println("1");
                 informeCargado = (JasperReport) JRLoader.loadObjectFromFile(archivoJasper);
-                System.out.println("2");
             } catch (Exception e) {
                 System.out.println("Error al cargar el informe: " + e.getMessage());
             }
             JasperPrint informe = JasperFillManager.fillReport(informeCargado, null, con);
             vistaInforme = new JasperViewer(informe, false);
             vistaInforme.setTitle("Ejemplo de iReport");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return vistaInforme;
+    }
+     public  static JasperViewer ejecutarInformeEC(String uno,String dos) {
+            JasperViewer vistaInforme = null;
+        try {
+            File archivoJasper = new File(System.getProperty("user.dir") + ("/dist/report4.jasper"));
+            if (archivoJasper == null) {
+                System.out.println("El archivo report1.jasper no está en /dist.");
+            }
+            // Se crea un objeto para cargar el informe.
+            JasperReport informeCargado = null;
+            try {
+                informeCargado = (JasperReport) JRLoader.loadObject(archivoJasper);
+            } catch (Exception e) {
+                System.out.println("Error al cargar el informe: " + e.getMessage());
+            }
+            Map parametro = new HashMap();
+            parametro.put("codigoMenor", uno);
+            parametro.put("codigoMayor", dos);
+            JasperPrint informe = JasperFillManager.fillReport(informeCargado, parametro, con);
+            vistaInforme = new JasperViewer(informe, false);
+            vistaInforme.setTitle("Listado de los codigos entre parametros");
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }

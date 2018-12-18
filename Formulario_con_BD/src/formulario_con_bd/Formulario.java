@@ -243,6 +243,7 @@ public class Formulario extends javax.swing.JFrame {
             }
         });
 
+        jButtonSalir.setMnemonic('s');
         jButtonSalir.setText("Salir");
         jButtonSalir.setEnabled(false);
         jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -326,6 +327,11 @@ public class Formulario extends javax.swing.JFrame {
         jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem7.setMnemonic('e');
         jMenuItem7.setText("Entre códigos");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem7);
 
         jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -500,32 +506,42 @@ public class Formulario extends javax.swing.JFrame {
               jTextFieldApellidos.getText().equals("")||
               jTextFieldDomicilio.getText().equals("")||
               jTextFieldCP.getText().equals("")||
-              jTextFieldLocalidad.getText().equals("")||
-              jTextFieldEmail.getText().equals(""))){
+              jTextFieldLocalidad.getText().equals(""))){
 
                String tlf = "Este campo es exclusivamente numérico y debe tener 9 cifras";
-
-                if( ut.comprobar(jTextFieldEmail, "Email",0)){
+               if(!jTextFieldEmail.getText().equals("")){
+                    if( ut.comprobar(jTextFieldEmail, "Email",0)){
                  al = jLabelEmail.getText();
                     jTextFieldEmail.grabFocus();
                      error_campo = "Este campo solo admite letras y '_'\n el formato debe ser xxxx@xxx.xx";
                 }
-                 if(ut.comprobar(jTextFieldFax,"Numero",9)){
-                    al = jLabelFax.getText();
-                    jTextFieldFax.grabFocus();
-                     error_campo = tlf;
+               }
+               
+                if(!jTextFieldFax.getText().equals("")){
+                    if(ut.comprobar(jTextFieldFax,"Numero",9)){
+                         
+                        al = jLabelFax.getText();
+                        jTextFieldFax.grabFocus();
+                        error_campo = tlf;
+                   }
                 }
 
-                if(ut.comprobar(jTextFieldMovil,"Numero",9)){
-                    al = jLabelMovil.getText();
-                    jTextFieldMovil.grabFocus();
-                     error_campo = tlf;
+                if(!jTextFieldMovil.getText().equals("")){
+                    if(ut.comprobar(jTextFieldMovil,"Numero",9)){
+                         
+                        al = jTextFieldMovil.getText();
+                        jTextFieldMovil.grabFocus();
+                        error_campo = tlf;
+                   }
                 }
-                if(ut.comprobar(jTextFieldTelefono,"Numero",9)){
-                    al = jLabelTelefono.getText();
-                    jTextFieldTelefono.grabFocus();
-                     error_campo = tlf;
-                 }
+                if(!jTextFieldTelefono.getText().equals("")){
+                    if(ut.comprobar(jTextFieldTelefono,"Numero",9)){
+                         
+                        al = jTextFieldTelefono.getText();
+                       jTextFieldTelefono.grabFocus();
+                        error_campo = tlf;
+                   }
+                }
                 if(ut.comprobar(jTextFieldLocalidad,"Apellidos",0)){
                   al = jLabelLocalidad.getText();
                   jTextFieldLocalidad.grabFocus();
@@ -600,7 +616,7 @@ public class Formulario extends javax.swing.JFrame {
                     jTextFieldCodigo.grabFocus();
                 }
            }else{
-               JOptionPane.showMessageDialog(null,"Todos los campos deben ser rellenados","Error",JOptionPane.ERROR_MESSAGE);
+               JOptionPane.showMessageDialog(null,"Hay que rellenar todos los campos salvo telefono, movil, fax y email","Error",JOptionPane.ERROR_MESSAGE);
                jTextFieldCodigo.grabFocus();
            }
         //AHORA HACEMOS LAS BAJAS    
@@ -608,14 +624,14 @@ public class Formulario extends javax.swing.JFrame {
             try { 
                int res = JOptionPane.showConfirmDialog(this, "¿Está seguro de que quiere eliminar este registro?","Modificar registro",JOptionPane.YES_NO_OPTION);
                 if(res == JOptionPane.YES_OPTION||res==JOptionPane.NO_OPTION){
-                    borrar();
                     habilitar(false,1);
                     jTextFieldCodigo.setEnabled(true);
                     jTextFieldCodigo.grabFocus();
                     if(res == JOptionPane.YES_OPTION){
                         cox.Baja(jTextFieldCodigo.getText());
                         JOptionPane.showMessageDialog(this, "El registro ha sido eliminado");
-                    } 
+                    }
+                    borrar();
                 }
                 
             } catch (SQLException ex) {
@@ -862,6 +878,7 @@ public class Formulario extends javax.swing.JFrame {
         // TODO add your handling code here:
         habilitar(false,1);
         jButtonSalir.setEnabled(false);
+        borrar();
         this.setTitle("Gestión de almacén Clientes");
         hab_menu(true);
     }//GEN-LAST:event_jButtonSalirActionPerformed
@@ -882,6 +899,15 @@ public class Formulario extends javax.swing.JFrame {
 
         Conexion.ejecutarInformeGrafico().setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        entre_code ec = new entre_code(this);
+        this.setEnabled(false);
+        ec.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
     private void habilitar(boolean b, int i){
         if(i == 1){
             jTextFieldCodigo.setEnabled(b);

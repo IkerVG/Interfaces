@@ -79,8 +79,9 @@ public class Ventana_inicial extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setMnemonic('c');
-        jMenu2.setText("Consulta");
+        jMenu2.setMnemonic('a');
+        jMenu2.setText("Almacén");
+        jMenu2.setActionCommand("Almacen");
 
         jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem5.setMnemonic('p');

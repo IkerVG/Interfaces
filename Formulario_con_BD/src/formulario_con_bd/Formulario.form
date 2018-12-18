@@ -106,6 +106,9 @@
                     <Property name="mnemonic" type="int" value="101"/>
                     <Property name="text" type="java.lang.String" value="Entre c&#xf3;digos"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem7ActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem8">
                   <Properties>
@@ -504,6 +507,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonSalir">
       <Properties>
+        <Property name="mnemonic" type="int" value="115"/>
         <Property name="text" type="java.lang.String" value="Salir"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>

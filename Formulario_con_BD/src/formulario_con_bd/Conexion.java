@@ -83,7 +83,29 @@ public class Conexion {
         ResultSet rs = stmt.executeQuery("SELECT * FROM Clientes WHERE CodigoCli = '" + codigo + "'");
         return rs;
     }
-
+     /*
+    **************************************************************************
+     ~~~~~~~~~~~~~~~LO MISMO PARA ARTICULOS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    **************************************************************************
+    */
+    public boolean ConsultarArt (String codigo) throws SQLException{
+        ResultSet rs = null;
+        String sql = "SELECT * FROM Articulos WHERE CodigoArt = '"+codigo+"'";
+        rs = stmt.executeQuery(sql);
+        boolean b = rs.next();
+        if(b== true){
+           return  true;
+        }else{
+            return false;
+        }
+    }
+    /*
+    **************************************************************************
+    --------------------------------------------------------------------------
+     ~~~~~~~~~~~~~~~DE AQUÍ EN ADELANTE ESTÁN LOS JASPER~~~~~~~~~~~~~~~~~~~~~~
+    --------------------------------------------------------------------------
+    **************************************************************************
+    */
     public static JasperViewer ejecutarInforme() {
         /* Se crea el objeto JasperViewer que devolverá el método.
          * Este objeto contendrá la ventana de la vista previa del informe. */

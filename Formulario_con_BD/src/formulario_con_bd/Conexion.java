@@ -99,6 +99,10 @@ public class Conexion {
             return false;
         }
     }
+       public ResultSet obtenerArt(String codigo) throws SQLException {
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Articulos WHERE CodigoArt = '" + codigo + "'");
+        return rs;
+    }
     /*
     **************************************************************************
     --------------------------------------------------------------------------

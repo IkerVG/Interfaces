@@ -81,6 +81,7 @@ public class Pedidos extends javax.swing.JFrame {
         jButtonSalir = new javax.swing.JButton();
         jButtonCancelarPedido = new javax.swing.JButton();
         jButtonCancelartodo = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuCliente = new javax.swing.JMenuItem();
@@ -108,14 +109,6 @@ public class Pedidos extends javax.swing.JFrame {
         jLabelNIF.setText("N.I.F.");
 
         jTextFieldNIF.setEnabled(false);
-        jTextFieldNIF.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextFieldNIFKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldNIFKeyTyped(evt);
-            }
-        });
 
         jTextFieldNIF_letra.setEditable(false);
         jTextFieldNIF_letra.setToolTipText("");
@@ -124,108 +117,39 @@ public class Pedidos extends javax.swing.JFrame {
         jLabelNombre.setText("Nombre");
 
         jTextFieldNombre.setEnabled(false);
-        jTextFieldNombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextFieldNombreKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldNombreKeyTyped(evt);
-            }
-        });
 
         jLabelApellidos.setText("Apellidos");
 
         jTextFieldApellidos.setToolTipText("");
         jTextFieldApellidos.setEnabled(false);
-        jTextFieldApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextFieldApellidosKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldApellidosKeyTyped(evt);
-            }
-        });
 
         jLabelDomicilio.setText("Domicilio");
 
         jTextFieldDomicilio.setEnabled(false);
-        jTextFieldDomicilio.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextFieldDomicilioKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldDomicilioKeyTyped(evt);
-            }
-        });
 
         jLabelCP.setText("C.P.");
 
         jTextFieldCP.setEnabled(false);
-        jTextFieldCP.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextFieldCPKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldCPKeyTyped(evt);
-            }
-        });
 
         jLabelLocalidad.setText("Localidad");
 
         jTextFieldLocalidad.setEnabled(false);
-        jTextFieldLocalidad.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextFieldLocalidadKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldLocalidadKeyTyped(evt);
-            }
-        });
 
         jLabelTelefono.setText("Teléfono");
 
         jTextFieldTelefono.setEnabled(false);
-        jTextFieldTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextFieldTelefonoKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldTelefonoKeyTyped(evt);
-            }
-        });
 
         jLabelMovil.setText("Móvil");
 
         jTextFieldMovil.setEnabled(false);
-        jTextFieldMovil.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextFieldMovilKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldMovilKeyTyped(evt);
-            }
-        });
 
         jLabelFax.setText("Fax");
 
         jTextFieldFax.setEnabled(false);
-        jTextFieldFax.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextFieldFaxKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldFaxKeyTyped(evt);
-            }
-        });
 
         jLabelEmail.setText("Email");
 
         jTextFieldEmail.setEnabled(false);
-        jTextFieldEmail.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldEmailKeyTyped(evt);
-            }
-        });
 
         jLabelTotal.setText("Total");
 
@@ -238,6 +162,9 @@ public class Pedidos extends javax.swing.JFrame {
 
         jTextFieldArticulo.setEnabled(false);
         jTextFieldArticulo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldArticuloKeyTyped(evt);
+            }
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldArticuloKeyPressed(evt);
             }
@@ -250,6 +177,11 @@ public class Pedidos extends javax.swing.JFrame {
         jLabelUnidades.setText("Unidades");
 
         jTextFieldUnidades.setEnabled(false);
+        jTextFieldUnidades.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldUnidadesKeyReleased(evt);
+            }
+        });
 
         Stock.setText("Stock");
 
@@ -279,10 +211,22 @@ public class Pedidos extends javax.swing.JFrame {
         jButtonCancelarPedido.setMnemonic('c');
         jButtonCancelarPedido.setText("Cancelar pedido");
         jButtonCancelarPedido.setEnabled(false);
+        jButtonCancelarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarPedidoActionPerformed(evt);
+            }
+        });
 
         jButtonCancelartodo.setMnemonic('o');
         jButtonCancelartodo.setText("Cancelar todo");
         jButtonCancelartodo.setEnabled(false);
+        jButtonCancelartodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelartodoActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("...");
 
         jMenu2.setMnemonic('p');
         jMenu2.setText("Pedidos");
@@ -395,38 +339,40 @@ public class Pedidos extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabelUnidades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jTextFieldUnidades)))
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldDescripcion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Stock)
+                                    .addComponent(jTextFieldStock, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(45, 45, 45)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelPrecio)
+                                    .addComponent(jTextFieldPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(38, 38, 38)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelImporte)
+                                    .addComponent(jTextFieldImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelDescripcion)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(Stock)
-                                            .addComponent(jTextFieldStock, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(45, 45, 45)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabelPrecio)
-                                            .addComponent(jTextFieldPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(38, 38, 38)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabelImporte)
-                                            .addComponent(jTextFieldImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonCancelarPedido)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancelartodo)))
-                .addContainerGap())
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButtonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtonCancelarPedido)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonCancelartodo)
+                                .addContainerGap())))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,7 +414,7 @@ public class Pedidos extends javax.swing.JFrame {
                     .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldMovil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldFax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelEmail)
                     .addComponent(jLabelTotal))
@@ -485,7 +431,8 @@ public class Pedidos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1)
+                    .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelUnidades)
@@ -498,15 +445,15 @@ public class Pedidos extends javax.swing.JFrame {
                     .addComponent(jTextFieldStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAceptar)
                     .addComponent(jButtonSalir))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelarPedido)
                     .addComponent(jButtonCancelartodo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -526,61 +473,17 @@ public class Pedidos extends javax.swing.JFrame {
         jTextFieldFax.setText("");
         jTextFieldEmail.setText("");
         jTextFieldCodigo.grabFocus();
+        jTextFieldArticulo.setText("");
+        jTextFieldUnidades.setText("");
+        jTextFieldStock.setText("");
+        jTextFieldDescripcion.setText("");
+        jTextFieldPrecio.setText("");
+        jTextFieldImporte.setText("");
     }
     private void jTextFieldCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodigoKeyTyped
         // TODO add your handling code here:
         ut.num_carac(jTextFieldCodigo,6, evt);
     }//GEN-LAST:event_jTextFieldCodigoKeyTyped
-
-    private void jTextFieldNIFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNIFKeyTyped
-        // TODO add your handling code here:
-        ut.num_carac(jTextFieldNIF,8, evt);
-    }//GEN-LAST:event_jTextFieldNIFKeyTyped
-
-    private void jTextFieldNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyTyped
-        // TODO add your handling code here:
-        ut.num_carac(jTextFieldNombre,15, evt);
-    }//GEN-LAST:event_jTextFieldNombreKeyTyped
-
-    private void jTextFieldApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApellidosKeyTyped
-        // TODO add your handling code here:
-        ut.num_carac(jTextFieldApellidos, 35, evt);
-    }//GEN-LAST:event_jTextFieldApellidosKeyTyped
-
-    private void jTextFieldDomicilioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDomicilioKeyTyped
-        // TODO add your handling code here:
-        ut.num_carac(jTextFieldDomicilio, 40, evt);
-    }//GEN-LAST:event_jTextFieldDomicilioKeyTyped
-
-    private void jTextFieldCPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCPKeyTyped
-        // TODO add your handling code here:
-        ut.num_carac(jTextFieldCP,5, evt);
-    }//GEN-LAST:event_jTextFieldCPKeyTyped
-
-    private void jTextFieldLocalidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldLocalidadKeyTyped
-        // TODO add your handling code here:
-         ut.num_carac(jTextFieldLocalidad,20, evt);
-    }//GEN-LAST:event_jTextFieldLocalidadKeyTyped
-
-    private void jTextFieldTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoKeyTyped
-        // TODO add your handling code here:
-        ut.num_carac(jTextFieldTelefono, 9, evt);
-    }//GEN-LAST:event_jTextFieldTelefonoKeyTyped
-
-    private void jTextFieldMovilKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMovilKeyTyped
-        // TODO add your handling code here:
-        ut.num_carac(jTextFieldMovil,9, evt);
-    }//GEN-LAST:event_jTextFieldMovilKeyTyped
-
-    private void jTextFieldFaxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFaxKeyTyped
-        // TODO add your handling code here:
-        ut.num_carac(jTextFieldFax,9, evt);
-    }//GEN-LAST:event_jTextFieldFaxKeyTyped
-
-    private void jTextFieldEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldEmailKeyTyped
-        // TODO add your handling code here:
-        ut.num_carac(jTextFieldEmail,20, evt);
-    }//GEN-LAST:event_jTextFieldEmailKeyTyped
 
     private void jTextFieldCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodigoKeyPressed
         // TODO add your handling code here:
@@ -590,8 +493,9 @@ public class Pedidos extends javax.swing.JFrame {
                   try {
                     if(cox.Consultar(code)){
                         consultar(code);
-                        habilitar(true);
+                        jTextFieldArticulo.setEnabled(true);
                         jTextFieldCodigo.setEnabled(false);
+                        jButtonCancelartodo.setEnabled(true);
                     }else{
                         JOptionPane.showMessageDialog(this, "Este usuario no existe");
                     }
@@ -617,71 +521,8 @@ public class Pedidos extends javax.swing.JFrame {
                         jTextFieldFax.setText(rs.getString("Fax"));
                         jTextFieldMovil.setText(rs.getString("Movil"));
                         jTextFieldEmail.setText(rs.getString("Email"));
+                        jTextFieldTotal.setText(rs.getString("Total"));
     }
-    private void jTextFieldNIFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNIFKeyPressed
-        // TODO add your handling code here:
-        int e = evt.getKeyCode();
-         if(e== KeyEvent.VK_ENTER){
-            jTextFieldNombre.grabFocus();
-        }
-    }//GEN-LAST:event_jTextFieldNIFKeyPressed
-
-    private void jTextFieldNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyPressed
-        // TODO add your handling code here:
-         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            jTextFieldApellidos.grabFocus();
-        }
-    }//GEN-LAST:event_jTextFieldNombreKeyPressed
-
-    private void jTextFieldApellidosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApellidosKeyPressed
-        // TODO add your handling code here:
-         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            jTextFieldDomicilio.grabFocus();
-        }
-    }//GEN-LAST:event_jTextFieldApellidosKeyPressed
-
-    private void jTextFieldDomicilioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDomicilioKeyPressed
-        // TODO add your handling code here:
-         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            jTextFieldCP.grabFocus();
-        }
-    }//GEN-LAST:event_jTextFieldDomicilioKeyPressed
-
-    private void jTextFieldCPKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCPKeyPressed
-        // TODO add your handling code here:
-         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            jTextFieldLocalidad.grabFocus();
-        }
-    }//GEN-LAST:event_jTextFieldCPKeyPressed
-
-    private void jTextFieldLocalidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldLocalidadKeyPressed
-        // TODO add your handling code here:
-         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            jTextFieldTelefono.grabFocus();
-        }
-    }//GEN-LAST:event_jTextFieldLocalidadKeyPressed
-
-    private void jTextFieldTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoKeyPressed
-        // TODO add your handling code here:
-         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            jTextFieldMovil.grabFocus();
-        }
-    }//GEN-LAST:event_jTextFieldTelefonoKeyPressed
-
-    private void jTextFieldMovilKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMovilKeyPressed
-        // TODO add your handling code here:
-         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            jTextFieldFax.grabFocus();
-        }
-    }//GEN-LAST:event_jTextFieldMovilKeyPressed
-
-    private void jTextFieldFaxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFaxKeyPressed
-        // TODO add your handling code here:
-         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            jTextFieldEmail.grabFocus();
-        }
-    }//GEN-LAST:event_jTextFieldFaxKeyPressed
-
     private void jMenuVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuVolverActionPerformed
         // TODO add your handling code here:
         padre.setVisible(true);
@@ -693,7 +534,8 @@ public class Pedidos extends javax.swing.JFrame {
         this.setTitle("Gestión de Almacén Pedidos cliente");
         jTextFieldCodigo.setEnabled(true);
         jTextFieldCodigo.grabFocus();
-        
+        jButtonSalir.setEnabled(true);
+        jMenu2.setEnabled(false);
     }//GEN-LAST:event_jMenuClienteActionPerformed
 
     private void jMenuProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuProveedorActionPerformed
@@ -701,19 +543,41 @@ public class Pedidos extends javax.swing.JFrame {
          this.setTitle("Gestión de Almacén Pedidos proveedor");
          jTextFieldCodigo.setEnabled(true);
          jTextFieldCodigo.grabFocus();
+         jButtonSalir.setEnabled(true);
+         jMenu2.setEnabled(false);
     }//GEN-LAST:event_jMenuProveedorActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         // TODO add your handling code here:
         habilitar(false);
+        borrar();
+        jButtonSalir.setEnabled(false);
+        jMenu2.setEnabled(true);
+        jTextFieldCodigo.setEnabled(false);
+        jTextFieldUnidades.setEnabled(false);
+        jTextFieldArticulo.setEnabled(false);
+        
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jTextFieldArticuloKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldArticuloKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             try {
+                ut.ceros(jTextFieldArticulo, 6);
                 if(cox.Consultar(jTextFieldArticulo.getText())){
-                    
+                    ResultSet rs = cox.obtenerArt(jTextFieldArticulo.getText());
+                    rs.next();
+                    jTextFieldArticulo.setEnabled(false);
+                    jButtonCancelarPedido.setEnabled(true);
+                    jTextFieldUnidades.setEnabled(true);
+                    jTextFieldUnidades.grabFocus();
+                    jTextFieldDescripcion.setText(rs.getString("Descripcion"));
+                    jTextFieldStock.setText(Float.toString(rs.getFloat("Stock")));
+                    if(this.getTitle().equals("Gestión de Almacén Pedidos cliente")){
+                        jTextFieldPrecio.setText(Float.toString(rs.getFloat("Precio_venta")));
+                    }else{
+                         jTextFieldPrecio.setText(Float.toString(rs.getFloat("Precio_compra")));
+                    }            
                 }else{
                     JOptionPane.showMessageDialog(this, "Este artículo no existe");
                 }
@@ -722,11 +586,52 @@ public class Pedidos extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jTextFieldArticuloKeyPressed
-    private void habilitar(boolean b){
+
+    private void jTextFieldUnidadesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldUnidadesKeyReleased
+        // TODO add your handling code here:
+         if(!jTextFieldUnidades.getText().equals("")){
+            float total = Float.parseFloat(jTextFieldUnidades.getText());
+            float stock = Float.parseFloat(jTextFieldStock.getText());
+            if(total>stock){
+                JOptionPane.showMessageDialog(this, "no hay stock suficiente");
+                jTextFieldUnidades.setText(Float.toString(stock));
+            }
+            jTextFieldImporte.setText(Float.toString(total*Float.parseFloat(jTextFieldPrecio.getText())));
+        }
+    }//GEN-LAST:event_jTextFieldUnidadesKeyReleased
+
+    private void jTextFieldArticuloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldArticuloKeyTyped
+        // TODO add your handling code here:
+            ut.num_carac(jTextFieldCodigo,6, evt);
+    }//GEN-LAST:event_jTextFieldArticuloKeyTyped
+
+    private void jButtonCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarPedidoActionPerformed
+        // TODO add your handling code here:
+        jTextFieldArticulo.setText("");
+        jTextFieldUnidades.setEnabled(false);
+        jTextFieldUnidades.setText("");
+        jTextFieldPrecio.setText("");
+        jTextFieldImporte.setText("");
+        jTextFieldStock.setText("");
+        jTextFieldDescripcion.setText("");
         jTextFieldArticulo.setEnabled(true);
-        jButtonSalir.setEnabled(true);
-        jButtonCancelarPedido.setEnabled(true);
-        jButtonCancelartodo.setEnabled(true);
+        jTextFieldArticulo.grabFocus();
+        jButtonCancelarPedido.setEnabled(false);
+    }//GEN-LAST:event_jButtonCancelarPedidoActionPerformed
+
+    private void jButtonCancelartodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelartodoActionPerformed
+        // TODO add your handling code here:
+        jButtonCancelartodo.setEnabled(false);
+        borrar();
+        jTextFieldArticulo.setEnabled(false);
+        jTextFieldCodigo.setEnabled(true);
+        jTextFieldUnidades.setEnabled(false);
+        jButtonCancelarPedido.setEnabled(false);
+    }//GEN-LAST:event_jButtonCancelartodoActionPerformed
+    private void habilitar(boolean b){
+        jButtonCancelarPedido.setEnabled(b);
+        jButtonCancelartodo.setEnabled(b);
+        this.setTitle("Gestión de Almacén Pedidos");
     }
 
     /**
@@ -779,6 +684,7 @@ public class Pedidos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Stock;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAceptar;
     private javax.swing.JButton jButtonCancelarPedido;
     private javax.swing.JButton jButtonCancelartodo;

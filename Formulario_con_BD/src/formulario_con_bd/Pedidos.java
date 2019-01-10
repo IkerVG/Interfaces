@@ -429,10 +429,11 @@ public class Pedidos extends javax.swing.JFrame {
                     .addComponent(jLabelArticulo)
                     .addComponent(jLabelDescripcion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelUnidades)
@@ -592,9 +593,11 @@ public class Pedidos extends javax.swing.JFrame {
          if(!jTextFieldUnidades.getText().equals("")){
             float total = Float.parseFloat(jTextFieldUnidades.getText());
             float stock = Float.parseFloat(jTextFieldStock.getText());
-            if(total>stock){
+            if(this.getTitle().equals("Gestión de Almacén Pedidos cliente")&&total>stock){
                 JOptionPane.showMessageDialog(this, "no hay stock suficiente");
                 jTextFieldUnidades.setText(Float.toString(stock));
+            }else if(this.getTitle().equals("Gestión de Almacén Pedidos proveedor")&&total>100){
+                JOptionPane.showMessageDialog(this, "El limite de compra de una sola vez es 100 unidades");
             }
             jTextFieldImporte.setText(Float.toString(total*Float.parseFloat(jTextFieldPrecio.getText())));
         }

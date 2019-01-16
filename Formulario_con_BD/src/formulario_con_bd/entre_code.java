@@ -129,19 +129,19 @@ public class entre_code extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+//
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         // TODO add your handling code here:
-        ut.ceros(jTextFieldPrimero,6);
-        ut.ceros(jTextFieldSegundo, 6);
-        if(jTextFieldPrimero.getText().equals(jTextFieldSegundo.getText())){
-            JOptionPane.showMessageDialog(this, "ERROR\nLos dos campos tienen los mismos valores.");
-        }else if(jTextFieldPrimero.getText().compareTo(jTextFieldSegundo.getText())>0){
-            Conexion.ejecutarInformeEC(jTextFieldSegundo.getText(),jTextFieldPrimero.getText()).setVisible(true);
-        }else{
-            Conexion.ejecutarInformeEC(jTextFieldPrimero.getText(),jTextFieldSegundo.getText()).setVisible(true);
-        }
-        
+//        ut.ceros(jTextFieldPrimero,6);
+//        ut.ceros(jTextFieldSegundo, 6);
+//        if(jTextFieldPrimero.getText().equals(jTextFieldSegundo.getText())){
+//            JOptionPane.showMessageDialog(this, "ERROR\nLos dos campos tienen los mismos valores.");
+//        }else if(jTextFieldPrimero.getText().compareTo(jTextFieldSegundo.getText())>0){
+//            Conexion.ejecutarInformeEC(jTextFieldSegundo.getText(),jTextFieldPrimero.getText()).setVisible(true);
+//        }else{
+//            Conexion.ejecutarInformeEC(jTextFieldPrimero.getText(),jTextFieldSegundo.getText()).setVisible(true);
+//        }
+//        
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed

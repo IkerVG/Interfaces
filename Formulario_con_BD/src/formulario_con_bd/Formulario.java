@@ -709,7 +709,7 @@ public class Formulario extends javax.swing.JFrame {
             String code = jTextFieldCodigo.getText();
             if(this.getTitle().equals("Gestión de almacén Clientes altas")){
                 try {
-                    if(!cox.Consultar(code)){
+                    if(!cox.Consultar(code,"Clientes","CodigoCli")){
                         habilitar(true,1);
                         jTextFieldCodigo.setEnabled(false);
                         jTextFieldNIF.grabFocus();
@@ -722,7 +722,7 @@ public class Formulario extends javax.swing.JFrame {
                 
             }else if(this.getTitle().equals("Gestión de almacén Clientes bajas")){
                   try {
-                    if(cox.Consultar(code)){
+                    if(cox.Consultar(code,"Clientes","CodigoCli")){
                         habilitar(true,2);
                         consultar(code);
                         jTextFieldCodigo.setEnabled(false);
@@ -734,7 +734,7 @@ public class Formulario extends javax.swing.JFrame {
                 }
             }else if(this.getTitle().equals("Gestión de almacén Clientes modificaciones")){
                 try {
-                    if(cox.Consultar(code)){
+                    if(cox.Consultar(code,"Clientes","CodigoCli")){
                         habilitar(true,1);
                         jTextFieldCodigo.setEnabled(false);
                         jTextFieldNIF.grabFocus();
@@ -748,7 +748,7 @@ public class Formulario extends javax.swing.JFrame {
                 }
             }else if(this.getTitle().equals("Gestión de almacén Clientes consultas")){
                 try {
-                    if(cox.Consultar(code)){
+                    if(cox.Consultar(code,"Clientes","CodigoCli")){
                         consultar(code);
                         
                     }else{
@@ -763,7 +763,7 @@ public class Formulario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldCodigoKeyPressed
     private void consultar(String code) throws SQLException{
-        ResultSet rs= cox.obtener(code);
+        ResultSet rs= cox.obtener(code,"Clientes","CodigoCli");
                         rs.next();
              
                         jTextFieldNIF.setText(rs.getString("NIF").substring(0,8));
@@ -892,12 +892,12 @@ public class Formulario extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
 
-        Conexion.ejecutarInforme().setVisible(true);
+       // Conexion.ejecutarInforme().setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
 
-        Conexion.ejecutarInformeGrafico().setVisible(true);
+        //Conexion.ejecutarInformeGrafico().setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed

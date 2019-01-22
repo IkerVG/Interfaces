@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -26,16 +27,20 @@ public class Pedidos extends javax.swing.JFrame {
      */
     
     static javax.swing.JFrame padre;
-    public Pedidos(javax.swing.JFrame padre) {
+    public Pedidos(javax.swing.JFrame padre) throws SQLException {
+        this.model = new Modelo(jTable1,cox.listarart());
         this.padre = padre;
         initComponents();
         jScrollPane1.setVisible(false);
+     //   model.rellenar();
+        
        
     }
     
     Utilidades ut = new Utilidades();
     Conexion cox = new Conexion();
     String tabla,cod;
+    Modelo model;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -91,6 +96,7 @@ public class Pedidos extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButtonFactura = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuCliente = new javax.swing.JMenuItem();
@@ -187,6 +193,9 @@ public class Pedidos extends javax.swing.JFrame {
 
         jTextFieldUnidades.setEnabled(false);
         jTextFieldUnidades.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldUnidadesKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextFieldUnidadesKeyReleased(evt);
             }
@@ -207,6 +216,11 @@ public class Pedidos extends javax.swing.JFrame {
         jButtonAceptar.setMnemonic('a');
         jButtonAceptar.setText("Aceptar");
         jButtonAceptar.setEnabled(false);
+        jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAceptarActionPerformed(evt);
+            }
+        });
 
         jButtonSalir.setMnemonic('s');
         jButtonSalir.setText("Salir");
@@ -254,8 +268,16 @@ public class Pedidos extends javax.swing.JFrame {
                 "Código", "Descripción", "Stock", "Precio"
             }
         ));
-        jTable1.setColumnSelectionAllowed(false);
         jScrollPane1.setViewportView(jTable1);
+
+        jButtonFactura.setMnemonic('f');
+        jButtonFactura.setText("Factura");
+        jButtonFactura.setEnabled(false);
+        jButtonFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFacturaActionPerformed(evt);
+            }
+        });
 
         jMenu2.setMnemonic('p');
         jMenu2.setText("Pedidos");
@@ -334,10 +356,6 @@ public class Pedidos extends javax.swing.JFrame {
                                                     .addComponent(jLabelImporte)
                                                     .addComponent(jTextFieldImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jButtonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jButtonCancelarPedido)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jButtonCancelartodo))))
@@ -346,7 +364,13 @@ public class Pedidos extends javax.swing.JFrame {
                                         .addGap(35, 35, 35)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabelDescripcion)
-                                            .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButtonFactura)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabelTotal)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -476,9 +500,10 @@ public class Pedidos extends javax.swing.JFrame {
                     .addComponent(jTextFieldPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAceptar)
-                    .addComponent(jButtonSalir))
+                    .addComponent(jButtonSalir)
+                    .addComponent(jButtonFactura))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonCancelarPedido)
@@ -576,6 +601,7 @@ public class Pedidos extends javax.swing.JFrame {
         jTextFieldCodigo.grabFocus();
         jButtonSalir.setEnabled(true);
         jMenu2.setEnabled(false);
+        botnombre();
     }//GEN-LAST:event_jMenuClienteActionPerformed
 
     private void jMenuProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuProveedorActionPerformed
@@ -585,6 +611,7 @@ public class Pedidos extends javax.swing.JFrame {
          jTextFieldCodigo.grabFocus();
          jButtonSalir.setEnabled(true);
          jMenu2.setEnabled(false);
+         botnombre();
     }//GEN-LAST:event_jMenuProveedorActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
@@ -596,6 +623,22 @@ public class Pedidos extends javax.swing.JFrame {
         jTextFieldCodigo.setEnabled(false);
         jTextFieldUnidades.setEnabled(false);
         jTextFieldArticulo.setEnabled(false);
+        jScrollPane1.setVisible(false);
+        jButton1.setEnabled(false);
+        if(JOptionPane.showConfirmDialog(this,"Los pedidos aún no se han guardado ¿Quieres guardar los pedidos al salir?","Antes de irte...", JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION){
+            try {
+                cox.comit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            try {
+                cox.comit(false);
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
         
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
@@ -629,6 +672,7 @@ public class Pedidos extends javax.swing.JFrame {
 
     private void jTextFieldUnidadesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldUnidadesKeyReleased
         // TODO add your handling code here:
+        if(!ut.comprobar(jTextFieldUnidades, "numero",1)){
          if(!jTextFieldUnidades.getText().equals("")){
             float total = Float.parseFloat(jTextFieldUnidades.getText());
             float stock = Float.parseFloat(jTextFieldStock.getText());
@@ -639,6 +683,7 @@ public class Pedidos extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "El limite de compra de una sola vez es 100 unidades");
             }
             jTextFieldImporte.setText(Float.toString(total*Float.parseFloat(jTextFieldPrecio.getText())));
+            }
         }
     }//GEN-LAST:event_jTextFieldUnidadesKeyReleased
 
@@ -671,6 +716,21 @@ public class Pedidos extends javax.swing.JFrame {
         jButtonCancelarPedido.setEnabled(false);
         jButton1.setEnabled(false);
         jScrollPane1.setVisible(false);
+        if(JOptionPane.showConfirmDialog(this,"Los pedidos aún no se han guardado ¿Quieres guardar los pedidos al salir?","Antes de irte...", JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION){
+            try {
+                cox.comit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            try {
+                cox.comit(false);
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
     }//GEN-LAST:event_jButtonCancelartodoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -680,12 +740,59 @@ public class Pedidos extends javax.swing.JFrame {
         this.revalidate();
         this.repaint();
         
+        
            
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFacturaActionPerformed
+        // TODO add your handling code here:
+        jButtonFactura.setEnabled(false);
+        try {
+            cox.comit(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonFacturaActionPerformed
+
+    private void jTextFieldUnidadesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldUnidadesKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+          
+            jButtonAceptar.setEnabled(true);
+            
+        }
+    }//GEN-LAST:event_jTextFieldUnidadesKeyPressed
+
+    private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
+        // TODO add your handling code here:
+        jButtonFactura.setEnabled(true);
+        jButtonAceptar.setEnabled(false);
+        jButtonCancelarPedido.setEnabled(false);
+        float Stock = 0;
+        if(this.getTitle().equals("Gestión de Almacén Pedidos cliente")){
+            Stock = Float.parseFloat(jTextFieldStock.getText()) - Float.parseFloat(jTextFieldUnidades.getText());
+        }else{
+            Stock = Float.parseFloat(jTextFieldStock.getText()) + Float.parseFloat(jTextFieldUnidades.getText());
+        }
+        try {
+            cox.modificarArt(jTextFieldArticulo.getText(), Stock);
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       
+    }//GEN-LAST:event_jButtonAceptarActionPerformed
     private void habilitar(boolean b){
         jButtonCancelarPedido.setEnabled(b);
         jButtonCancelartodo.setEnabled(b);
         this.setTitle("Gestión de Almacén Pedidos");
+    }
+    private void botnombre(){
+        if(this.getTitle().equals("Gestión de Almacén Pedidos cliente")){
+                jButtonFactura.setText("Factura");
+            }else{
+                jButtonFactura.setText("Finalizar");
+            }
     }
 
     /**
@@ -724,7 +831,11 @@ public class Pedidos extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Pedidos(padre).setVisible(true);
+            try {
+                new Pedidos(padre).setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
      protected void processWindowEvent(java.awt.event.WindowEvent e) {
@@ -742,6 +853,7 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAceptar;
     private javax.swing.JButton jButtonCancelarPedido;
     private javax.swing.JButton jButtonCancelartodo;
+    private javax.swing.JButton jButtonFactura;
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelApellidos;

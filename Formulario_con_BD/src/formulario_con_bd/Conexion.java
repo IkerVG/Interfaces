@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 //import net.sf.jasperreports.engine.*;
@@ -103,6 +104,31 @@ public class Conexion {
         ResultSet rs = stmt.executeQuery("SELECT * FROM Articulos WHERE CodigoArt = '" + codigo + "'");
         return rs;
     }
+       public ArrayList<String> listarart() throws SQLException{
+           ArrayList <String> ListArt = new ArrayList<>();
+           ResultSet s = stmt.executeQuery("SELECT * FROM Articulos");
+           while(s.next()){
+               ListArt.add(s.getString("CodigoArt"));
+               ListArt.add(s.getString("Descripcion"));
+               ListArt.add(Float.toString(s.getFloat("Stock")));
+               ListArt.add(Float.toString(s.getFloat("Precio_compra")));
+              // ListArt.add(Float.toString(s.getFloat("Precio_venta")));
+           }
+           return ListArt;
+       }
+       public void modificarArt(String cod, float stock_actual) throws SQLException{
+           stmt.executeUpdate("UPDATE Articulos SET Stock = "+stock_actual+" WHERE CodigoArt = '"+cod+"'" );
+           
+       }
+       public void comit(boolean commit) throws SQLException{
+           if(commit){
+               con.commit();
+           }else{
+               con.rollback();
+           }
+           
+       }
+       
     /*
     **************************************************************************
     --------------------------------------------------------------------------

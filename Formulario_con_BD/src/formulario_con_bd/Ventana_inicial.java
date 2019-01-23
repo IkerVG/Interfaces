@@ -5,6 +5,10 @@
  */
 package formulario_con_bd;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author alumno
@@ -131,7 +135,12 @@ public class Ventana_inicial extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-        Pedidos ped = new Pedidos(this);
+        Pedidos ped = null;
+        try {
+            ped = new Pedidos(this);
+        } catch (SQLException ex) {
+            Logger.getLogger(Ventana_inicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ped.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jMenuItem5ActionPerformed

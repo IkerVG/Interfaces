@@ -15,20 +15,26 @@ import javax.swing.table.DefaultTableModel;
  * @author alumno
  */
 public class Modelo {
-    DefaultTableModel mod = new DefaultTableModel();
-    ArrayList <String> lista = new ArrayList<>();
-    JTable jTable1;
-   public Modelo(JTable jTable1,ArrayList<String> list){
-        this.jTable1 = jTable1;
-        this.lista = list; 
+    DefaultTableModel mod;
+    String[][] data = {};
+    String cabeza [] = {"Codigo","Descripción","Stock","Precio"};
+    ArrayList<String>lista;
+    JTable jtable;
+   public Modelo(ArrayList<String> list){
+        lista = list;
     }
-
-    public void rellenar(){
-        Object v [] = new Object[4];
-            for(int i = 0;i<4;i++){ 
-                v[i]=lista.get(i); 
-            }
-            mod.addRow(v);
-        jTable1.setModel(mod);
-    }
+   public DefaultTableModel rellenar(){
+        mod = new DefaultTableModel(data,cabeza);
+        int y = 0;
+       String datos[] = new String[4];
+       for(int x = 1;x<=lista.size()/4;x++){
+            for(int i = 0;i<4;i++){
+                datos[i] = lista.get(y);
+                y++;
+            }   
+            mod.addRow(datos);
+       }
+        
+        return mod;
+   }
 }

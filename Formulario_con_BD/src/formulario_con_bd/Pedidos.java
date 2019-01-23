@@ -28,17 +28,16 @@ public class Pedidos extends javax.swing.JFrame {
     
     static javax.swing.JFrame padre;
     public Pedidos(javax.swing.JFrame padre) throws SQLException {
-        this.model = new Modelo(jTable1,cox.listarart());
+        ut = new Utilidades();
+        cox = new Conexion();
         this.padre = padre;
         initComponents();
         jScrollPane1.setVisible(false);
-     //   model.rellenar();
         
-       
     }
     
-    Utilidades ut = new Utilidades();
-    Conexion cox = new Conexion();
+    Utilidades ut;
+    Conexion cox;
     String tabla,cod;
     Modelo model;
 
@@ -257,6 +256,11 @@ public class Pedidos extends javax.swing.JFrame {
             }
         });
 
+        jTable1 = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -268,6 +272,14 @@ public class Pedidos extends javax.swing.JFrame {
                 "Código", "Descripción", "Stock", "Precio"
             }
         ));
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable1.getTableHeader().setResizingAllowed(false);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable1MousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButtonFactura.setMnemonic('f');
@@ -482,11 +494,11 @@ public class Pedidos extends javax.swing.JFrame {
                     .addComponent(jLabelArticulo)
                     .addComponent(jLabelDescripcion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextFieldArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addComponent(jTextFieldDescripcion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelUnidades)
@@ -586,7 +598,7 @@ public class Pedidos extends javax.swing.JFrame {
                         jTextFieldFax.setText(rs.getString("Fax"));
                         jTextFieldMovil.setText(rs.getString("Movil"));
                         jTextFieldEmail.setText(rs.getString("Email"));
-                        jTextFieldTotal.setText(rs.getString("Total"));
+                        jTextFieldTotal.setText(Float.toString(rs.getFloat("Total")));
     }
     private void jMenuVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuVolverActionPerformed
         // TODO add your handling code here:
@@ -602,6 +614,11 @@ public class Pedidos extends javax.swing.JFrame {
         jButtonSalir.setEnabled(true);
         jMenu2.setEnabled(false);
         botnombre();
+         try {
+            rellenartabla();
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuClienteActionPerformed
 
     private void jMenuProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuProveedorActionPerformed
@@ -612,32 +629,50 @@ public class Pedidos extends javax.swing.JFrame {
          jButtonSalir.setEnabled(true);
          jMenu2.setEnabled(false);
          botnombre();
+        try {
+            rellenartabla();
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuProveedorActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         // TODO add your handling code here:
-        habilitar(false);
-        borrar();
-        jButtonSalir.setEnabled(false);
-        jMenu2.setEnabled(true);
-        jTextFieldCodigo.setEnabled(false);
-        jTextFieldUnidades.setEnabled(false);
-        jTextFieldArticulo.setEnabled(false);
-        jScrollPane1.setVisible(false);
-        jButton1.setEnabled(false);
-        if(JOptionPane.showConfirmDialog(this,"Los pedidos aún no se han guardado ¿Quieres guardar los pedidos al salir?","Antes de irte...", JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION){
-            try {
-                cox.comit(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+        
+        if(jButtonFactura.isEnabled()){
+            if(JOptionPane.showConfirmDialog(this,"¿Quieres salir sin guardar los pedidos?","Antes de irte...", JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION){
+                try {
+                    cox.comit(false);
+                    habilitar(false);
+                    borrar();
+                    jButtonSalir.setEnabled(false);
+                    jMenu2.setEnabled(true);
+                    jTextFieldCodigo.setEnabled(false);
+                    jTextFieldUnidades.setEnabled(false);
+                    jTextFieldArticulo.setEnabled(false);
+                    jScrollPane1.setVisible(false);
+                    jButton1.setEnabled(false);
+                    jButtonAceptar.setEnabled(false);
+                    jButtonFactura.setEnabled(false);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }else{
-            try {
-                cox.comit(false);
-            } catch (SQLException ex) {
-                Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            habilitar(false);
+            borrar();
+            jButtonSalir.setEnabled(false);
+            jMenu2.setEnabled(true);
+            jTextFieldCodigo.setEnabled(false);
+            jTextFieldUnidades.setEnabled(false);
+            jTextFieldArticulo.setEnabled(false);
+            jScrollPane1.setVisible(false);
+            jButton1.setEnabled(false);
+            jButtonAceptar.setEnabled(false);
+            jButtonFactura.setEnabled(false);
+
         }
+        
         
         
     }//GEN-LAST:event_jButtonSalirActionPerformed
@@ -672,7 +707,8 @@ public class Pedidos extends javax.swing.JFrame {
 
     private void jTextFieldUnidadesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldUnidadesKeyReleased
         // TODO add your handling code here:
-        if(!ut.comprobar(jTextFieldUnidades, "numero",1)){
+        
+        if(!ut.comprobar(jTextFieldUnidades, "Numero",1)){
          if(!jTextFieldUnidades.getText().equals("")){
             float total = Float.parseFloat(jTextFieldUnidades.getText());
             float stock = Float.parseFloat(jTextFieldStock.getText());
@@ -681,15 +717,18 @@ public class Pedidos extends javax.swing.JFrame {
                 jTextFieldUnidades.setText(Float.toString(stock));
             }else if(this.getTitle().equals("Gestión de Almacén Pedidos proveedor")&&total>100){
                 JOptionPane.showMessageDialog(this, "El limite de compra de una sola vez es 100 unidades");
+                 
             }
             jTextFieldImporte.setText(Float.toString(total*Float.parseFloat(jTextFieldPrecio.getText())));
+            jTextFieldTotal.setText(Float.toString(Float.parseFloat(jTextFieldTotal.getText())+Float.parseFloat(jTextFieldPrecio.getText())));
             }
         }
     }//GEN-LAST:event_jTextFieldUnidadesKeyReleased
 
     private void jTextFieldArticuloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldArticuloKeyTyped
-        // TODO add your handling code here:
-            ut.num_carac(jTextFieldArticulo,6, evt);
+        // TODO add your handling code here:         
+         ut.num_carac(jTextFieldArticulo,6, evt);
+         
     }//GEN-LAST:event_jTextFieldArticuloKeyTyped
 
     private void jButtonCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarPedidoActionPerformed
@@ -704,31 +743,44 @@ public class Pedidos extends javax.swing.JFrame {
         jTextFieldArticulo.setEnabled(true);
         jTextFieldArticulo.grabFocus();
         jButtonCancelarPedido.setEnabled(false);
+        jButtonAceptar.setEnabled(false);
     }//GEN-LAST:event_jButtonCancelarPedidoActionPerformed
 
     private void jButtonCancelartodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelartodoActionPerformed
         // TODO add your handling code here:
-        jButtonCancelartodo.setEnabled(false);
-        borrar();
-        jTextFieldArticulo.setEnabled(false);
-        jTextFieldCodigo.setEnabled(true);
-        jTextFieldUnidades.setEnabled(false);
-        jButtonCancelarPedido.setEnabled(false);
-        jButton1.setEnabled(false);
-        jScrollPane1.setVisible(false);
-        if(JOptionPane.showConfirmDialog(this,"Los pedidos aún no se han guardado ¿Quieres guardar los pedidos al salir?","Antes de irte...", JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION){
-            try {
-                cox.comit(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+       
+        if(jButtonFactura.isEnabled()){
+            if(JOptionPane.showConfirmDialog(this,
+            "¿Quieres descartar los pedidos hechos hasta ahora?","Antes de irte...", 
+            JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION){
+                try {
+                    cox.comit(false);
+                    jButtonCancelartodo.setEnabled(false);
+                    borrar();
+                    jTextFieldArticulo.setEnabled(false);
+                    jTextFieldCodigo.setEnabled(true);
+                    jTextFieldUnidades.setEnabled(false);
+                    jButtonCancelarPedido.setEnabled(false);
+                    jButton1.setEnabled(false);
+                    jScrollPane1.setVisible(false);
+                    jButtonFactura.setEnabled(false);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+            
         }else{
-            try {
-                cox.comit(false);
-            } catch (SQLException ex) {
-                Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            jButtonCancelartodo.setEnabled(false);
+            borrar();
+            jTextFieldArticulo.setEnabled(false);
+            jTextFieldCodigo.setEnabled(true);
+            jTextFieldUnidades.setEnabled(false);
+            jButtonCancelarPedido.setEnabled(false);
+            jButton1.setEnabled(false);
+            jScrollPane1.setVisible(false);
+            jButtonFactura.setEnabled(false);
         }
+        
         
         
     }//GEN-LAST:event_jButtonCancelartodoActionPerformed
@@ -757,10 +809,16 @@ public class Pedidos extends javax.swing.JFrame {
     private void jTextFieldUnidadesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldUnidadesKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-          
-            jButtonAceptar.setEnabled(true);
-            
+            if(ut.comprobar(jTextFieldUnidades, "Numero", 1)){
+                JOptionPane.showMessageDialog(this, "Los datos no son correctos");
+            }else{
+                jButtonAceptar.setEnabled(true);
+                jTextFieldUnidades.setEnabled(false);
+            }
         }
+            
+            
+        
     }//GEN-LAST:event_jTextFieldUnidadesKeyPressed
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
@@ -768,20 +826,61 @@ public class Pedidos extends javax.swing.JFrame {
         jButtonFactura.setEnabled(true);
         jButtonAceptar.setEnabled(false);
         jButtonCancelarPedido.setEnabled(false);
+        String s = null;
+        String s2 = null;
         float Stock = 0;
         if(this.getTitle().equals("Gestión de Almacén Pedidos cliente")){
             Stock = Float.parseFloat(jTextFieldStock.getText()) - Float.parseFloat(jTextFieldUnidades.getText());
+            s = "Clientes";
+            s2 = "CodigoCli";
         }else{
             Stock = Float.parseFloat(jTextFieldStock.getText()) + Float.parseFloat(jTextFieldUnidades.getText());
+            s = "Proveedores";
+            s2 = "CodigoProv";
         }
         try {
             cox.modificarArt(jTextFieldArticulo.getText(), Stock);
+            cox.modificarTot(jTextFieldCodigo.getText(),Float.parseFloat(jTextFieldCodigo.getText()),s,s2);
         } catch (SQLException ex) {
             Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
         }
+         
+         borrar();
+         jTextFieldArticulo.setEnabled(false);
+         jTextFieldCodigo.setEnabled(true);
+         jTextFieldUnidades.setEnabled(false);
+         jButtonCancelarPedido.setEnabled(false);
+         jButton1.setEnabled(false);
+         jScrollPane1.setVisible(false);
         
        
     }//GEN-LAST:event_jButtonAceptarActionPerformed
+
+    private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
+        // TODO add your handling code here:
+        int Selected = jTable1.getSelectedRow();
+        jTextFieldArticulo.setText((String) jTable1.getModel().getValueAt(Selected, 0));
+        
+        ResultSet rs = null;
+        try {
+            rs = cox.obtenerArt(jTextFieldArticulo.getText());
+            rs.next();
+             jTextFieldArticulo.setEnabled(false);
+                    jButtonCancelarPedido.setEnabled(true);
+                    jTextFieldUnidades.setEnabled(true);
+                    jTextFieldUnidades.grabFocus();
+                    jTextFieldDescripcion.setText(rs.getString("Descripcion"));
+                    jTextFieldStock.setText(Float.toString(rs.getFloat("Stock")));
+                    if(this.getTitle().equals("Gestión de Almacén Pedidos cliente")){
+                        jTextFieldPrecio.setText(Float.toString(rs.getFloat("Precio_venta")));
+                    }else{
+                         jTextFieldPrecio.setText(Float.toString(rs.getFloat("Precio_compra")));
+                    }            
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                   
+    }//GEN-LAST:event_jTable1MousePressed
     private void habilitar(boolean b){
         jButtonCancelarPedido.setEnabled(b);
         jButtonCancelartodo.setEnabled(b);
@@ -793,6 +892,11 @@ public class Pedidos extends javax.swing.JFrame {
             }else{
                 jButtonFactura.setText("Finalizar");
             }
+    }
+    private void rellenartabla() throws SQLException{
+         ArrayList<String> s = cox.listarart(this.getTitle());
+        this.model = new Modelo(s);
+        jTable1.setModel(model.rellenar());
     }
 
     /**

@@ -104,15 +104,20 @@ public class Conexion {
         ResultSet rs = stmt.executeQuery("SELECT * FROM Articulos WHERE CodigoArt = '" + codigo + "'");
         return rs;
     }
-       public ArrayList<String> listarart() throws SQLException{
+       public ArrayList<String> listarart(String l) throws SQLException{
            ArrayList <String> ListArt = new ArrayList<>();
            ResultSet s = stmt.executeQuery("SELECT * FROM Articulos");
            while(s.next()){
                ListArt.add(s.getString("CodigoArt"));
                ListArt.add(s.getString("Descripcion"));
                ListArt.add(Float.toString(s.getFloat("Stock")));
-               ListArt.add(Float.toString(s.getFloat("Precio_compra")));
-              // ListArt.add(Float.toString(s.getFloat("Precio_venta")));
+               if(l.equals("Gestión de Almacén Pedidos proveedor")){
+                    ListArt.add(Float.toString(s.getFloat("Precio_compra")));
+               }else{
+                   ListArt.add(Float.toString(s.getFloat("Precio_venta")));
+               }
+              
+              
            }
            return ListArt;
        }
@@ -227,6 +232,11 @@ public class Conexion {
 //        }
 //        return vistaInforme;
 //    }
+
+    void modificarTot(String text, float Float,String s,String s1) throws SQLException {
+        stmt.executeUpdate("UPDATE "+s+" SET Total = "+Float+" WHERE "+s1+" = '"+text+"'");
+        
+    }
 }
 
 

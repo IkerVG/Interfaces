@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 //import net.sf.jasperreports.engine.*;
@@ -233,9 +234,14 @@ public class Conexion {
 //        return vistaInforme;
 //    }
 
-    void modificarTot(String text, float Float,String s,String s1) throws SQLException {
-        stmt.executeUpdate("UPDATE "+s+" SET Total = "+Float+" WHERE "+s1+" = '"+text+"'");
+    public void modificarTot(String text, float num,String s,String s1) throws SQLException {
+        stmt.executeUpdate("UPDATE "+s+" SET Total = "+num+" WHERE "+s1+" = '"+text+"'");
         
+    }
+    public void pedidos(String codCli, String codProv,String codArt, float Unidades) throws SQLException{
+        stmt.executeUpdate
+        ("insert into Historica(CodigoCli,CodigoProv,CodigoArt,Unidades) "
+                + "values ('"+codCli+"','"+codProv+"','"+codArt+"',"+Unidades+")");
     }
 }
 

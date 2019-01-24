@@ -709,7 +709,7 @@ public class Formulario extends javax.swing.JFrame {
             String code = jTextFieldCodigo.getText();
             if(this.getTitle().equals("Gestión de almacén Clientes altas")){
                 try {
-                    if(!cox.Consultar(code,"Clientes","CodigoCli")){
+                    if(!cox.Consultar(code,"Clientes","Cli")){
                         habilitar(true,1);
                         jTextFieldCodigo.setEnabled(false);
                         jTextFieldNIF.grabFocus();
@@ -722,7 +722,7 @@ public class Formulario extends javax.swing.JFrame {
                 
             }else if(this.getTitle().equals("Gestión de almacén Clientes bajas")){
                   try {
-                    if(cox.Consultar(code,"Clientes","CodigoCli")){
+                    if(cox.Consultar(code,"Clientes","Cli")){
                         habilitar(true,2);
                         consultar(code);
                         jTextFieldCodigo.setEnabled(false);
@@ -734,7 +734,7 @@ public class Formulario extends javax.swing.JFrame {
                 }
             }else if(this.getTitle().equals("Gestión de almacén Clientes modificaciones")){
                 try {
-                    if(cox.Consultar(code,"Clientes","CodigoCli")){
+                    if(cox.Consultar(code,"Clientes","Cli")){
                         habilitar(true,1);
                         jTextFieldCodigo.setEnabled(false);
                         jTextFieldNIF.grabFocus();
@@ -748,7 +748,7 @@ public class Formulario extends javax.swing.JFrame {
                 }
             }else if(this.getTitle().equals("Gestión de almacén Clientes consultas")){
                 try {
-                    if(cox.Consultar(code,"Clientes","CodigoCli")){
+                    if(cox.Consultar(code,"Clientes","Cli")){
                         consultar(code);
                         
                     }else{

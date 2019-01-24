@@ -8,6 +8,7 @@ package formulario_con_bd;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -40,6 +41,7 @@ public class Pedidos extends javax.swing.JFrame {
     Conexion cox;
     String tabla,cod;
     Modelo model;
+    float total;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -248,6 +250,7 @@ public class Pedidos extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setMnemonic('.');
         jButton1.setText("...");
         jButton1.setEnabled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -548,6 +551,7 @@ public class Pedidos extends javax.swing.JFrame {
         jTextFieldDescripcion.setText("");
         jTextFieldPrecio.setText("");
         jTextFieldImporte.setText("");
+        jTextFieldTotal.setText("");
     }
     private void jTextFieldCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodigoKeyTyped
         // TODO add your handling code here:
@@ -573,6 +577,11 @@ public class Pedidos extends javax.swing.JFrame {
                         jTextFieldCodigo.setEnabled(false);
                         jButtonCancelartodo.setEnabled(true);
                         jButton1.setEnabled(true);
+                         try {
+                            rellenartabla();
+                         } catch (SQLException ex) {
+                            Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }else{
                         JOptionPane.showMessageDialog(this, "Este usuario no existe");
                     }
@@ -599,6 +608,7 @@ public class Pedidos extends javax.swing.JFrame {
                         jTextFieldMovil.setText(rs.getString("Movil"));
                         jTextFieldEmail.setText(rs.getString("Email"));
                         jTextFieldTotal.setText(Float.toString(rs.getFloat("Total")));
+                        total = rs.getFloat("Total");
     }
     private void jMenuVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuVolverActionPerformed
         // TODO add your handling code here:
@@ -614,11 +624,7 @@ public class Pedidos extends javax.swing.JFrame {
         jButtonSalir.setEnabled(true);
         jMenu2.setEnabled(false);
         botnombre();
-         try {
-            rellenartabla();
-        } catch (SQLException ex) {
-            Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }//GEN-LAST:event_jMenuClienteActionPerformed
 
     private void jMenuProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuProveedorActionPerformed
@@ -629,11 +635,6 @@ public class Pedidos extends javax.swing.JFrame {
          jButtonSalir.setEnabled(true);
          jMenu2.setEnabled(false);
          botnombre();
-        try {
-            rellenartabla();
-        } catch (SQLException ex) {
-            Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_jMenuProveedorActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
@@ -690,7 +691,8 @@ public class Pedidos extends javax.swing.JFrame {
                     jTextFieldUnidades.setEnabled(true);
                     jTextFieldUnidades.grabFocus();
                     jTextFieldDescripcion.setText(rs.getString("Descripcion"));
-                    jTextFieldStock.setText(Float.toString(rs.getFloat("Stock")));
+                    jTextFieldStock.setText(Integer.toString(Math.round(rs.getFloat("Stock"))));
+                    jButton1.setEnabled(false);
                     if(this.getTitle().equals("Gestión de Almacén Pedidos cliente")){
                         jTextFieldPrecio.setText(Float.toString(rs.getFloat("Precio_venta")));
                     }else{
@@ -708,19 +710,20 @@ public class Pedidos extends javax.swing.JFrame {
     private void jTextFieldUnidadesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldUnidadesKeyReleased
         // TODO add your handling code here:
         
-        if(!ut.comprobar(jTextFieldUnidades, "Numero",1)){
-         if(!jTextFieldUnidades.getText().equals("")){
-            float total = Float.parseFloat(jTextFieldUnidades.getText());
-            float stock = Float.parseFloat(jTextFieldStock.getText());
-            if(this.getTitle().equals("Gestión de Almacén Pedidos cliente")&&total>stock){
+      if(!ut.comprobar(jTextFieldUnidades, "Numero",1)){
+         if(!(jTextFieldUnidades.getText().equals("")&&jTextFieldUnidades.getText().equals("0"))){
+            int unidades = Integer.parseInt(jTextFieldUnidades.getText());
+            int stock = Integer.parseInt(jTextFieldStock.getText());
+            if(this.getTitle().equals("Gestión de Almacén Pedidos cliente")&&unidades>stock){
                 JOptionPane.showMessageDialog(this, "no hay stock suficiente");
-                jTextFieldUnidades.setText(Float.toString(stock));
-            }else if(this.getTitle().equals("Gestión de Almacén Pedidos proveedor")&&total>100){
-                JOptionPane.showMessageDialog(this, "El limite de compra de una sola vez es 100 unidades");
-                 
+                jTextFieldUnidades.setText(Integer.toString(stock));
+            }else if(this.getTitle().equals("Gestión de Almacén Pedidos proveedor")&&unidades>100){
+                JOptionPane.showMessageDialog(this, "El límite de compra de una sola vez es 100 unidades");
+                jTextFieldUnidades.setText("100");
+                unidades = Integer.parseInt(jTextFieldUnidades.getText());
             }
-            jTextFieldImporte.setText(Float.toString(total*Float.parseFloat(jTextFieldPrecio.getText())));
-            jTextFieldTotal.setText(Float.toString(Float.parseFloat(jTextFieldTotal.getText())+Float.parseFloat(jTextFieldPrecio.getText())));
+            jTextFieldImporte.setText(String.valueOf((float)unidades*Float.parseFloat(jTextFieldPrecio.getText())));
+            jTextFieldTotal.setText(Float.toString(Float.parseFloat(jTextFieldImporte.getText())+total));
             }
         }
     }//GEN-LAST:event_jTextFieldUnidadesKeyReleased
@@ -744,6 +747,11 @@ public class Pedidos extends javax.swing.JFrame {
         jTextFieldArticulo.grabFocus();
         jButtonCancelarPedido.setEnabled(false);
         jButtonAceptar.setEnabled(false);
+        jTable1.setEnabled(true);
+        if(!jScrollPane1.isVisible()){
+            jButton1.setEnabled(true);
+        }
+        jTextFieldTotal.setText(Float.toString(total));
     }//GEN-LAST:event_jButtonCancelarPedidoActionPerformed
 
     private void jButtonCancelartodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelartodoActionPerformed
@@ -764,9 +772,12 @@ public class Pedidos extends javax.swing.JFrame {
                     jButton1.setEnabled(false);
                     jScrollPane1.setVisible(false);
                     jButtonFactura.setEnabled(false);
+                    jButtonAceptar.setEnabled(false);
                 } catch (SQLException ex) {
                     Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }else{
+                jButtonFactura.grabFocus();
             }
             
         }else{
@@ -779,6 +790,7 @@ public class Pedidos extends javax.swing.JFrame {
             jButton1.setEnabled(false);
             jScrollPane1.setVisible(false);
             jButtonFactura.setEnabled(false);
+            jButtonAceptar.setEnabled(false);
         }
         
         
@@ -791,7 +803,8 @@ public class Pedidos extends javax.swing.JFrame {
         this.pack();
         this.revalidate();
         this.repaint();
-        
+        jButton1.setEnabled(false);
+        jTextFieldArticulo.grabFocus();
         
            
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -804,16 +817,26 @@ public class Pedidos extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
         }
+        jTextFieldArticulo.setEnabled(false);
+        jTextFieldCodigo.setEnabled(true);
+        jTextFieldCodigo.grabFocus();
+        jButton1.setEnabled(false);
+        jScrollPane1.setVisible(false);
+        jButtonCancelartodo.setEnabled(false);
+        borrar();
     }//GEN-LAST:event_jButtonFacturaActionPerformed
 
     private void jTextFieldUnidadesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldUnidadesKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            if(ut.comprobar(jTextFieldUnidades, "Numero", 1)){
-                JOptionPane.showMessageDialog(this, "Los datos no son correctos");
+            if(ut.comprobar(jTextFieldUnidades, "Numero", 1)||jTextFieldUnidades.getText().equals("0")){
+                JOptionPane.showMessageDialog(this, "Introduce un número mayor a 0");
             }else{
                 jButtonAceptar.setEnabled(true);
                 jTextFieldUnidades.setEnabled(false);
+                jTable1.setEnabled(false);
+                jButtonAceptar.grabFocus();
+
             }
         }
             
@@ -826,6 +849,7 @@ public class Pedidos extends javax.swing.JFrame {
         jButtonFactura.setEnabled(true);
         jButtonAceptar.setEnabled(false);
         jButtonCancelarPedido.setEnabled(false);
+        total = Float.parseFloat(jTextFieldTotal.getText());
         String s = null;
         String s2 = null;
         float Stock = 0;
@@ -840,29 +864,48 @@ public class Pedidos extends javax.swing.JFrame {
         }
         try {
             cox.modificarArt(jTextFieldArticulo.getText(), Stock);
-            cox.modificarTot(jTextFieldCodigo.getText(),Float.parseFloat(jTextFieldCodigo.getText()),s,s2);
+            cox.modificarTot(jTextFieldCodigo.getText(),Float.parseFloat(jTextFieldTotal.getText()),s,s2);
+            if(s.equals("Clientes")){
+                 cox.pedidos(jTextFieldCodigo.getText(), null, jTextFieldArticulo.getText(),Integer.parseInt(jTextFieldUnidades.getText()));
+            }else{
+                 cox.pedidos(null, jTextFieldCodigo.getText(), jTextFieldArticulo.getText(),Integer.parseInt(jTextFieldUnidades.getText()));
+            }
+            
+           
         } catch (SQLException ex) {
             Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
         }
          
-         borrar();
-         jTextFieldArticulo.setEnabled(false);
-         jTextFieldCodigo.setEnabled(true);
-         jTextFieldUnidades.setEnabled(false);
-         jButtonCancelarPedido.setEnabled(false);
-         jButton1.setEnabled(false);
-         jScrollPane1.setVisible(false);
         
+         jTextFieldArticulo.setEnabled(true);
+         jTextFieldArticulo.grabFocus();
+         jTextFieldPrecio.setText("");
+         jTextFieldUnidades.setText("");
+         jTextFieldImporte.setText("");
+         jTextFieldStock.setText("");
+         jTextFieldDescripcion.setText("");
+         if(!jScrollPane1.isVisible()){
+             jButton1.setEnabled(true);
+         }
+         
+         jTable1.setEnabled(true);
+        try {
+            rellenartabla();
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+         
        
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
         // TODO add your handling code here:
+        try{
+        if(jTable1.isEnabled()){
         int Selected = jTable1.getSelectedRow();
-        jTextFieldArticulo.setText((String) jTable1.getModel().getValueAt(Selected, 0));
-        
+        jTextFieldArticulo.setText((String) jTable1.getModel().getValueAt(Selected, 0));       
         ResultSet rs = null;
-        try {
             rs = cox.obtenerArt(jTextFieldArticulo.getText());
             rs.next();
              jTextFieldArticulo.setEnabled(false);
@@ -870,15 +913,34 @@ public class Pedidos extends javax.swing.JFrame {
                     jTextFieldUnidades.setEnabled(true);
                     jTextFieldUnidades.grabFocus();
                     jTextFieldDescripcion.setText(rs.getString("Descripcion"));
-                    jTextFieldStock.setText(Float.toString(rs.getFloat("Stock")));
+                    jTextFieldStock.setText(Integer.toString(Math.round(rs.getFloat("Stock"))));
                     if(this.getTitle().equals("Gestión de Almacén Pedidos cliente")){
                         jTextFieldPrecio.setText(Float.toString(rs.getFloat("Precio_venta")));
                     }else{
                          jTextFieldPrecio.setText(Float.toString(rs.getFloat("Precio_compra")));
-                    }            
-        } catch (SQLException ex) {
-            Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+                    } 
         }
+         boolean b=false;
+        if(!ut.comprobar(jTextFieldUnidades, "Numero",1)){
+         if(!(jTextFieldUnidades.getText().equals("")&&jTextFieldUnidades.getText().equals("0"))){
+            int unidades = Integer.parseInt(jTextFieldUnidades.getText());
+            int stock = Integer.parseInt(jTextFieldStock.getText());
+            if(this.getTitle().equals("Gestión de Almacén Pedidos cliente")&&unidades>stock){
+                JOptionPane.showMessageDialog(this, "no hay stock suficiente");
+                jTextFieldUnidades.setText(Integer.toString(stock));
+            }else if(this.getTitle().equals("Gestión de Almacén Pedidos proveedor")&&unidades>100){
+                JOptionPane.showMessageDialog(this, "El límite de compra de una sola vez es 100 unidades");
+                jTextFieldUnidades.setText("100");
+                unidades = Integer.parseInt(jTextFieldUnidades.getText());
+            }
+            jTextFieldImporte.setText(String.valueOf((float)unidades*Float.parseFloat(jTextFieldPrecio.getText())));
+            jTextFieldTotal.setText(Float.toString(Float.parseFloat(jTextFieldImporte.getText())+total));
+            }
+        }
+        } catch (Exception ex) {
+           // Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
                    
     }//GEN-LAST:event_jTable1MousePressed
     private void habilitar(boolean b){

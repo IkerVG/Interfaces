@@ -35,6 +35,7 @@ public class Utilidades {
             case "Apellidos":if(!f.getText().replaceAll(" ","").matches("[A-zñçóáíúüéÁÉÍÓÚ.-]+")){error=true;}break;
             case "Email":if(!f.getText().matches("[A-z_]+[@][A-z]+[.][A-z]+")){error=true;}break;
             case "Codigo":if(!f.getText().matches("[0-9A-z]*")){error = true;}break;
+            case "NumeroU":if(!f.getText().matches("[0-9]+[.]?[0-9]*{"+i+",}")){error=true;}break;
         }
         return error;
     }

@@ -10,8 +10,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Gestión de Pedidos</title>
+        <style>
+            td{
+                text-align: center;
+            }
+        </style>
     </head>
-    <body>
+    <body onload="document.Articulo.codigo.focus()">
         <h1>Gestión de Pedidos</h1>
         <%
         HttpSession s = request.getSession();
@@ -21,19 +26,60 @@
             %>
             <h2>Datos del cliente</h2>
             <table>
-                <tr><th><b>Código</b></th>  <th><b>N.I.F.</b></th>  <b>Nombre</b>  <b>Apellidos</b><br>
-            <br>
-            <b>Domicilio</b><b>C.P.</b><b>Localidad</b><b>Total</b><br>
+                <tr>
+                    <td><b>Código</b></td>  
+                    <td><b>N.I.F.</b></td>  
+                    <td><b>Nombre</b></td>  
+                    <td><b>Apellidos</b></td>
+                </tr>
+                <tr>
+                    <td>a</td>
+                    <td>a</td>
+                    <td>a</td>
+                    <td>a</td>
+                </tr>
+                <tr>
+                    <td><b>Domicilio</b></td>
+                    <td><b>C.P.</b></td>
+                    <td><b>Localidad</b></td>
+                    <td><b>Total</b></td>
+                </tr>
+               <tr>
+                    <td>a</td>
+                    <td>a</td>
+                    <td>a</td>
+                    <td>a</td>
+                </tr>
+            </table>
             <br>
             <!------------------------------------------------------------------------->
             <hr><!------------------------------------------------------------------------->
             <!------------------------------------------------------------------------->
             <h2>Realizar Pedido</h2>
-            <h3>Artículo</h3><h3>Descripción</h3><h3>Unidades</h3><h3>Precio</h3><h3>Importe</h3><br>
-            </table>
-            <%
+            <b>Artículo</b>
+            <form name="Articulo" action="Pedidos_codArtInsertado.jsp" onsubmit="return Comprobar()">
+                <input type="text" name="codigo" id="codigo"><br><br>
+                <input type="submit" value="Aceptar">
+                <input type="reset" value="Cancelar" onclick="document.Articulo.codigo.focus()">
+            </form>
+             <!------------------------------------------------------------------------->
+            <hr><!------------------------------------------------------------------------->
+            <!------------------------------------------------------------------------->
+                  <%
         }
         %>
         <a href="Pedidos.jsp">Nuevo cliente</a> | <a href="index.jsp">Página principal</a>
     </body>
+    <script>
+        function Comprobar(){
+               var x = document.getElementById("codigo").value;
+               if(x === ""){
+                   alert("No has introducido texto");
+                   document.Articulo.codigo.focus();
+                   return false;
+               }else{
+                   return true;
+               }
+           }
+    </script>
 </html>

@@ -243,6 +243,10 @@ public class Conexion {
         ("insert into Historica(CodigoCli,CodigoProv,CodigoArt,Unidades) "
                 + "values ('"+codCli+"','"+codProv+"','"+codArt+"',"+Unidades+")");
     }
+    public void InsertarPedidoWeb(String Cliente,String Articulo, String Unidades, String fecha) throws SQLException{
+        stmt.executeUpdate("INSERT INTO Pedidos (Cliente, Articulo, Unidades, Fecha) "
+                + "VALUES ('"+Cliente+"','"+Articulo+"',"+Float.parseFloat(Unidades)+",'"+fecha+"')");
+    }
 }
 
 

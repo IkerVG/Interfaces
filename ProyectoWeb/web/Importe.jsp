@@ -1,15 +1,15 @@
 <%-- 
-    Document   : Pedidos_codInsertado
-    Created on : 29-ene-2019, 10:42:15
+    Document   : Importe
+    Created on : 31-ene-2019, 12:19:47
     Author     : alumno
 --%>
 
 <%@page import="java.sql.ResultSet"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Clases_java.Conexion"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
+     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Gestión de Pedidos</title>
         
@@ -24,8 +24,9 @@
         <%
         Conexion cox = new Conexion();
         String t1 = request.getParameter("codigocli");
-        if(!cox.Consultar(t1,"Clientes","Cli")){
-            %><h2> El cliente con el código <%=t1%> no existe</h2> <%   
+        String t2 = request.getParameter("codigo");
+        if(!cox.ConsultarArt(t2)){
+            %><h2> El Artículo con el código <%=t2%> no existe</h2> <%   
         }else{
             ResultSet rs = cox.obtener(t1, "Clientes", "Cli");
             rs.next();
@@ -62,31 +63,40 @@
             <hr><!------------------------------------------------------------------------->
             <!------------------------------------------------------------------------->
             <h2>Realizar Pedido</h2>
-            <b>Artículo</b>
-            <form name="Articulo" action="Pedidos_codArtInsertado.jsp" onsubmit="return Comprobar()">
-                <input type="text" name="codigo" id="codigo">
-                <input type="hidden" name="codigocli" value="<%=t1%>" > <br><br>
-                <input type="submit" value="Aceptar">
-                <input type="reset" value="Cancelar" onclick="document.Articulo.codigo.focus()">
-            </form>
+            <%
+            rs = cox.obtenerArt(t2); 
+            rs.next();
+            %>
+            <form name="Articulo" action="">
+                <table>
+                    <tr>
+                        <td><b>Articulo</b></td>
+                        <td><b>Descripción</b></td>
+                        <td><b>Unidades</b></td>
+                        <td><b>Precio</b></td>
+                        <td><b>Importe</b></td>
+                    </tr>
+                    <tr>
+                        <td><%=t2%></td>
+                        <td><%=rs.getString("Descripcion")%></td>
+                        <td><%=request.getParameter("uds")%></td>
+                        <td><%=rs.getFloat("Precio_venta")%></td>
+                        <td><%=request.getParameter("importe")%></td>
+                        
+                    </tr>
+                </table>
+                        
+                <input type="hidden" value="<%=t1%>" name="codigocli">
+                <input type="hidden" value="<%=t2%>" name="codigo">
+                
              <!------------------------------------------------------------------------->
             <hr><!------------------------------------------------------------------------->
-            <!------------------------------------------------------------------------->
+            <!------------------------------------------------------------------------>
+            <input type="submit" value="Aceptar Pedido">
+            </form>
                   <%
         }
         %>
-        <a href="Pedidos.jsp">Nuevo cliente</a> | <a href="index.jsp">Página principal</a>
+        <a href="Pedidos_codInsertado.jsp">Nuevo Artículo</a> | <a href="index.jsp">Página principal</a>
     </body>
-    <script>
-        function Comprobar(){
-               var x = document.getElementById("codigo").value;
-               if(x === ""){
-                   alert("No has introducido texto");
-                   document.Articulo.codigo.focus();
-                   return false;
-               }else{
-                   return true;
-               }
-           }
-    </script>
 </html>

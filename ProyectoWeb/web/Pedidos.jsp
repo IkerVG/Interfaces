@@ -14,7 +14,7 @@
     <body onload="document.formulario.codigo.focus()">
         <h1>Gestión de Pedidos</h1>
         <form action="Pedidos_codInsertado.jsp" name="formulario" onsubmit="return Comprobar()">
-            Código de Cliente <input type="text" name="codigo" id="codigo"><br><br>
+            Código de Cliente <input type="text" name="codigocli" id="codigo"><br><br>
             <input type="submit" value="Aceptar">
             <input type="reset" value="Cancelar" onclick="codigo.focus()">
         </form>

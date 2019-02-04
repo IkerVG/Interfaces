@@ -67,7 +67,6 @@
             rs = cox.obtenerArt(t2); 
             rs.next();
             %>
-            <form name="Articulo" action="">
                 <table>
                     <tr>
                         <td><b>Articulo</b></td>
@@ -85,9 +84,12 @@
                         
                     </tr>
                 </table>
-                        
+            <form action="Factura.jsp">           
                 <input type="hidden" value="<%=t1%>" name="codigocli">
                 <input type="hidden" value="<%=t2%>" name="codigo">
+                <input type="hidden" value="" name="Descripcion">
+                <input type="hidden" value="" name="Unidades">
+                <input type="hidden" value="" name="">
                 
              <!------------------------------------------------------------------------->
             <hr><!------------------------------------------------------------------------->
@@ -97,6 +99,7 @@
                   <%
         }
         %>
+        <br>
         <a href="Pedidos_codInsertado.jsp">Nuevo Artículo</a> | <a href="index.jsp">Página principal</a>
     </body>
 </html>

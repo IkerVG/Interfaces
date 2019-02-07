@@ -9,7 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    < <head>
+     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Gestión de Pedidos</title>
         
@@ -19,16 +19,17 @@
             }
         </style>
     </head>
-    <body onload="document.Articulo.codigo.focus()">
+    <body onload="document.Articulo.uds.focus()">
         <h1>Gestión de Pedidos</h1>
         <%
+        ResultSet rs;
         Conexion cox = new Conexion();
         String t1 = request.getParameter("codigocli");
         String t2 = request.getParameter("codigo");
         if(!cox.ConsultarArt(t2)){
             %><h2> El Artículo con el código <%=t2%> no existe</h2> <%   
         }else{
-            ResultSet rs = cox.obtener(t1, "Clientes", "Cli");
+            rs = cox.obtener(t1, "Clientes", "Cli");
             rs.next();
             %>
             <h2>Datos del cliente</h2>
@@ -79,17 +80,17 @@
                     <tr>
                         <td><%=t2%></td>
                         <td><%=rs.getString("Descripcion")%></td>
-                        <td><input type="text" name="uds"></td>
+                        <td><input type="text" name="uds" id="uds" onpaste="copiar()" onkeyup="validarnum()"></td>
                         <td><%=rs.getFloat("Precio_venta")%></td>
-                        <td><input type="text" name="importe"></td>
-                        
+                        <input type="hidden" name="p_venta" id="p_venta" value="<%=rs.getFloat("Precio_venta")%>">
+                        <td><input type="text" name="importe" readonly ></td>
                     </tr>
                 </table>
                         
                 <input type="hidden" value="<%=t1%>" name="codigocli">
                 <input type="hidden" value="<%=t2%>" name="codigo">
                 <input type="submit" value="Aceptar">
-                <input type="reset" value="Cancelar" onclick="document.Articulo.codigo.focus()">
+                <input type="reset" value="Cancelar" onclick="document.Articulo.uds.focus()">
             </form>
              <!------------------------------------------------------------------------->
             <hr><!------------------------------------------------------------------------->
@@ -99,4 +100,25 @@
         %>
         <a href="Pedidos_codInsertado.jsp">Nuevo Artículo</a> | <a href="index.jsp">Página principal</a>
     </body>
+    <script>
+        function copiar(){
+           document.execCommand("paste");
+           validarnum();
+        }
+        function validarnum(){
+              var texto = document.getElementById("uds").value;  
+               if(isNaN(texto)){
+                 alert("Este campo es exclusivamente numérico");
+                    document.Articulo.uds.value="";
+               }else{
+                   if(texto%1==0){
+                       document.Articulo.importe.value = texto* document.getElementById("p_venta").value;
+                   }else{
+                       alert("El número no puede tener decimales");
+                       document.Articulo.uds.value="";
+                   }
+                   
+               }
+        }
+    </script>
 </html>

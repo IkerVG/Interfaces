@@ -23,10 +23,16 @@
         <h1>Gestión de Pedidos</h1>
         <%
         Conexion cox = new Conexion();
+        HttpSession sesion;
         String t1 = request.getParameter("codigocli");
-        if(!cox.Consultar(t1,"Clientes","Cli")){
-            %><h2> El cliente con el código <%=t1%> no existe</h2> <%   
-        }else{
+        if(cox.Consultar(t1,"Clientes","Cli")||t1 == null){
+            if(t1 == null){
+                sesion = request.getSession();
+                t1 = sesion.getAttribute("CodSesion").toString();
+            }else{
+                sesion = request.getSession(true);
+                sesion.setAttribute("CodSesion", t1);
+            }
             ResultSet rs = cox.obtener(t1, "Clientes", "Cli");
             rs.next();
             %>
@@ -72,6 +78,12 @@
              <!------------------------------------------------------------------------->
             <hr><!------------------------------------------------------------------------->
             <!------------------------------------------------------------------------->
+        <%  
+            
+        }else{
+            %>
+            <h2> El cliente con el código <%=t1%> no existe</h2>
+            
                   <%
         }
         %>

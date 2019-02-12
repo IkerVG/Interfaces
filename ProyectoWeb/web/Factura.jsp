@@ -72,11 +72,14 @@
                  <td align="right"><%=importe.get(i)%></td>
              </tr>
              <% 
+             con.Pedidos(rs.getString("CodigoCli"), listacod.get(i),uds.get(i));
              }
               float total = 0;
              for(int i = 0;i<listacod.size();i++){
                 total+=importe.get(i);
              }
+             
+             
                 %>
         </table>
         <hr>

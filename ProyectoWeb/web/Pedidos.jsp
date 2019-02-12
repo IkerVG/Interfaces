@@ -12,6 +12,10 @@
         <title>Gestión de Pedidos</title>
     </head>
     <body onload="document.formulario.codigo.focus()">
+        <%
+        HttpSession sesion = request.getSession();
+        sesion.invalidate();
+        %>
         <h1>Gestión de Pedidos</h1>
         <form action="Pedidos_codInsertado.jsp" name="formulario" onsubmit="return Comprobar()">
             Código de Cliente <input type="text" name="codigocli" id="codigo"><br><br>
@@ -29,6 +33,14 @@
                 document.formulario.codigo.focus();
                 return false;
             }else{
+                if(x.length<6){
+                    var y = x;
+                    for(c = x.length; c<6;c++){
+                       y = "0"+y;
+                    }
+                    document.formulario.codigo.value = y;
+                }
+                
                 return true;
             }
         }

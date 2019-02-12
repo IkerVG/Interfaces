@@ -68,7 +68,7 @@
             rs = cox.obtenerArt(t2); 
             rs.next();
             %>
-            <form name="Articulo" action="Importe.jsp" onsubmit="return num()">
+            <form name="Articulo" action="Importe.jsp" onsubmit="return Comprobar()">
                 <table>
                     <tr>
                         <td><b>Articulo</b></td>
@@ -80,17 +80,21 @@
                     <tr>
                         <td><%=t2%></td>
                         <td><%=rs.getString("Descripcion")%></td>
-                        <td><input type="text" name="uds"></td>
+                        <td><input type="text" id="uds" name="uds" onkeyup="Importe()"></td>
                         <td><%=rs.getFloat("Precio_venta")%></td>
-                        <td><input type="text" name="importe"></td>
+                        <td><input type="text" name="importe" readonly></td>
                         
                     </tr>
                 </table>
                         
-                <input type="hidden" value="<%=t1%>" name="codigocli">
-                <input type="hidden" value="<%=t2%>" name="codigo">
                 <input type="submit" value="Aceptar">
                 <input type="reset" value="Cancelar" onclick="document.Articulo.uds.focus()">
+                
+                <input type="hidden" value="<%=t1%>" name="codigocli">
+                <input type="hidden" value="<%=t2%>" name="codigo">
+                <input name="precio" type ="hidden" value="<%=rs.getFloat("Precio_venta")%>">
+                
+                
             </form>
              <!------------------------------------------------------------------------->
             <hr><!------------------------------------------------------------------------->
@@ -100,4 +104,29 @@
         %>
         <a href="Pedidos_codInsertado.jsp">Nuevo Artículo</a> | <a href="index.jsp">Página principal</a>
     </body>
+    <script>
+        function Comprobar(){
+               var x = document.getElementById("uds").value;
+               if(x === ""||x <= 0 || isNaN(x) || !(x%1===0)){
+                   alert("Este campo es exclusívamente numérico, sin decimales y mayor que 0");
+                   document.Articulo.uds.value = "";
+                   document.Articulo.uds.focus();
+                   return false;
+               }else{
+                   return true;
+               }
+           }
+        function Importe(){
+            var y = document.getElementById("uds").value;
+            if(isNaN(y)||!(y%1 === 0)){
+                alert("Este campo es exclusívamente numérico y sin decimales");
+                document.Articulo.uds.value = "";
+                   document.Articulo.uds.focus();
+            }else{
+                document.Articulo.importe.value = y * document.Articulo.precio.value;
+            }
+
+            
+        }
+    </script>
 </html>

@@ -97,6 +97,13 @@
                    document.Articulo.codigo.focus();
                    return false;
                }else{
+                    if(x.length<6){
+                        var y = x;
+                            for(c = x.length; c<6;c++){
+                               y = "0"+y;
+                            }
+                        document.Articulo.codigo.value = y;
+                    }
                    return true;
                }
            }

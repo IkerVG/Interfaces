@@ -85,6 +85,10 @@ public class Conexion {
         ResultSet rs = stmt.executeQuery("SELECT * FROM "+tabla+" WHERE Codigo"+cod+" = '" + codigo + "'");
         return rs;
     }
+    public void Pedidos(String cliente, String articulo, float uds) throws SQLException{
+        stmt.executeUpdate("INSERT INTO Pedidos (Cliente,Articulo,Unidades) VALUES ('"+cliente+"','"+articulo+"',"+uds+")");
+        con.commit();
+    }
      /*
     **************************************************************************
      ~~~~~~~~~~~~~~~LO MISMO PARA ARTICULOS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

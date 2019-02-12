@@ -4,6 +4,7 @@
     Author     : alumno
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="Clases_java.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -64,8 +65,7 @@
             <!------------------------------------------------------------------------->
             <h2>Realizar Pedido</h2>
             <%
-            rs = cox.obtenerArt(t2); 
-            rs.next();
+           
             %>
                 <table>
                     <tr>
@@ -75,22 +75,71 @@
                         <td><b>Precio</b></td>
                         <td><b>Importe</b></td>
                     </tr>
+                    <%
+                      HttpSession sesion = request.getSession();
+                       ArrayList<String>listacod = new ArrayList();
+                       ArrayList<Integer>uds = new ArrayList();
+                       ArrayList<Float>importe = new ArrayList();
+                       int num = 0;
+                       try{
+                           num = Integer.parseInt(sesion.getAttribute("num").toString());
+                       }catch(Exception e){}
+                       
+                      if(num>0){
+                        
+                        listacod = ((ArrayList<String>)session.getAttribute("Codigos"));
+                        uds =(ArrayList<Integer>)session.getAttribute("uds");
+                        importe =((ArrayList<Float>)sesion.getAttribute("importe"));
+                        for(int i=0;i<num;i++){
+                          rs = cox.obtenerArt(listacod.get(i)); 
+                          rs.next();   
+
+                      %>
                     <tr>
-                        <td><%=t2%></td>
+                        <td><%=listacod.get(i)%></td>
+                        <td><%=rs.getString("Descripcion")%></td>
+                        <td><%=uds.get(i)%></td>
+                        <td><%=rs.getFloat("Precio_venta")%></td>
+                        <td><%=importe.get(i)%></td>  
+                    </tr>
+                    <%
+                        }
+                      }
+                        rs = cox.obtenerArt(request.getParameter("codigo"));
+                        rs.next();
+                        %>
+                    <tr>
+                        <td><%=request.getParameter("codigo")%></td>
                         <td><%=rs.getString("Descripcion")%></td>
                         <td><%=request.getParameter("uds")%></td>
                         <td><%=rs.getFloat("Precio_venta")%></td>
                         <td><%=request.getParameter("importe")%></td>
-                        
                     </tr>
+                        <%
+                        num++;
+                        sesion.setAttribute("num",num );
+                        listacod.add(request.getParameter("codigo"));
+                        sesion.setAttribute("Codigos",listacod);
+                        uds.add(Integer.parseInt(request.getParameter("uds")));
+                        sesion.setAttribute("uds",uds);
+                        importe.add(Float.parseFloat(request.getParameter("importe")));
+                        sesion.setAttribute("importe",importe);
+                    %>
                 </table>
+                <%
+                    float importetotal=0;
+                    for(int i = 0; i<importe.size(); i++){
+                        importetotal+=importe.get(i);
+                    }
+                    %>
+            <h2>Importe del pedido: <%=importetotal%></h2>
             <form action="Factura.jsp">           
                 <input type="hidden" value="<%=t1%>" name="codigocli">
-                <input type="hidden" value="<%=t2%>" name="codigo">
-                <input type="hidden" value="" name="Descripcion">
-                <input type="hidden" value="" name="Unidades">
-                <input type="hidden" value="" name="">
-                
+                <%
+                    sesion.setAttribute("listacod", listacod);
+                    sesion.setAttribute("uds", uds);
+                    sesion.setAttribute("importe", importe);
+                %>               
              <!------------------------------------------------------------------------->
             <hr><!------------------------------------------------------------------------->
             <!------------------------------------------------------------------------>

@@ -4,6 +4,9 @@
     Author     : alumno
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="Clases_java.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,6 +14,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Factura</title>
     </head>
+    <% 
+        Conexion con = new Conexion();
+        String codigocli = request.getParameter("codigocli").toString();
+        ResultSet rs = con.obtener(codigocli,"Clientes", "Cli");
+        rs.next();
+    %>
     <body>
         <h2>Pedido finalizado</h2>
         <p>
@@ -21,8 +30,10 @@
             Para imprimir el pedido pulse aquí. Si no va a imprimir, puede regresar a <a href="index.jsp">página principal</a>
         </p>
         <hr>
-        Fecha :<br>
-        FACTURA N.:<br>
+        <%  String fecha[] = String.valueOf(new java.sql.Date((new java.util.Date()).getTime())).split("-");
+            %>
+        Fecha: <%=fecha[2]+"/"+fecha[1]+"/"+fecha[0]%> <br>
+        FACTURA N.: 1<br>
         <hr>
         <div style="text-align: center;">
             <h2>Empresa Proyecto Web de clase, S.A.</h2>
@@ -30,10 +41,10 @@
             <h4>C/Isla de Sálvora, 451 - 28400 Collado Villalba - Madrid</h4>
         </div>
         <hr>
-        <b>Cliente:</b> adsf <b>N.I.F.:</b>df<br>
-        <b>D./Dña.</b> Nombre y Apellidos<br>
-        Domicilio<br>
-        CP Localidad<br>
+        <b>Cliente:</b> <%=rs.getString("CodigoCli")%>  <b>N.I.F.:</b> <%=rs.getString("NIF")%><br>
+        <b>D./Dña.</b> <%=rs.getString("Nombre")%> <%=rs.getString("Apellidos")%><br>
+        <%=rs.getString("Domicilio")%><br>
+        <%=rs.getString("CP")%> <%=rs.getString("Localidad")%><br>
         <hr>
         <table align="center">
             <tr style="font-weight: bold;">
@@ -43,8 +54,32 @@
                 <td>Unidades</td>
                 <td>Importe</td>
             </tr>
+            <%
+              HttpSession sesion = request.getSession();
+              ArrayList<String> listacod = (ArrayList<String>)sesion.getAttribute("listacod");
+              ArrayList<Integer> uds = (ArrayList<Integer>)sesion.getAttribute("uds");
+              ArrayList<Float> importe = (ArrayList<Float>)sesion.getAttribute("importe");
+              ResultSet rsa;
+              for(int i=0;i<listacod.size();i++){
+                  rsa = con.obtenerArt(listacod.get(i));
+                  rsa.next();
+             %>       
+             <tr>
+                 <td><%=listacod.get(i)%></td>
+                 <td><%=rsa.getString("Descripcion")%></td>
+                 <td align="right"><%=rsa.getFloat("Precio_venta")%></td>
+                 <td align="right"><%=uds.get(i)%></td>
+                 <td align="right"><%=importe.get(i)%></td>
+             </tr>
+             <% 
+             }
+              float total = 0;
+             for(int i = 0;i<listacod.size();i++){
+                total+=importe.get(i);
+             }
+                %>
         </table>
         <hr>
-        <h2 style="text-align:right;">Total Factura(I.V.A. inc.): </h2>
+        <h2 style="text-align:right;">Total Factura(I.V.A. inc.): <%=total%></h2>
     </body>
 </html>

@@ -68,7 +68,7 @@
             rs = cox.obtenerArt(t2); 
             rs.next();
             %>
-            <form name="Articulo" action="Importe.jsp" onsubmit="return Comprobar()">
+            <form name="Articulo" action="Importe.jsp" onsubmit="return num()">
                 <table>
                     <tr>
                         <td><b>Articulo</b></td>
@@ -80,10 +80,10 @@
                     <tr>
                         <td><%=t2%></td>
                         <td><%=rs.getString("Descripcion")%></td>
-                        <td><input type="text" name="uds" id="uds" onpaste="copiar()" onkeyup="validarnum()"></td>
+                        <td><input type="text" name="uds"></td>
                         <td><%=rs.getFloat("Precio_venta")%></td>
-                        <input type="hidden" name="p_venta" id="p_venta" value="<%=rs.getFloat("Precio_venta")%>">
-                        <td><input type="text" name="importe" readonly ></td>
+                        <td><input type="text" name="importe"></td>
+                        
                     </tr>
                 </table>
                         
@@ -100,25 +100,4 @@
         %>
         <a href="Pedidos_codInsertado.jsp">Nuevo Artículo</a> | <a href="index.jsp">Página principal</a>
     </body>
-    <script>
-        function copiar(){
-           document.execCommand("paste");
-           validarnum();
-        }
-        function validarnum(){
-              var texto = document.getElementById("uds").value;  
-               if(isNaN(texto)){
-                 alert("Este campo es exclusivamente numérico");
-                    document.Articulo.uds.value="";
-               }else{
-                   if(texto%1==0){
-                       document.Articulo.importe.value = texto* document.getElementById("p_venta").value;
-                   }else{
-                       alert("El número no puede tener decimales");
-                       document.Articulo.uds.value="";
-                   }
-                   
-               }
-        }
-    </script>
 </html>

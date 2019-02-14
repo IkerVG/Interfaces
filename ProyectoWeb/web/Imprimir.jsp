@@ -16,19 +16,12 @@
     </head>
     <% 
         Conexion con = new Conexion();
-        String codigocli = request.getParameter("codigocli").toString();
+        HttpSession sesion = request.getSession();
+        String codigocli = sesion.getAttribute("codigocli").toString();
         ResultSet rs = con.obtener(codigocli,"Clientes", "Cli");
         rs.next();
     %>
     <body>
-        <h2>Pedido finalizado</h2>
-        <p>
-            Si desea imprimir el pedido se abrirá una nueva ventana con la factura a imprimir.<br>
-            En esta ventana, abra el menú Archivo y ejecute la opción Imprimir.<br>
-            En la nueva ventana, seleccione su impresora y pulse Imprimir.<br>
-            Después cierre la ventana que contiene la factura a imprimir.<br>
-            Para imprimir el pedido pulse <a href="Imprimir.jsp" target="_blank">aquí</a>. Si no va a imprimir, puede regresar a <a href="index.jsp">página principal</a>
-        </p>
         <hr>
         <%  String fecha[] = String.valueOf(new java.sql.Date((new java.util.Date()).getTime())).split("-");
             String fechabien = fecha[2]+"/"+fecha[1]+"/"+fecha[0];
@@ -56,7 +49,7 @@
                 <td>Importe</td>
             </tr>
             <%
-              HttpSession sesion = request.getSession();
+              
               ArrayList<String> listacod = (ArrayList<String>)sesion.getAttribute("listacod");
               ArrayList<Integer> uds = (ArrayList<Integer>)sesion.getAttribute("uds");
               ArrayList<Float> importe = (ArrayList<Float>)sesion.getAttribute("importe");
@@ -73,14 +66,13 @@
                  <td align="right"><%=importe.get(i)%></td>
              </tr>
              <% 
-             con.Pedidos(codigocli, listacod.get(i),uds.get(i),fechabien);
              }
               float total = 0;
              for(int i = 0;i<listacod.size();i++){
                 total+=importe.get(i);
              }
              
-             sesion.setAttribute("codigocli", codigocli);
+             
                 %>
         </table>
         <hr>

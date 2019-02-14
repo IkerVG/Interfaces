@@ -17,6 +17,7 @@
     </head>
     <body>
         <h1>Proyecto Web con Base de Datos</h1>
-        <a href="Pedidos.jsp">Gestión de pedidos</a>
+        <a href="Pedidos.jsp">Gestión de pedidos</a><br>
+        <a href="Extractos.jsp">Gestión de extractos</a>
     </body>
 </html>

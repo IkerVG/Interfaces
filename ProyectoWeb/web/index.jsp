@@ -8,10 +8,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%
-            HttpSession sesion = request.getSession();
-            sesion.invalidate();
-        %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Proyecto Web con Base de Datos</title>
     </head>

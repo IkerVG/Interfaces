@@ -89,6 +89,10 @@ public class Conexion {
         stmt.executeUpdate("INSERT INTO Pedidos (Cliente,Articulo,Unidades, Fecha) VALUES ('"+cliente+"','"+articulo+"',"+uds+",'"+fecha+"')");
         con.commit();
     }
+    public ResultSet retirar(String menor, String mayor,String cliente) throws SQLException{
+        ResultSet rs = stmt.executeQuery("SELECT * FROM (SELECT * FROM Pedidos WHERE Cliente = '"+cliente+"')AS ASD WHERE Fecha BETWEEN '"+menor+"' AND '"+mayor+"'");
+        return rs;
+    }
      /*
     **************************************************************************
      ~~~~~~~~~~~~~~~LO MISMO PARA ARTICULOS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

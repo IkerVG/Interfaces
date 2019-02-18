@@ -16,6 +16,7 @@
     </head>
     <% 
         Conexion con = new Conexion();
+        HttpSession sesion = request.getSession();
         String codigocli = request.getParameter("codigocli").toString();
         ResultSet rs = con.obtener(codigocli,"Clientes", "Cli");
         rs.next();
@@ -30,7 +31,8 @@
             Para imprimir el pedido pulse <a href="Imprimir.jsp" target="_blank">aquí</a>. Si no va a imprimir, puede regresar a <a href="index.jsp">página principal</a>
         </p>
         <hr>
-        <%  String fecha[] = String.valueOf(new java.sql.Date((new java.util.Date()).getTime())).split("-");
+        <%  String fechabase = String.valueOf(new java.sql.Date((new java.util.Date()).getTime()));
+            String fecha[] = fechabase.split("-");
             String fechabien = fecha[2]+"/"+fecha[1]+"/"+fecha[0];
             %>
         Fecha: <%=fechabien%> <br>
@@ -56,7 +58,6 @@
                 <td>Importe</td>
             </tr>
             <%
-              HttpSession sesion = request.getSession();
               ArrayList<String> listacod = (ArrayList<String>)sesion.getAttribute("listacod");
               ArrayList<Integer> uds = (ArrayList<Integer>)sesion.getAttribute("uds");
               ArrayList<Float> importe = (ArrayList<Float>)sesion.getAttribute("importe");
@@ -73,7 +74,7 @@
                  <td align="right"><%=importe.get(i)%></td>
              </tr>
              <% 
-             con.Pedidos(codigocli, listacod.get(i),uds.get(i),fechabien);
+             con.Pedidos(codigocli, listacod.get(i),uds.get(i),fechabase);
              }
               float total = 0;
              for(int i = 0;i<listacod.size();i++){

@@ -20,7 +20,7 @@
         </style>
     </head>
     <body onload="document.Articulo.codigo.focus()">
-        <h1>Gestión de Pedidos</h1>
+        <h1>Gestión de Extractos</h1>
         <%
         Conexion cox = new Conexion();
         HttpSession sesion;
@@ -73,7 +73,7 @@
             <form name="calendario" onsubmit="return Fechas()" action="Extractos_fechas.jsp">
                Desde <input type="date" name="minimo" id="minimo" step="1" min="2015-01-04" max="<%=fecha%>" value="2019-02-10" required> 
                Hasta <input type="date" name="maximo" id="maximo" step="1" min="2015-01-04" max="<%=fecha%>" value="<%=fecha%>" required onchange="Fechas()">
-                <input type="submit" value="Aceptar">
+               <br><br><input type="submit" value="Aceptar">
             </form>
              <!------------------------------------------------------------------------->
             <hr><!------------------------------------------------------------------------->
@@ -87,7 +87,7 @@
                   <%
         }
         %>
-        <a href="Pedidos.jsp">Nuevo cliente</a> | <a href="index.jsp">Página principal</a>
+        <a href="Extractos.jsp">Nuevo cliente</a> | <a href="index.jsp">Página principal</a>
     </body>
     <script>
         function Fechas(){
